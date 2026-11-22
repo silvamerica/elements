@@ -343,6 +343,27 @@
 				#armed {
 					top: calc(64px + env(safe-area-inset-top));
 				}
+				/* Keep the tray to a strip: reactions scroll sideways like the
+				   other rows instead of stacking, and the whole panel never
+				   covers more than a third of the screen. */
+				#tray {
+					max-height: 34vh;
+					overflow-y: auto;
+					scrollbar-width: none;
+				}
+				#tray .row.wrap {
+					flex-wrap: nowrap;
+					overflow-x: auto;
+				}
+				#tray .row.wrap .entry {
+					display: inline-flex;
+					flex: none;
+					white-space: nowrap;
+					border-radius: 999px;
+				}
+				#tray .row.wrap .entry > span {
+					margin-left: 0;
+				}
 			}
 		</style>
 	</head>
