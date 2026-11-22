@@ -64,9 +64,69 @@
 				color: #fff;
 				transition: color 2s;
 			}
+			#tray {
+				position: fixed;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				padding: 10px 16px calc(12px + env(safe-area-inset-bottom));
+				background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0));
+				font: 13px/1.4 ui-rounded, system-ui, sans-serif;
+				color: rgba(255, 255, 255, 0.85);
+				pointer-events: none;
+			}
+			#tray .entries {
+				pointer-events: auto;
+			}
+			#tray[hidden] {
+				display: none;
+			}
+			#tray .head {
+				font-size: 14px;
+				color: #fff;
+			}
+			#tray .tier,
+			#tray .none {
+				color: rgba(255, 255, 255, 0.6);
+			}
+			#tray .entries {
+				display: flex;
+				gap: 8px;
+				overflow-x: auto;
+				padding: 6px 0 2px;
+				scrollbar-width: none;
+			}
+			#tray .entry {
+				flex: none;
+				display: flex;
+				align-items: center;
+				gap: 6px;
+				padding: 6px 10px;
+				border-radius: 999px;
+				border: 1px solid rgba(255, 255, 255, 0.18);
+				background: rgba(22, 24, 30, 0.94);
+				color: rgba(255, 255, 255, 0.55);
+				font: inherit;
+				cursor: pointer;
+			}
+			#tray .entry.known {
+				color: #fff;
+				border-color: rgba(255, 255, 255, 0.4);
+			}
+			#tray .chip {
+				border-radius: 999px;
+				padding: 1px 7px;
+				font-size: 11px;
+				font-weight: 600;
+			}
+			#tray .more {
+				flex: none;
+				align-self: center;
+				color: rgba(255, 255, 255, 0.45);
+			}
 			#toast {
 				position: fixed;
-				bottom: 28px;
+				bottom: 110px;
 				left: 0;
 				right: 0;
 				text-align: center;
@@ -84,6 +144,7 @@
 	<body>
 		<div id="app"></div>
 		<div id="shelf"></div>
+		<div id="tray" hidden></div>
 		<div id="toast"></div>
 		<script type="module" src="/src/main.ts"></script>
 	</body>

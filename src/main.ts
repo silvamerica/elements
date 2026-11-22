@@ -1,13 +1,13 @@
 import { Application } from "pixi.js";
-import { ELEMENT_INFO } from "./chemistry/elements";
 import { Game, WORLD_SIZE } from "./game/game";
 import { browserStore, clearSave, readSave, writeSave } from "./game/save";
+import { Selection } from "./game/selection";
 import { Input } from "./input/input";
 import { Camera } from "./render/camera";
 import { Renderer } from "./render/renderer";
 import { Shelf } from "./ui/shelf";
+import { Tray } from "./ui/tray";
 import { newSeed } from "./world/rng";
-import { atomTag } from "./world/world";
 
 const SAVE_EVERY_MS = 3000;
 
@@ -41,7 +41,16 @@ async function main(): Promise<void> {
 	if (saved?.camera) camera.view = saved.camera;
 	game.mode.view = () => camera.visibleRect;
 	const input = new Input(world, camera, app.canvas, resolution);
-	const renderer = new Renderer(camera.viewport, world, () => input.dragging());
+	const selection = new Selection(world);
+	const renderer = new Renderer(
+		camera.viewport,
+		world,
+		() => input.dragging(),
+		{
+			selected: () => selection.current(),
+			guided: (now) => selection.guided(now),
+		},
+	);
 
 	let resetting = false;
 	const save = () => {
@@ -52,21 +61,16 @@ async function main(): Promise<void> {
 		clearSave(store);
 		window.location.reload();
 	});
-	input.onTap = (entity, body) => {
-		if (entity.kind === "atoms") {
-			const info = ELEMENT_INFO[atomTag(body).element];
-			if (info)
-				shelf.say(
-					`${info.symbol} · ${info.name}${info.noble ? " (never bonds)" : ""}`,
-				);
-		} else if (entity.kind === "molecule") {
-			shelf.say(`${entity.recipe.label} ${entity.recipe.name}`);
-		} else {
-			const what = entity.tier ? `${entity.tier.name} of ` : "";
-			shelf.say(
-				`${what}${entity.members.length} × ${entity.recipe.label} ${entity.recipe.name}`,
-			);
-		}
+	// Tap or grab selects; the tray says what the selection could become.
+	input.onTap = (entity) => selection.select(entity);
+	input.onGrab = (entity) => selection.select(entity);
+	input.onTapEmpty = () => selection.clear();
+	const tray = new Tray(el("tray"), world, () => game.knownMolecules());
+	tray.onPick = (c) => {
+		const short = selection.guideTo(c.missing, performance.now());
+		const missing = Object.entries(short).map(([e, n]) => `${n} ${e}`);
+		if (missing.length)
+			shelf.say(`None on the board yet: ${missing.join(", ")}`);
 	};
 
 	// Dev-only handle for poking at the world from a console or test browser.
@@ -76,6 +80,7 @@ async function main(): Promise<void> {
 			waterGame: game,
 			waterInput: input,
 			waterCamera: camera,
+			waterSelection: selection,
 		});
 
 	window.addEventListener("resize", () =>
@@ -92,6 +97,7 @@ async function main(): Promise<void> {
 		input.sync();
 		game.tick(dt);
 		renderer.draw(dt);
+		tray.show(input.dragging() ?? selection.current());
 		sinceSave += dt;
 		if (sinceSave >= SAVE_EVERY_MS) {
 			sinceSave = 0;

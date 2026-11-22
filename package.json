@@ -9,7 +9,7 @@
 		"preview": "vite preview",
 		"test": "vitest run",
 		"lint": "biome check .",
-		"deploy": "npm run build && wrangler pages deploy dist --project-name water --branch main"
+		"deploy": "npm run build && wrangler pages deploy dist --project-name water --branch master"
 	},
 	"dependencies": {
 		"matter-js": "0.20.0",

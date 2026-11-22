@@ -36,6 +36,10 @@ export class Input {
 	private pointers = 0;
 	/** Called on a single tap, with the entity and the atom tapped. */
 	onTap: (entity: Entity, body: Matter.Body) => void = () => {};
+	/** Called when something is picked up. */
+	onGrab: (entity: Entity) => void = () => {};
+	/** Called on a single tap on empty space, with the world point tapped. */
+	onTapEmpty: (at: Point) => void = () => {};
 
 	constructor(
 		private readonly world: World,
@@ -63,6 +67,7 @@ export class Input {
 			if (held) {
 				this.world.setGhost(held, true);
 				this.world.touch(held);
+				this.onGrab(held);
 			}
 		});
 		Events.on(this.mouseConstraint, "enddrag", (ev) =>
@@ -128,7 +133,10 @@ export class Input {
 			if (isTap && now - this.lastEmptyTap < DOUBLE_TAP_MS) {
 				this.lastEmptyTap = 0;
 				this.camera.fitWorld();
-			} else if (isTap) this.lastEmptyTap = now;
+			} else if (isTap) {
+				this.lastEmptyTap = now;
+				this.onTapEmpty(this.camera.toWorld({ x, y }));
+			}
 		}
 		// Re-enable grabbing after Matter has seen the release.
 		setTimeout(() => this.allowGrab(true), 0);

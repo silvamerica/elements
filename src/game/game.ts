@@ -116,6 +116,14 @@ export class Game {
 		return [...this.found].map(([key, text]) => ({ key, text }));
 	}
 
+	/** Recipe ids made by hand at least once. */
+	knownMolecules(): ReadonlySet<string> {
+		const ids = new Set<string>();
+		for (const key of this.found.keys())
+			if (key.startsWith("m:")) ids.add(key.slice(2));
+		return ids;
+	}
+
 	moleculesFound(): number {
 		let n = 0;
 		for (const key of this.found.keys()) if (key.startsWith("m:")) n++;

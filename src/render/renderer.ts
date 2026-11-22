@@ -44,6 +44,12 @@ interface Particle {
 /** How long before a loose cluster breaks up its bonds start to flicker. */
 const WARN_MS = 5000;
 
+/** What the renderer outlines on top of the board. */
+export interface Overlay {
+	selected(): Entity | undefined;
+	guided(now: number): Matter.Body[];
+}
+
 const OUTCOME_COLOR = {
 	snap: 0x7dffb2,
 	join: 0x7dd8ff,
@@ -73,6 +79,10 @@ export class Renderer {
 		stage: Container,
 		private readonly world: World,
 		private readonly dragging: () => Entity | undefined,
+		private readonly overlay: Overlay = {
+			selected: () => undefined,
+			guided: () => [],
+		},
 	) {
 		this.tex = {
 			glow: glowTexture(),
@@ -121,6 +131,7 @@ export class Renderer {
 			if (e.kind !== "atoms") this.syncEntity(e);
 		}
 		this.recentSpawns.clear();
+		this.drawOverlay(now);
 
 		if (held && target) {
 			const { outcome } = this.world.predict(held, target);
@@ -142,6 +153,24 @@ export class Renderer {
 			v.label.destroy();
 		});
 		this.stepParticles(dtMs);
+	}
+
+	/** Outline the selection; pulse the atoms a tray entry pointed at. */
+	private drawOverlay(now: number): void {
+		const sel = this.overlay.selected();
+		if (sel)
+			for (const part of this.world.circlesOf(sel))
+				this.links
+					.circle(part.position.x, part.position.y, atomTag(part).radius + 4)
+					.stroke({ width: 2, color: 0xffffff, alpha: 0.6 });
+		const pulse = 0.5 + 0.5 * Math.sin(now / 160);
+		for (const b of this.overlay.guided(now)) {
+			if (!this.world.entityOfBody(b)) continue;
+			const r = atomTag(b).radius + 7 + pulse * 5;
+			this.links
+				.circle(b.position.x, b.position.y, r)
+				.stroke({ width: 3, color: 0xffe27a, alpha: 0.35 + 0.5 * pulse });
+		}
 	}
 
 	/**
