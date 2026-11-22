@@ -51,11 +51,13 @@ export class Shelf {
 	}
 
 	private updateCount(): void {
+		const reactions = this.game.knownReactions().size;
 		const structures =
-			this.game.discoveries().length - this.game.moleculesFound();
+			this.game.discoveries().length - this.game.moleculesFound() - reactions;
 		const arrow = this.open ? "▾" : "▸";
 		this.q(".count").textContent =
 			`${arrow} ${this.game.moleculesFound()} / ${this.game.moleculeTotal} molecules` +
+			` · ${reactions} / ${this.game.reactionTotal} reactions` +
 			(structures ? ` · ${structures} structures` : "");
 	}
 

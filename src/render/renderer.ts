@@ -1,6 +1,7 @@
 import type Matter from "matter-js";
 import { Container, Graphics, Sprite, Text, type Texture } from "pixi.js";
 import { elementInfo } from "../chemistry/elements";
+import { findRecipe } from "../chemistry/recipes";
 import type { Point } from "../world/events";
 import {
 	type AtomsEntity,
@@ -48,6 +49,8 @@ const WARN_MS = 5000;
 export interface Overlay {
 	selected(): Entity | undefined;
 	guided(now: number): Matter.Body[];
+	/** Where it's hot right now, and how much heat is left (0–1). */
+	heat?(): { at: Point; left: number }[];
 }
 
 const OUTCOME_COLOR = {
@@ -112,6 +115,9 @@ export class Renderer {
 		ev.on("fizzled", (e) => this.sparks(e.at, 0xff8a7a, 7));
 		ev.on("split", (e) => this.sparks(e.at, 0xffffff, 10));
 		ev.on("faded", (e) => this.ghost(e.at, e.element));
+		ev.on("reacted", (e) =>
+			this.react(e.at, e.reaction.effect, e.reaction.products),
+		);
 	}
 
 	draw(dtMs: number): void {
@@ -157,6 +163,10 @@ export class Renderer {
 
 	/** Outline the selection; pulse the atoms a tray entry pointed at. */
 	private drawOverlay(now: number): void {
+		for (const z of this.overlay.heat?.() ?? [])
+			this.links
+				.circle(z.at.x, z.at.y, 170)
+				.fill({ color: 0xff7a2e, alpha: 0.1 * z.left });
 		const sel = this.overlay.selected();
 		if (sel)
 			for (const part of this.world.circlesOf(sel))
@@ -344,6 +354,80 @@ export class Renderer {
 	}
 
 	/** An atom that dissolves where it stood. */
+	/** The show for a reaction, by kind. */
+	private react(
+		at: Point,
+		effect: string,
+		products: Record<string, number>,
+	): void {
+		const first = Object.keys(products)[0];
+		const tint = (first ? findRecipe(first)?.color : undefined) ?? 0xffffff;
+		const spray = (
+			n: number,
+			color: number,
+			speed: number,
+			rise: number,
+			life: number,
+			size: number,
+		) => {
+			for (let i = 0; i < n; i++) {
+				const a = Math.random() * Math.PI * 2;
+				const v = speed * (0.4 + Math.random() * 0.6);
+				this.dot(
+					at,
+					color,
+					Math.cos(a) * v,
+					Math.sin(a) * v - rise,
+					life * (0.7 + Math.random() * 0.6),
+					size,
+				);
+			}
+		};
+		switch (effect) {
+			case "burn":
+				this.ring(at, 0xff9a3d, 90, 600);
+				spray(22, 0xffb347, 0.08, 0.06, 900, 0.22);
+				spray(10, 0xff5a1f, 0.05, 0.08, 1100, 0.3);
+				break;
+			case "bang":
+				this.ring(at, 0xffffff, 240, 700);
+				this.ring(at, 0xffa64d, 150, 500);
+				spray(30, 0xffd27a, 0.3, 0, 700, 0.2);
+				break;
+			case "flash":
+				this.dot(at, 0xffffff, 0, 0, 500, 3.2);
+				this.ring(at, 0xffffff, 180, 600);
+				spray(16, 0xffffff, 0.2, 0, 600, 0.18);
+				break;
+			case "fizz":
+				this.ring(at, 0xbfe8ff, 50, 400);
+				spray(20, 0xdff4ff, 0.03, 0.07, 1400, 0.1);
+				break;
+			case "smoke":
+				for (let i = 0; i < 10; i++) {
+					const a = Math.random() * Math.PI * 2;
+					const sprite = new Sprite(this.tex.glow);
+					sprite.anchor.set(0.5);
+					sprite.tint = 0xd8d8d8;
+					sprite.position.set(at.x, at.y);
+					this.fx.addChild(sprite);
+					this.particles.push({
+						sprite,
+						vx: Math.cos(a) * 0.03,
+						vy: Math.sin(a) * 0.03 - 0.02,
+						life: 2200,
+						age: 0,
+						grow: 1.3,
+						from: 0.3,
+					});
+				}
+				break;
+			default:
+				this.ring(at, tint, 80, 700);
+				spray(10, tint, 0.06, 0, 900, 0.16);
+		}
+	}
+
 	private ghost(at: Point, element: string): void {
 		const sprite = new Sprite(atomTexture(element));
 		sprite.anchor.set(0.5);

@@ -34,12 +34,23 @@ export class Input {
 	private emptyPress: { x: number; y: number; t: number } | undefined;
 	private lastEmptyTap = 0;
 	private pointers = 0;
+	/** Recent pointer positions (screen px, ms), for how fast a release was. */
+	private trail: { x: number; y: number; t: number }[] = [];
+	/** Pointer speed at the moment of the last lift; the drop is handled a frame later. */
+	private liftSpeed = 0;
 	/** Called on a single tap, with the entity and the atom tapped. */
 	onTap: (entity: Entity, body: Matter.Body) => void = () => {};
 	/** Called when something is picked up. */
 	onGrab: (entity: Entity) => void = () => {};
 	/** Called on a single tap on empty space, with the world point tapped. */
 	onTapEmpty: (at: Point) => void = () => {};
+	/**
+	 * Called when something is dropped onto something else, with how fast
+	 * the pointer was moving as it let go (screen px per ms). Return true if it was handled
+	 * (a reaction, or a hint); otherwise the usual bonding happens.
+	 */
+	onDrop: (held: Entity, target: Entity, speed: number) => boolean = () =>
+		false;
 
 	constructor(
 		private readonly world: World,
@@ -78,6 +89,19 @@ export class Input {
 		const opts = { capture: true } as const;
 		window.addEventListener("pointerdown", (e) => this.press(e, element), opts);
 		window.addEventListener("pointerup", (e) => this.lift(e), opts);
+		window.addEventListener(
+			"pointermove",
+			(e) => {
+				const t = performance.now();
+				this.trail.push({ x: e.clientX, y: e.clientY, t });
+				while (
+					this.trail.length > 2 &&
+					t - (this.trail[0]?.t ?? t) > FLICK_WINDOW_MS
+				)
+					this.trail.shift();
+			},
+			opts,
+		);
 		window.addEventListener("pointercancel", (e) => this.lift(e), opts);
 	}
 
@@ -117,6 +141,7 @@ export class Input {
 	}
 
 	private lift(e: PointerEvent): void {
+		this.liftSpeed = this.releaseSpeed();
 		this.pointers = Math.max(0, this.pointers - 1);
 		if (this.pointers > 0) return;
 		this.camera.resumeDrag();
@@ -140,6 +165,16 @@ export class Input {
 		}
 		// Re-enable grabbing after Matter has seen the release.
 		setTimeout(() => this.allowGrab(true), 0);
+	}
+
+	/** Pointer speed over the last moment before release (screen px per ms); 0 if it had stopped. */
+	private releaseSpeed(): number {
+		const now = performance.now();
+		const recent = this.trail.filter((p) => now - p.t <= FLICK_WINDOW_MS);
+		const first = recent[0];
+		const last = recent.at(-1);
+		if (!first || !last || last.t - first.t < 8) return 0;
+		return Math.hypot(last.x - first.x, last.y - first.y) / (last.t - first.t);
 	}
 
 	private allowGrab(yes: boolean): void {
@@ -174,9 +209,14 @@ export class Input {
 		}
 
 		const target = this.world.bondTarget(entity);
-		if (target) this.world.tryBond(entity, target);
+		if (!target) return;
+		const speed = this.liftSpeed;
+		if (!this.onDrop(entity, target, speed)) this.world.tryBond(entity, target);
 	}
 }
+
+/** How far back to look when judging a flick. */
+const FLICK_WINDOW_MS = 90;
 
 /** Matter's drag events carry the body, but its typings don't say so. */
 function bodyOf(ev: unknown): Matter.Body {

@@ -6,6 +6,14 @@ H₂ + O → H₂O), partial ones hang together loosely for a while, and
 impossible ones bounce apart. Drag molecules onto their own kind to grow
 named structures (three waters make a Droplet, salt grows into a Salt
 crystal). Tap anything to learn its name; double-tap to take a step back.
+Tapping something selects it, and the tray along the bottom lists what
+it could still become (unmade molecules stay "???") and what it can react
+with. Molecules you've already made can be built on demand: tap one in
+the shelf or tray, then tap where it should go, and the nearest pieces
+fly in; tapping beside its own kind grows a structure. Real reactions
+happen when everything they need is close by: drop methane on oxygen
+with a second oxygen nearby and fling it for a spark, and it burns,
+leaving heat that can set off the next fire.
 The world is bigger than the screen: drag empty space to pan, pinch or
 scroll to zoom, and double-tap empty space to see all of it.
 

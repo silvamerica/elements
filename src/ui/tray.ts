@@ -10,6 +10,8 @@ import {
 	formulaKey,
 	subscript,
 } from "../chemistry/elements";
+import { speciesLabel } from "../chemistry/reactions";
+import { Reactor, speciesOf } from "../game/reactor";
 import type { Entity, World } from "../world/world";
 
 const SHOWN = 8;
@@ -30,12 +32,14 @@ export class Tray {
 		private readonly root: HTMLElement,
 		private readonly world: World,
 		private readonly known: () => ReadonlySet<string>,
+		private readonly knownReactions: () => ReadonlySet<string> = () =>
+			new Set(),
 	) {}
 
 	/** Redraw if what's in hand (or what's known) has changed. Cheap to call every frame. */
 	show(e: Entity | undefined): void {
 		const key = e
-			? `${e.id}:${formulaKey(this.world.countsOf(e))}:${this.known().size}`
+			? `${e.id}:${formulaKey(this.world.countsOf(e))}:${this.known().size}:${this.knownReactions().size}`
 			: "";
 		if (key === this.subject) return;
 		this.subject = key;
@@ -56,6 +60,8 @@ export class Tray {
 			if (e.kind === "structure") return;
 		}
 
+		this.reactionsRow(e);
+
 		const list = candidatesFor(counts, this.known());
 		if (list.length === 0) {
 			const noble = Object.keys(counts).some((el) => ELEMENT_INFO[el]?.noble);
@@ -68,6 +74,39 @@ export class Tray {
 		for (const c of list.slice(0, SHOWN)) row.append(this.entry(c, e));
 		if (list.length > SHOWN)
 			row.append(div("more", `+${list.length - SHOWN} more`));
+		this.root.append(row);
+	}
+
+	/** What this can react with: named once seen, otherwise just the partners as a clue. */
+	private reactionsRow(e: Entity): void {
+		const s = speciesOf(e);
+		if (!s) return;
+		const list = Reactor.involving(s);
+		if (list.length === 0) return;
+		const known = this.knownReactions();
+		const row = div("reactions", "");
+		for (const r of list.slice(0, 4)) {
+			const partners = { ...r.reactants };
+			if (partners[s]) partners[s] -= 1;
+			const withText = Object.entries(partners)
+				.filter(([, n]) => n > 0)
+				.map(([p, n]) => `${n > 1 ? `${n} ` : ""}${speciesLabel(p)}`)
+				.join(" + ");
+			const extras = [
+				r.catalyst && r.catalyst !== s
+					? `near ${speciesLabel(r.catalyst)}`
+					: "",
+				r.needsHeat ? "needs a spark" : "",
+			]
+				.filter(Boolean)
+				.join(", ");
+			const name = known.has(r.id) ? r.name : "???";
+			const text = withText
+				? `${name} · with ${withText}`
+				: `${name} · on its own`;
+			row.append(div("reaction", extras ? `${text} (${extras})` : text));
+		}
+		if (list.length > 4) row.append(div("more", `+${list.length - 4} more`));
 		this.root.append(row);
 	}
 

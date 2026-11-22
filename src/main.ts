@@ -1,7 +1,9 @@
 import { Application } from "pixi.js";
+import { equation } from "./chemistry/reactions";
 import { recipeById } from "./chemistry/recipes";
 import { Assembler } from "./game/assembler";
 import { Game, WORLD_SIZE } from "./game/game";
+import { describeMissing, Reactor, SPARK_SPEED } from "./game/reactor";
 import { browserStore, clearSave, readSave, writeSave } from "./game/save";
 import { Selection } from "./game/selection";
 import { Input } from "./input/input";
@@ -47,6 +49,7 @@ async function main(): Promise<void> {
 	game.mode.view = () => camera.visibleRect;
 	const input = new Input(world, camera, app.canvas, resolution);
 	const selection = new Selection(world);
+	const reactor = new Reactor(world, (e) => input.dragging()?.id === e.id);
 	const renderer = new Renderer(
 		camera.viewport,
 		world,
@@ -54,6 +57,7 @@ async function main(): Promise<void> {
 		{
 			selected: () => selection.current(),
 			guided: (now) => selection.guided(now),
+			heat: () => reactor.heatGlow(),
 		},
 	);
 
@@ -99,7 +103,45 @@ async function main(): Promise<void> {
 		if (armed) build(at);
 		else selection.clear();
 	};
-	const tray = new Tray(el("tray"), world, () => game.knownMolecules());
+	const tray = new Tray(
+		el("tray"),
+		world,
+		() => game.knownMolecules(),
+		() => game.knownReactions(),
+	);
+
+	// Reactions: a ready reaction beats bonding; a near-miss gives a hint.
+	input.onDrop = (held, target, speed) => {
+		const result = reactor.drop(held, target, speed >= SPARK_SPEED);
+		const seen = (id: string) => game.knownReactions().has(id);
+		switch (result.kind) {
+			case "reacted":
+				shelf.say(`${result.reaction.name}: ${equation(result.reaction)}`);
+				return true;
+			case "needs-heat":
+				world.bounce(held, target);
+				shelf.say(
+					seen(result.reaction.id)
+						? `${result.reaction.name} needs a spark: fling it`
+						: "Something wants to happen here: fling it for a spark",
+				);
+				return true;
+			case "incomplete": {
+				const bond = world.predict(held, target).outcome;
+				if (bond === "snap" || bond === "join") return false;
+				world.bounce(held, target);
+				const what = seen(result.reaction.id)
+					? result.reaction.name
+					: "Something";
+				shelf.say(
+					`${what} could happen with ${describeMissing(result.missing)} nearby`,
+				);
+				return true;
+			}
+			default:
+				return false;
+		}
+	};
 	tray.onPick = (c) => {
 		const short = selection.guideTo(c.missing, performance.now());
 		const missing = Object.entries(short).map(([e, n]) => `${n} ${e}`);
@@ -119,6 +161,7 @@ async function main(): Promise<void> {
 			waterCamera: camera,
 			waterSelection: selection,
 			waterAssembler: assembler,
+			waterReactor: reactor,
 		});
 
 	window.addEventListener("resize", () =>
@@ -135,6 +178,7 @@ async function main(): Promise<void> {
 		input.sync();
 		game.tick(dt);
 		assembler.update(dt);
+		reactor.update(dt);
 		renderer.draw(dt);
 		tray.show(input.dragging() ?? selection.current());
 		sinceSave += dt;

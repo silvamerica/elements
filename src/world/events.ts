@@ -1,5 +1,6 @@
 import mitt from "mitt";
 import type { Element } from "../chemistry/elements";
+import type { Reaction } from "../chemistry/reactions";
 import type { Recipe } from "../chemistry/recipes";
 import type { Tier } from "../chemistry/structures";
 
@@ -19,6 +20,8 @@ export type WorldEvents = {
 	split: { at: Point };
 	/** A spare atom quietly removed to make room. */
 	faded: { element: Element; at: Point };
+	/** A reaction turned its reactants into its products. */
+	reacted: { reaction: Reaction; at: Point };
 };
 
 export const createBus = () => mitt<WorldEvents>();

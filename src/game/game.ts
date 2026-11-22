@@ -1,4 +1,5 @@
-import { RECIPES } from "../chemistry/recipes";
+import { equation, REACTIONS } from "../chemistry/reactions";
+import { findRecipe, RECIPES } from "../chemistry/recipes";
 import {
 	spawnTable,
 	WORLDS,
@@ -54,6 +55,16 @@ export class Game {
 		this.world.events.on("snapped", ({ recipe }) =>
 			this.discover(`m:${recipe.id}`, `${recipe.label} ${recipe.name}`),
 		);
+		this.world.events.on("reacted", ({ reaction }) => {
+			this.discover(
+				`r:${reaction.id}`,
+				`${reaction.name}: ${equation(reaction)}`,
+			);
+			for (const id of Object.keys(reaction.products)) {
+				const r = findRecipe(id);
+				if (r) this.discover(`m:${r.id}`, `${r.label} ${r.name}`);
+			}
+		});
 		this.world.events.on("tierUp", ({ recipe, tier }) =>
 			this.discover(
 				`s:${recipe.id}:${tier.name}`,
@@ -124,6 +135,18 @@ export class Game {
 		return ids;
 	}
 
+	/** Reaction ids seen at least once. */
+	knownReactions(): ReadonlySet<string> {
+		const ids = new Set<string>();
+		for (const key of this.found.keys())
+			if (key.startsWith("r:")) ids.add(key.slice(2));
+		return ids;
+	}
+
+	get reactionTotal(): number {
+		return REACTIONS.length;
+	}
+
 	moleculesFound(): number {
 		let n = 0;
 		for (const key of this.found.keys()) if (key.startsWith("m:")) n++;
@@ -148,6 +171,10 @@ export class Game {
 /** Rebuild a shelf line from its key (saves store keys only). */
 function describe(key: string): string {
 	const [kind, id, tier] = key.split(":");
+	if (kind === "r") {
+		const reaction = REACTIONS.find((r) => r.id === id);
+		return reaction ? `${reaction.name}: ${equation(reaction)}` : (id ?? key);
+	}
 	const recipe = RECIPES.find((r) => r.id === id);
 	if (!recipe) return id ?? key;
 	return kind === "s"

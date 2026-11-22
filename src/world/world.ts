@@ -426,6 +426,11 @@ export class World {
 		return m;
 	}
 
+	/** Remove entities used up by something (a reaction). */
+	consume(entities: Entity[]): void {
+		for (const e of entities) if (this.entities.has(e.id)) this.forget(e);
+	}
+
 	/** Put a molecule straight into the world (tests, future puzzle modes). */
 	spawnMolecule(recipeId: string, at: Point): MoleculeEntity {
 		return this.makeMolecule(recipeById(recipeId), at, { x: 0, y: 0 });
@@ -705,6 +710,11 @@ export class World {
 			}
 		}
 		return springs;
+	}
+
+	/** Push two things apart with a fizzle, as when they won't bond. */
+	bounce(a: Entity, b: Entity): void {
+		this.fizzle(a, b, centroid([this.centroidOf(a), this.centroidOf(b)]));
 	}
 
 	private fizzle(a: Entity, b: Entity, at: Point): "fizzle" {

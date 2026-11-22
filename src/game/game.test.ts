@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { REACTIONS, type Reaction } from "../chemistry/reactions";
 import { chanceOf, spawnTable, WORLDS } from "../chemistry/worlds";
 import { type Entity, LOOSE_MS } from "../world/world";
 import { Game } from "./game";
@@ -117,6 +118,25 @@ describe("Game", () => {
 		expect(readSave(store)).toBeUndefined();
 		const odd = { ...Game.create(5, SIZE).toSave(), worldKind: "venus" };
 		expect(Game.restore(odd, SIZE)).toBeUndefined();
+	});
+});
+
+describe("reaction discoveries", () => {
+	it("records a reaction and its products, and keeps them through a save", () => {
+		const game = Game.create(21, SIZE);
+		const { world } = game;
+		const reaction = REACTIONS.find((r) => r.id === "sodium-water");
+		world.events.emit("reacted", {
+			reaction: reaction as Reaction,
+			at: { x: 100, y: 100 },
+		});
+		expect(game.knownReactions().has("sodium-water")).toBe(true);
+		expect(game.knownMolecules().has("HNaO")).toBe(true);
+		const back = Game.restore(game.toSave(), SIZE) as Game;
+		expect(back.knownReactions().has("sodium-water")).toBe(true);
+		expect(
+			back.discoveries().some((d) => d.text.startsWith("Sodium fizzes")),
+		).toBe(true);
 	});
 });
 
