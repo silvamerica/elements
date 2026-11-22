@@ -20,6 +20,8 @@ export type WorldEvents = {
 	split: { at: Point };
 	/** A spare atom quietly removed to make room. */
 	faded: { element: Element; at: Point };
+	/** A snap was refused: that molecule is built from one of `needs`, put in whole. */
+	needsPart: { recipe: Recipe; needs: string[]; at: Point };
 	/** A reaction turned its reactants into its products. */
 	reacted: { reaction: Reaction; at: Point };
 };

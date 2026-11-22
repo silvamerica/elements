@@ -1,5 +1,7 @@
+import bondData from "./data/bonds.json";
 import recipeData from "./data/recipes.json";
 import { type Counts, ELEMENT_INFO, formulaKey, subscript } from "./elements";
+import { type BondGraph, partsFromGraph } from "./parts";
 
 export interface Recipe {
 	/** Hill formula, unique per atom-count multiset. */
@@ -10,6 +12,11 @@ export interface Recipe {
 	formula: Counts;
 	/** Molecule glow colour. */
 	color: number;
+	/**
+	 * Smaller molecules this one is built from, by its real bond structure
+	 * (see parts.ts). When non-empty, one of them must go in whole.
+	 */
+	parts: string[];
 }
 
 interface RecipeRow {
@@ -50,17 +57,26 @@ export function blendColor(counts: Counts): number {
 	return (lift(r) << 16) | (lift(g) << 8) | lift(b);
 }
 
+const ROWS = recipeData as unknown as RecipeRow[];
+const IDS = new Set(ROWS.map((row) => formulaKey(row.counts)));
+const BONDS = bondData as unknown as Record<string, BondGraph | undefined>;
+
 /** Every compound the sandbox knows. Generated into data/recipes.json. */
-export const RECIPES: readonly Recipe[] = (
-	recipeData as unknown as RecipeRow[]
-).map((row) => {
+export const RECIPES: readonly Recipe[] = ROWS.map((row) => {
 	const id = formulaKey(row.counts);
+	const graph = BONDS[row.formula];
 	return {
 		id,
 		name: row.name,
 		label: subscript(row.formula),
 		formula: row.counts,
 		color: COLORS[id] ?? blendColor(row.counts),
+		parts: graph
+			? partsFromGraph(graph, (c) => {
+					const k = formulaKey(c);
+					return IDS.has(k) ? k : undefined;
+				})
+			: [],
 	};
 });
 

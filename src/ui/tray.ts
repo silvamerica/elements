@@ -11,6 +11,7 @@ import {
 	subscript,
 } from "../chemistry/elements";
 import { speciesLabel } from "../chemistry/reactions";
+import { findRecipe } from "../chemistry/recipes";
 import { Reactor, speciesOf } from "../game/reactor";
 import type { Entity, World } from "../world/world";
 
@@ -141,6 +142,14 @@ export class Tray {
 		b.type = "button";
 		b.className = c.known ? "entry known" : "entry";
 		b.append(c.known ? `${c.recipe.label} ${c.recipe.name}` : "???");
+		const have = this.world.partsOf(from);
+		if (c.recipe.parts.length && !c.recipe.parts.some((p) => have.includes(p)))
+			b.append(
+				span(
+					"chip part",
+					`from ${c.recipe.parts.map((p) => findRecipe(p)?.label ?? p).join(" or ")}`,
+				),
+			);
 		for (const [el, n] of missingList(c.missing)) {
 			const chip = span("chip", `+${n} ${el}`);
 			const info = ELEMENT_INFO[el];

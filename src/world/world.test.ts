@@ -143,6 +143,55 @@ describe("World bonding", () => {
 	});
 });
 
+describe("molecules built from parts", () => {
+	it("won't snap CO₂ from loose pieces, only around a finished CO", () => {
+		const { world, seen } = makeWorld();
+		const c = world.spawnAtom("C", { x: 100, y: 100 });
+		const o2 = world.spawnMolecule("O2", { x: 140, y: 100 });
+		expect(world.predict(c, o2)).toMatchObject({
+			outcome: "fizzle",
+			needs: ["CO"],
+		});
+		expect(world.tryBond(c, o2)).toBe("fizzle");
+		expect(seen).toContain("needsPart");
+
+		const c2 = world.spawnAtom("C", { x: 400, y: 400 });
+		const o = world.spawnAtom("O", { x: 430, y: 400 });
+		expect(world.tryBond(c2, o)).toBe("snap"); // CO
+		const co = only(world).find(
+			(e) => e.kind === "molecule" && e.recipe.id === "CO",
+		) as Entity;
+		const o3 = world.spawnAtom("O", { x: 470, y: 400 });
+		expect(world.tryBond(o3, co)).toBe("snap");
+		expect(
+			only(world).some((e) => e.kind === "molecule" && e.recipe.id === "CO2"),
+		).toBe(true);
+	});
+
+	it("remembers a part through a loose cluster and a save", () => {
+		const { world } = makeWorld();
+		const no = world.spawnMolecule("NO", { x: 200, y: 200 });
+		const cl = world.spawnAtom("Cl", { x: 240, y: 200 });
+		// NO + Cl is exactly NOCl, which is built from NO: snaps.
+		expect(world.tryBond(cl, no)).toBe("snap");
+
+		const so2 = world.spawnMolecule("O2S", { x: 600, y: 600 });
+		const cl1 = world.spawnAtom("Cl", { x: 640, y: 600 });
+		expect(world.tryBond(cl1, so2)).toBe("loose");
+		const cluster = only(world).find(
+			(e) => e.kind === "atoms" && e.bodies.length > 1,
+		) as Entity;
+		expect(world.partsOf(cluster)).toEqual(["O2S"]);
+		const snap = world.snapshot();
+		const back = new World({ width: 800, height: 600 });
+		back.load(snap);
+		const again = [...back.all()].find(
+			(e) => e.kind === "atoms" && e.bodies.length > 1,
+		) as Entity;
+		expect(back.partsOf(again)).toEqual(["O2S"]);
+	});
+});
+
 describe("layouts", () => {
 	it("place exactly each recipe's atoms", () => {
 		for (const r of RECIPES) {

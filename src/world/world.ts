@@ -25,6 +25,8 @@ export interface AtomsEntity {
 	springs: MConstraint[];
 	/** World time it was made or last handled; unfinished clusters fall apart LOOSE_MS after. */
 	bornAt: number;
+	/** Finished molecules (recipe ids) that went into this cluster whole. */
+	parts: string[];
 }
 
 /** A snapped molecule: one rigid compound body, one part per atom. */
@@ -62,7 +64,12 @@ export interface Pose {
 }
 
 export type EntitySnapshot =
-	| { kind: "atoms"; age: number; atoms: (Pose & { element: Element })[] }
+	| {
+			kind: "atoms";
+			age: number;
+			atoms: (Pose & { element: Element })[];
+			parts?: string[];
+	  }
 	| ({ kind: "molecule"; recipe: string } & Pose)
 	| { kind: "structure"; recipe: string; members: Pose[] };
 
@@ -325,6 +332,7 @@ export class World {
 				entities.push({
 					kind: "atoms",
 					age: this.time - e.bornAt,
+					parts: e.parts.length ? [...e.parts] : undefined,
 					atoms: e.bodies.map((b) => ({
 						element: atomTag(b).element,
 						...pose(b),
@@ -368,6 +376,7 @@ export class World {
 				if (!atoms.length) continue;
 				const e = this.makeAtoms(atoms);
 				e.bornAt = this.time - s.age;
+				e.parts = (s.parts ?? []).filter((p) => findRecipe(p));
 			} else {
 				const recipe = findRecipe(s.recipe);
 				if (!recipe) continue;
@@ -439,7 +448,17 @@ export class World {
 	// ── The rules ──────────────────────────────────────────────────────────
 
 	/** What dropping `a` onto `b` would do, without doing it. */
-	predict(a: Entity, b: Entity): { outcome: BondOutcome; recipe?: Recipe } {
+	/** The finished molecules an entity carries whole: itself, or what went into a cluster. */
+	partsOf(e: Entity): string[] {
+		if (e.kind === "atoms") return e.parts;
+		if (e.kind === "molecule") return [e.recipe.id];
+		return [];
+	}
+
+	predict(
+		a: Entity,
+		b: Entity,
+	): { outcome: BondOutcome; recipe?: Recipe; needs?: string[] } {
 		if (a === b) return { outcome: "fizzle" };
 		const recipeA = clumpRecipe(a);
 		const recipeB = clumpRecipe(b);
@@ -448,21 +467,32 @@ export class World {
 		if (a.kind === "structure" || b.kind === "structure")
 			return { outcome: "fizzle" };
 		const res = resolveAtoms(addCounts(this.countsOf(a), this.countsOf(b)));
-		if (res.kind === "snap") return { outcome: "snap", recipe: res.recipe };
+		if (res.kind === "snap") {
+			// Some molecules are built from a smaller one: that part must go in whole.
+			const parts = res.recipe.parts;
+			const have = [...this.partsOf(a), ...this.partsOf(b)];
+			if (parts.length && !parts.some((p) => have.includes(p)))
+				return { outcome: "fizzle", recipe: res.recipe, needs: parts };
+			return { outcome: "snap", recipe: res.recipe };
+		}
 		return { outcome: res.kind };
 	}
 
 	/** Drop `a` onto `b`: bond, snap, join a structure, or bounce apart. */
 	tryBond(a: Entity, b: Entity): BondOutcome {
 		const at = centroid([this.centroidOf(a), this.centroidOf(b)]);
-		const { outcome, recipe } = this.predict(a, b);
-		if (outcome === "fizzle") return this.fizzle(a, b, at);
+		const { outcome, recipe, needs } = this.predict(a, b);
+		if (outcome === "fizzle") {
+			if (recipe && needs) this.events.emit("needsPart", { recipe, needs, at });
+			return this.fizzle(a, b, at);
+		}
 		if (outcome === "join" && recipe) {
 			this.join(a, b, recipe, at);
 			return "join";
 		}
 
 		const atoms = [...this.looseAtoms(a), ...this.looseAtoms(b)];
+		const parts = [...this.partsOf(a), ...this.partsOf(b)];
 		const vel = averageVelocity([...this.bodiesOf(a), ...this.bodiesOf(b)]);
 		this.forget(a);
 		this.forget(b);
@@ -472,6 +502,7 @@ export class World {
 			return "snap";
 		}
 		const cluster = this.makeAtoms(atoms);
+		cluster.parts = parts;
 		this.events.emit("bonded", { entityId: cluster.id, at });
 		return "loose";
 	}
@@ -616,6 +647,7 @@ export class World {
 			group,
 			bodies,
 			bornAt: this.time,
+			parts: [],
 			springs: treeSprings(
 				bodies,
 				SPRING_STIFFNESS,

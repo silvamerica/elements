@@ -147,6 +147,14 @@ async function main(): Promise<void> {
 	);
 	tray.onBuild = (id) => arm(id);
 
+	// Some molecules are built from a smaller one, which has to go in whole.
+	world.events.on("needsPart", ({ needs }) => {
+		const names = needs.map((id) => recipeById(id).label).join(" or ");
+		shelf.say(
+			`That's built from a finished ${names}: make it first, then add the rest`,
+		);
+	});
+
 	// Reactions: a ready reaction beats bonding; a near-miss gives a hint.
 	input.onDrop = (held, target, sparked) => {
 		const result = reactor.drop(held, target, sparked);
