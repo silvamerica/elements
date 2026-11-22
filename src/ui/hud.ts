@@ -82,7 +82,7 @@ export class Hud {
 		const structures = this.game.discoveries().length - molecules - reactions;
 		this.counts.replaceChildren(
 			count(molecules, `/${this.game.moleculeTotal} molecules`),
-			count(reactions, `/${this.game.reactionTotal} reactions`),
+			count(reactions, `/${this.game.reactionTotal} reactions`, "reactions"),
 			count(structures, "structures", "structures"),
 		);
 	}

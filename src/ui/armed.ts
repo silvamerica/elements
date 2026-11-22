@@ -1,18 +1,20 @@
 import type { Recipe } from "../chemistry/recipes";
 
-/** The "Assembling NaCl ✕" chip shown while a molecule is armed for building. */
+/** The "Assembling NaCl · Stop" pill shown while a molecule is armed for building. */
 export class ArmedChip {
 	onClear: () => void = () => {};
 	private readonly label: HTMLElement;
 
 	constructor(private readonly root: HTMLElement) {
+		const dot = document.createElement("span");
+		dot.className = "dot";
 		this.label = document.createElement("span");
 		const close = document.createElement("button");
 		close.type = "button";
-		close.textContent = "✕";
-		close.setAttribute("aria-label", "Stop building");
+		close.className = "stop";
+		close.textContent = "Stop";
 		close.addEventListener("click", () => this.onClear());
-		root.append(this.label, close);
+		root.append(dot, this.label, close);
 		root.hidden = true;
 	}
 

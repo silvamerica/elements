@@ -108,32 +108,26 @@ export class Tray {
 		const list = Reactor.involving(s);
 		if (list.length === 0) return;
 		const known = this.knownReactions();
-		const row = div("row");
+		const row = div("row wrap");
 		for (const r of list.slice(0, REACTIONS_SHOWN)) {
-			const partners = { ...r.reactants };
-			if (partners[s]) partners[s] -= 1;
-			const withText = Object.entries(partners)
-				.filter(([, n]) => n > 0)
-				.map(([p, n]) => `${n > 1 ? `${n} ` : ""}${speciesLabel(p)}`)
-				.join(" + ");
 			const entry = span(known.has(r.id) ? "entry known" : "entry", "");
-			const parts = [
-				known.has(r.id) ? r.name : "???",
-				withText ? `with ${withText}` : "on its own",
-			];
-			if (r.catalyst && r.catalyst !== s)
-				parts.push(`near ${speciesLabel(r.catalyst)}`);
-			entry.append(parts.join(" · "));
-			if (r.needsHeat) entry.append(span("flick", "⚡ flick"));
+			entry.append(howTo(r, s));
+			if (r.needsHeat) entry.append(span("flick", "⚡ swing it"));
+			entry.append(
+				span("result", `→ ${known.has(r.id) ? r.name : "unknown reaction"}`),
+			);
 			row.append(entry);
 		}
 		if (list.length > REACTIONS_SHOWN)
 			row.append(span("more", `+${list.length - REACTIONS_SHOWN} more`));
-		this.root.append(section("Reacts with", row));
+		this.root.append(section("Reactions", row));
 	}
 
 	private candidates(e: Entity, counts: Counts): void {
-		const list = candidatesFor(counts, this.known());
+		let list = candidatesFor(counts, this.known());
+		// For a finished molecule, the paths not yet taken are the interesting ones.
+		if (e.kind === "molecule")
+			list = [...list.filter((c) => !c.known), ...list.filter((c) => c.known)];
 		if (list.length === 0) return;
 		const row = div("row");
 		for (const c of list.slice(0, SHOWN)) row.append(this.entry(c, e));
@@ -157,6 +151,40 @@ export class Tray {
 		b.addEventListener("click", () => this.onPick(c, from));
 		return b;
 	}
+}
+
+/**
+ * What to do with `s` to set off reaction `r`, as an instruction:
+ * "Drop on O₂, with 1 more O₂ nearby", "Drop near 2 H₂O₂", "Heat it".
+ */
+export function howTo(
+	r: { reactants: Record<string, number>; catalyst?: string },
+	s: string,
+): string {
+	const fmt = (p: string, n: number) =>
+		`${n > 1 ? `${n} ` : ""}${speciesLabel(p)}`;
+	if (r.catalyst === s && !(s in r.reactants)) {
+		const what = Object.entries(r.reactants)
+			.map(([p, n]) => fmt(p, n))
+			.join(" + ");
+		return `Put it near ${what}`;
+	}
+	const others = Object.entries(r.reactants)
+		.map(([p, n]) => [p, p === s ? n - 1 : n] as [string, number])
+		.filter(([, n]) => n > 0)
+		// Drop it on something different where possible.
+		.sort((a, b) => Number(a[0] === s) - Number(b[0] === s));
+	const near = r.catalyst ? `, near ${speciesLabel(r.catalyst)}` : "";
+	const [first, ...rest] = others;
+	if (!first) return `Heat it${near}`;
+	const [p, n] = first;
+	const more = (q: string, m: number) =>
+		m === 1 ? `another ${speciesLabel(q)}` : `${m} more ${speciesLabel(q)}`;
+	const onto = p === s ? `another ${speciesLabel(p)}` : speciesLabel(p);
+	const extra: string[] = [];
+	if (n > 1) extra.push(more(p, n - 1));
+	for (const [q, m] of rest) extra.push(q === s ? more(q, m) : fmt(q, m));
+	return `Drop on ${onto}${extra.length ? `, with ${extra.join(" + ")} nearby` : ""}${near}`;
 }
 
 function section(title: string, body: HTMLElement): HTMLElement {

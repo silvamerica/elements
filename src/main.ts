@@ -102,10 +102,10 @@ async function main(): Promise<void> {
 	const assembler = new Assembler(world, (e) => input.dragging()?.id === e.id);
 	const armedChip = new ArmedChip(el("armed"));
 	let armed: string | undefined;
-	const arm = (id: string | undefined) => {
+	const arm = (id: string | undefined, announce = true) => {
 		armed = id;
 		armedChip.show(id ? recipeById(id) : undefined);
-		if (id) shelf.say(`Tap where to build ${recipeById(id).label}`);
+		if (id && announce) shelf.say(`Tap where to build ${recipeById(id).label}`);
 	};
 	armedChip.onClear = () => arm(undefined);
 	shelf.onArm = (id) => arm(armed === id ? undefined : id);
@@ -121,12 +121,19 @@ async function main(): Promise<void> {
 	};
 
 	// Tap or grab selects; the tray says what the selection could become.
+	// Selecting something else stops assembling; tapping what it builds onto builds.
 	input.onTap = (entity, body) => {
-		if (armed && assembler.relates(armed, entity))
+		if (armed && assembler.relates(armed, entity)) {
 			build({ ...body.position }, entity);
-		else selection.select(entity);
+			return;
+		}
+		if (armed) arm(undefined, false);
+		selection.select(entity);
 	};
-	input.onGrab = (entity) => selection.select(entity);
+	input.onGrab = (entity) => {
+		if (armed && !assembler.relates(armed, entity)) arm(undefined, false);
+		selection.select(entity);
+	};
 	input.onTapEmpty = (at) => {
 		if (armed) build(at);
 		else selection.clear();
