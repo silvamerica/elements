@@ -17,6 +17,8 @@ export type WorldEvents = {
 	joined: { entityId: number; recipe: Recipe; count: number; at: Point };
 	tierUp: { entityId: number; recipe: Recipe; tier: Tier; at: Point };
 	split: { at: Point };
+	/** A spare atom quietly removed to make room. */
+	faded: { element: Element; at: Point };
 };
 
 export const createBus = () => mitt<WorldEvents>();

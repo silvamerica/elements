@@ -98,6 +98,7 @@ export class Renderer {
 		ev.on("bonded", (e) => this.ring(e.at, 0xffffff, 30, 300));
 		ev.on("fizzled", (e) => this.sparks(e.at, 0xff8a7a, 7));
 		ev.on("split", (e) => this.sparks(e.at, 0xffffff, 10));
+		ev.on("faded", (e) => this.ghost(e.at, e.element));
 	}
 
 	draw(dtMs: number): void {
@@ -288,6 +289,24 @@ export class Renderer {
 				0.12,
 			);
 		}
+	}
+
+	/** An atom that dissolves where it stood. */
+	private ghost(at: Point, element: string): void {
+		const sprite = new Sprite(atomTexture(element));
+		sprite.anchor.set(0.5);
+		sprite.position.set(at.x, at.y);
+		const size = 1 / ATOM_TEXTURE_SCALE;
+		this.fx.addChild(sprite);
+		this.particles.push({
+			sprite,
+			vx: 0,
+			vy: -0.01,
+			life: 1400,
+			age: 0,
+			grow: size * 1.4,
+			from: size,
+		});
 	}
 
 	private dot(

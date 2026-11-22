@@ -39,6 +39,7 @@ async function main(): Promise<void> {
 
 	const camera = new Camera(app, WORLD_SIZE.width, WORLD_SIZE.height);
 	if (saved?.camera) camera.view = saved.camera;
+	game.mode.view = () => camera.visibleRect;
 	const input = new Input(world, camera, app.canvas, resolution);
 	const renderer = new Renderer(camera.viewport, world, () => input.dragging());
 

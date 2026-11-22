@@ -216,6 +216,42 @@ export class World {
 		return n;
 	}
 
+	/** Free single atoms with their element, position and age, oldest first. */
+	freeAtoms(): {
+		entity: AtomsEntity;
+		element: Element;
+		at: Point;
+		bornAt: number;
+	}[] {
+		const out: {
+			entity: AtomsEntity;
+			element: Element;
+			at: Point;
+			bornAt: number;
+		}[] = [];
+		for (const e of this.entities.values()) {
+			const b =
+				e.kind === "atoms" && e.bodies.length === 1 ? e.bodies[0] : undefined;
+			if (!b || e.kind !== "atoms" || this.isGhost(e)) continue;
+			out.push({
+				entity: e,
+				element: atomTag(b).element,
+				at: { ...b.position },
+				bornAt: e.bornAt,
+			});
+		}
+		return out.sort((a, b) => a.bornAt - b.bornAt);
+	}
+
+	/** Quietly take a free atom away (to make room); the renderer fades it out. */
+	fade(e: AtomsEntity): void {
+		const b = e.bodies[0];
+		if (!b || e.bodies.length !== 1) return;
+		const at = { ...b.position };
+		this.forget(e);
+		this.events.emit("faded", { element: atomTag(b).element, at });
+	}
+
 	// ── Time ───────────────────────────────────────────────────────────────
 
 	/** Advance by real elapsed time, in fixed physics steps. */

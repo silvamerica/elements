@@ -85,6 +85,17 @@ export class Camera {
 		);
 	}
 
+	/** The part of the world currently on screen. */
+	get visibleRect(): { x: number; y: number; width: number; height: number } {
+		const v = this.viewport;
+		return {
+			x: v.left,
+			y: v.top,
+			width: v.worldScreenWidth,
+			height: v.worldScreenHeight,
+		};
+	}
+
 	get view(): CameraView {
 		const c = this.viewport.center;
 		return {
