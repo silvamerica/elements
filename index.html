@@ -64,6 +64,41 @@
 				color: #fff;
 				transition: color 2s;
 			}
+			#armed {
+				position: fixed;
+				top: 12px;
+				left: 50%;
+				transform: translateX(-50%);
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				padding: 6px 8px 6px 14px;
+				border-radius: 999px;
+				background: rgba(255, 226, 122, 0.14);
+				border: 1px solid rgba(255, 226, 122, 0.55);
+				color: #ffe27a;
+				font: 13px ui-rounded, system-ui, sans-serif;
+				white-space: nowrap;
+			}
+			#armed[hidden] {
+				display: none;
+			}
+			#armed button {
+				background: none;
+				border: 0;
+				color: inherit;
+				font: inherit;
+				cursor: pointer;
+				padding: 2px 6px;
+			}
+			#shelf .list button {
+				display: block;
+				margin-left: auto;
+				text-align: right;
+			}
+			#shelf .list button:hover {
+				color: #fff;
+			}
 			#tray {
 				position: fixed;
 				left: 0;
@@ -144,6 +179,7 @@
 	<body>
 		<div id="app"></div>
 		<div id="shelf"></div>
+		<div id="armed" hidden></div>
 		<div id="tray" hidden></div>
 		<div id="toast"></div>
 		<script type="module" src="/src/main.ts"></script>

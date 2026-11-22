@@ -1,13 +1,18 @@
 import { Application } from "pixi.js";
+import { recipeById } from "./chemistry/recipes";
+import { Assembler } from "./game/assembler";
 import { Game, WORLD_SIZE } from "./game/game";
 import { browserStore, clearSave, readSave, writeSave } from "./game/save";
 import { Selection } from "./game/selection";
 import { Input } from "./input/input";
 import { Camera } from "./render/camera";
 import { Renderer } from "./render/renderer";
+import { ArmedChip } from "./ui/armed";
 import { Shelf } from "./ui/shelf";
 import { Tray } from "./ui/tray";
+import type { Point } from "./world/events";
 import { newSeed } from "./world/rng";
+import type { Entity } from "./world/world";
 
 const SAVE_EVERY_MS = 3000;
 
@@ -61,15 +66,47 @@ async function main(): Promise<void> {
 		clearSave(store);
 		window.location.reload();
 	});
+	// Assembly: a known molecule can be armed, then built by tapping.
+	const assembler = new Assembler(world, (e) => input.dragging()?.id === e.id);
+	const armedChip = new ArmedChip(el("armed"));
+	let armed: string | undefined;
+	const arm = (id: string | undefined) => {
+		armed = id;
+		armedChip.show(id ? recipeById(id) : undefined);
+		if (id) shelf.say(`Tap where to build ${recipeById(id).label}`);
+	};
+	armedChip.onClear = () => arm(undefined);
+	shelf.onArm = (id) => arm(armed === id ? undefined : id);
+	const build = (at: Point, onto?: Entity) => {
+		if (!armed) return;
+		const plan = assembler.place(armed, at, onto);
+		if (!plan.ok) {
+			const need = Object.entries(plan.short)
+				.filter(([, n]) => (n ?? 0) > 0)
+				.map(([e, n]) => `${n} ${e}`);
+			shelf.say(`Needs ${need.join(", ")} more — not on the board yet`);
+		}
+	};
+
 	// Tap or grab selects; the tray says what the selection could become.
-	input.onTap = (entity) => selection.select(entity);
+	input.onTap = (entity, body) => {
+		if (armed && assembler.relates(armed, entity))
+			build({ ...body.position }, entity);
+		else selection.select(entity);
+	};
 	input.onGrab = (entity) => selection.select(entity);
-	input.onTapEmpty = () => selection.clear();
+	input.onTapEmpty = (at) => {
+		if (armed) build(at);
+		else selection.clear();
+	};
 	const tray = new Tray(el("tray"), world, () => game.knownMolecules());
 	tray.onPick = (c) => {
 		const short = selection.guideTo(c.missing, performance.now());
 		const missing = Object.entries(short).map(([e, n]) => `${n} ${e}`);
-		if (missing.length)
+		if (c.known) {
+			arm(c.recipe.id);
+			shelf.say(`Tap your partial (or anywhere) to build ${c.recipe.label}`);
+		} else if (missing.length)
 			shelf.say(`None on the board yet: ${missing.join(", ")}`);
 	};
 
@@ -81,6 +118,7 @@ async function main(): Promise<void> {
 			waterInput: input,
 			waterCamera: camera,
 			waterSelection: selection,
+			waterAssembler: assembler,
 		});
 
 	window.addEventListener("resize", () =>
@@ -96,6 +134,7 @@ async function main(): Promise<void> {
 		const dt = Math.min(ticker.deltaMS, 100);
 		input.sync();
 		game.tick(dt);
+		assembler.update(dt);
 		renderer.draw(dt);
 		tray.show(input.dragging() ?? selection.current());
 		sinceSave += dt;

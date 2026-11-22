@@ -413,6 +413,19 @@ export class World {
 		return e;
 	}
 
+	/**
+	 * Turn gathered pieces into a molecule at a point: the pieces vanish and
+	 * the molecule snaps in, exactly as if built by hand. The caller has
+	 * checked the pieces add up to the recipe.
+	 */
+	assemble(recipeId: string, pieces: Entity[], at: Point): MoleculeEntity {
+		for (const p of pieces) if (this.entities.has(p.id)) this.forget(p);
+		const recipe = recipeById(recipeId);
+		const m = this.makeMolecule(recipe, at, { x: 0, y: 0 });
+		this.events.emit("snapped", { entityId: m.id, recipe, at });
+		return m;
+	}
+
 	/** Put a molecule straight into the world (tests, future puzzle modes). */
 	spawnMolecule(recipeId: string, at: Point): MoleculeEntity {
 		return this.makeMolecule(recipeById(recipeId), at, { x: 0, y: 0 });

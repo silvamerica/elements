@@ -6,6 +6,8 @@ import type { Discovery, Game } from "../game/game";
  */
 export class Shelf {
 	private toastTimer: number | undefined;
+	/** Called when a discovered molecule's row is tapped. */
+	onArm: (recipeId: string) => void = () => {};
 	private open = false;
 
 	constructor(
@@ -58,8 +60,14 @@ export class Shelf {
 	}
 
 	private addRow(d: Discovery, fresh: boolean): void {
-		const row = document.createElement("div");
+		const molecule = d.key.startsWith("m:") ? d.key.slice(2) : undefined;
+		const row = document.createElement(molecule ? "button" : "div");
 		row.textContent = d.text;
+		if (molecule) {
+			(row as HTMLButtonElement).type = "button";
+			row.title = "Tap to build this";
+			row.addEventListener("click", () => this.onArm(molecule));
+		}
 		const list = this.q(".list");
 		list.prepend(row);
 		if (fresh) {
