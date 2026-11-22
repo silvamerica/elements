@@ -1,0 +1,1182 @@
+[
+	{
+		"z": 1,
+		"symbol": "H",
+		"name": "Hydrogen",
+		"color": "#FFFFFF",
+		"radiusPm": 25,
+		"natural": true,
+		"noble": false,
+		"cosmic": 24310000000
+	},
+	{
+		"z": 2,
+		"symbol": "He",
+		"name": "Helium",
+		"color": "#D9FFFF",
+		"radiusPm": 120,
+		"natural": true,
+		"noble": true,
+		"cosmic": 2343000000
+	},
+	{
+		"z": 3,
+		"symbol": "Li",
+		"name": "Lithium",
+		"color": "#CC80FF",
+		"radiusPm": 145,
+		"natural": true,
+		"noble": false,
+		"cosmic": 55.47
+	},
+	{
+		"z": 4,
+		"symbol": "Be",
+		"name": "Beryllium",
+		"color": "#C2FF00",
+		"radiusPm": 105,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.7374
+	},
+	{
+		"z": 5,
+		"symbol": "B",
+		"name": "Boron",
+		"color": "#FFB5B5",
+		"radiusPm": 85,
+		"natural": true,
+		"noble": false,
+		"cosmic": 17.32
+	},
+	{
+		"z": 6,
+		"symbol": "C",
+		"name": "Carbon",
+		"color": "#909090",
+		"radiusPm": 70,
+		"natural": true,
+		"noble": false,
+		"cosmic": 7079000
+	},
+	{
+		"z": 7,
+		"symbol": "N",
+		"name": "Nitrogen",
+		"color": "#3050F8",
+		"radiusPm": 65,
+		"natural": true,
+		"noble": false,
+		"cosmic": 1950000
+	},
+	{
+		"z": 8,
+		"symbol": "O",
+		"name": "Oxygen",
+		"color": "#FF0D0D",
+		"radiusPm": 60,
+		"natural": true,
+		"noble": false,
+		"cosmic": 14130000
+	},
+	{
+		"z": 9,
+		"symbol": "F",
+		"name": "Fluorine",
+		"color": "#90E050",
+		"radiusPm": 50,
+		"natural": true,
+		"noble": false,
+		"cosmic": 841.1
+	},
+	{
+		"z": 10,
+		"symbol": "Ne",
+		"name": "Neon",
+		"color": "#B3E3F5",
+		"radiusPm": 160,
+		"natural": true,
+		"noble": true,
+		"cosmic": 2148000
+	},
+	{
+		"z": 11,
+		"symbol": "Na",
+		"name": "Sodium",
+		"color": "#AB5CF2",
+		"radiusPm": 180,
+		"natural": true,
+		"noble": false,
+		"cosmic": 57510
+	},
+	{
+		"z": 12,
+		"symbol": "Mg",
+		"name": "Magnesium",
+		"color": "#8AFF00",
+		"radiusPm": 150,
+		"natural": true,
+		"noble": false,
+		"cosmic": 1020000
+	},
+	{
+		"z": 13,
+		"symbol": "Al",
+		"name": "Aluminium",
+		"color": "#BFA6A6",
+		"radiusPm": 125,
+		"natural": true,
+		"noble": false,
+		"cosmic": 84100
+	},
+	{
+		"z": 14,
+		"symbol": "Si",
+		"name": "Silicon",
+		"color": "#F0C8A0",
+		"radiusPm": 110,
+		"natural": true,
+		"noble": false,
+		"cosmic": 1000000
+	},
+	{
+		"z": 15,
+		"symbol": "P",
+		"name": "Phosphorus",
+		"color": "#FF8000",
+		"radiusPm": 100,
+		"natural": true,
+		"noble": false,
+		"cosmic": 8373
+	},
+	{
+		"z": 16,
+		"symbol": "S",
+		"name": "Sulfur",
+		"color": "#FFFF30",
+		"radiusPm": 100,
+		"natural": true,
+		"noble": false,
+		"cosmic": 444900
+	},
+	{
+		"z": 17,
+		"symbol": "Cl",
+		"name": "Chlorine",
+		"color": "#1FF01F",
+		"radiusPm": 100,
+		"natural": true,
+		"noble": false,
+		"cosmic": 5237
+	},
+	{
+		"z": 18,
+		"symbol": "Ar",
+		"name": "Argon",
+		"color": "#80D1E3",
+		"radiusPm": 71,
+		"natural": true,
+		"noble": true,
+		"cosmic": 102500
+	},
+	{
+		"z": 19,
+		"symbol": "K",
+		"name": "Potassium",
+		"color": "#8F40D4",
+		"radiusPm": 220,
+		"natural": true,
+		"noble": false,
+		"cosmic": 3692
+	},
+	{
+		"z": 20,
+		"symbol": "Ca",
+		"name": "Calcium",
+		"color": "#3DFF00",
+		"radiusPm": 180,
+		"natural": true,
+		"noble": false,
+		"cosmic": 62870
+	},
+	{
+		"z": 21,
+		"symbol": "Sc",
+		"name": "Scandium",
+		"color": "#E6E6E6",
+		"radiusPm": 160,
+		"natural": true,
+		"noble": false,
+		"cosmic": 34.2
+	},
+	{
+		"z": 22,
+		"symbol": "Ti",
+		"name": "Titanium",
+		"color": "#BFC2C7",
+		"radiusPm": 140,
+		"natural": true,
+		"noble": false,
+		"cosmic": 2422
+	},
+	{
+		"z": 23,
+		"symbol": "V",
+		"name": "Vanadium",
+		"color": "#A6A6AB",
+		"radiusPm": 135,
+		"natural": true,
+		"noble": false,
+		"cosmic": 288.4
+	},
+	{
+		"z": 24,
+		"symbol": "Cr",
+		"name": "Chromium",
+		"color": "#8A99C7",
+		"radiusPm": 140,
+		"natural": true,
+		"noble": false,
+		"cosmic": 12860
+	},
+	{
+		"z": 25,
+		"symbol": "Mn",
+		"name": "Manganese",
+		"color": "#9C7AC7",
+		"radiusPm": 140,
+		"natural": true,
+		"noble": false,
+		"cosmic": 9168
+	},
+	{
+		"z": 26,
+		"symbol": "Fe",
+		"name": "Iron",
+		"color": "#E06633",
+		"radiusPm": 140,
+		"natural": true,
+		"noble": false,
+		"cosmic": 69870
+	},
+	{
+		"z": 27,
+		"symbol": "Co",
+		"name": "Cobalt",
+		"color": "#F090A0",
+		"radiusPm": 135,
+		"natural": true,
+		"noble": false,
+		"cosmic": 2323
+	},
+	{
+		"z": 28,
+		"symbol": "Ni",
+		"name": "Nickel",
+		"color": "#50D050",
+		"radiusPm": 135,
+		"natural": true,
+		"noble": false,
+		"cosmic": 47800
+	},
+	{
+		"z": 29,
+		"symbol": "Cu",
+		"name": "Copper",
+		"color": "#C88033",
+		"radiusPm": 135,
+		"natural": true,
+		"noble": false,
+		"cosmic": 527
+	},
+	{
+		"z": 30,
+		"symbol": "Zn",
+		"name": "Zinc",
+		"color": "#7D80B0",
+		"radiusPm": 135,
+		"natural": true,
+		"noble": false,
+		"cosmic": 1226
+	},
+	{
+		"z": 31,
+		"symbol": "Ga",
+		"name": "Gallium",
+		"color": "#C28F8F",
+		"radiusPm": 130,
+		"natural": true,
+		"noble": false,
+		"cosmic": 35.97
+	},
+	{
+		"z": 32,
+		"symbol": "Ge",
+		"name": "Germanium",
+		"color": "#668F8F",
+		"radiusPm": 125,
+		"natural": true,
+		"noble": false,
+		"cosmic": 120.6
+	},
+	{
+		"z": 33,
+		"symbol": "As",
+		"name": "Arsenic",
+		"color": "#BD80E3",
+		"radiusPm": 115,
+		"natural": true,
+		"noble": false,
+		"cosmic": 6.089
+	},
+	{
+		"z": 34,
+		"symbol": "Se",
+		"name": "Selenium",
+		"color": "#FFA100",
+		"radiusPm": 115,
+		"natural": true,
+		"noble": false,
+		"cosmic": 65.78
+	},
+	{
+		"z": 35,
+		"symbol": "Br",
+		"name": "Bromine",
+		"color": "#A62929",
+		"radiusPm": 115,
+		"natural": true,
+		"noble": false,
+		"cosmic": 11.32
+	},
+	{
+		"z": 36,
+		"symbol": "Kr",
+		"name": "Krypton",
+		"color": "#5CB8D1",
+		"radiusPm": 88,
+		"natural": true,
+		"noble": true,
+		"cosmic": 55.15
+	},
+	{
+		"z": 37,
+		"symbol": "Rb",
+		"name": "Rubidium",
+		"color": "#702EB0",
+		"radiusPm": 235,
+		"natural": true,
+		"noble": false,
+		"cosmic": 6.572
+	},
+	{
+		"z": 38,
+		"symbol": "Sr",
+		"name": "Strontium",
+		"color": "#00FF00",
+		"radiusPm": 200,
+		"natural": true,
+		"noble": false,
+		"cosmic": 23.64
+	},
+	{
+		"z": 39,
+		"symbol": "Y",
+		"name": "Yttrium",
+		"color": "#94FFFF",
+		"radiusPm": 180,
+		"natural": true,
+		"noble": false,
+		"cosmic": 4.608
+	},
+	{
+		"z": 40,
+		"symbol": "Zr",
+		"name": "Zirconium",
+		"color": "#94E0E0",
+		"radiusPm": 155,
+		"natural": true,
+		"noble": false,
+		"cosmic": 11.33
+	},
+	{
+		"z": 41,
+		"symbol": "Nb",
+		"name": "Niobium",
+		"color": "#73C2C9",
+		"radiusPm": 145,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.7554
+	},
+	{
+		"z": 42,
+		"symbol": "Mo",
+		"name": "Molybdenum",
+		"color": "#54B5B5",
+		"radiusPm": 145,
+		"natural": true,
+		"noble": false,
+		"cosmic": 2.603
+	},
+	{
+		"z": 43,
+		"symbol": "Tc",
+		"name": "Technetium",
+		"color": "#3B9E9E",
+		"radiusPm": 135,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 44,
+		"symbol": "Ru",
+		"name": "Ruthenium",
+		"color": "#248F8F",
+		"radiusPm": 130,
+		"natural": true,
+		"noble": false,
+		"cosmic": 1.899
+	},
+	{
+		"z": 45,
+		"symbol": "Rh",
+		"name": "Rhodium",
+		"color": "#0A7D8C",
+		"radiusPm": 135,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.3708
+	},
+	{
+		"z": 46,
+		"symbol": "Pd",
+		"name": "Palladium",
+		"color": "#006985",
+		"radiusPm": 140,
+		"natural": true,
+		"noble": false,
+		"cosmic": 1.435
+	},
+	{
+		"z": 47,
+		"symbol": "Ag",
+		"name": "Silver",
+		"color": "#C0C0C0",
+		"radiusPm": 160,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.4913
+	},
+	{
+		"z": 48,
+		"symbol": "Cd",
+		"name": "Cadmium",
+		"color": "#FFD98F",
+		"radiusPm": 155,
+		"natural": true,
+		"noble": false,
+		"cosmic": 1.585
+	},
+	{
+		"z": 49,
+		"symbol": "In",
+		"name": "Indium",
+		"color": "#A67573",
+		"radiusPm": 155,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.1808
+	},
+	{
+		"z": 50,
+		"symbol": "Sn",
+		"name": "Tin",
+		"color": "#668080",
+		"radiusPm": 145,
+		"natural": true,
+		"noble": false,
+		"cosmic": 3.733
+	},
+	{
+		"z": 51,
+		"symbol": "Sb",
+		"name": "Antimony",
+		"color": "#9E63B5",
+		"radiusPm": 145,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.3292
+	},
+	{
+		"z": 52,
+		"symbol": "Te",
+		"name": "Tellurium",
+		"color": "#D47A00",
+		"radiusPm": 140,
+		"natural": true,
+		"noble": false,
+		"cosmic": 4.815
+	},
+	{
+		"z": 53,
+		"symbol": "I",
+		"name": "Iodine",
+		"color": "#940094",
+		"radiusPm": 140,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.9975
+	},
+	{
+		"z": 54,
+		"symbol": "Xe",
+		"name": "Xenon",
+		"color": "#429EB0",
+		"radiusPm": 108,
+		"natural": true,
+		"noble": true,
+		"cosmic": 5.39
+	},
+	{
+		"z": 55,
+		"symbol": "Cs",
+		"name": "Cesium",
+		"color": "#57178F",
+		"radiusPm": 260,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.3671
+	},
+	{
+		"z": 56,
+		"symbol": "Ba",
+		"name": "Barium",
+		"color": "#00C900",
+		"radiusPm": 215,
+		"natural": true,
+		"noble": false,
+		"cosmic": 4.351
+	},
+	{
+		"z": 57,
+		"symbol": "La",
+		"name": "Lanthanum",
+		"color": "#70D4FF",
+		"radiusPm": 195,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.4405
+	},
+	{
+		"z": 58,
+		"symbol": "Ce",
+		"name": "Cerium",
+		"color": "#FFFFC7",
+		"radiusPm": 185,
+		"natural": true,
+		"noble": false,
+		"cosmic": 1.169
+	},
+	{
+		"z": 59,
+		"symbol": "Pr",
+		"name": "Praseodymium",
+		"color": "#D9FFC7",
+		"radiusPm": 185,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.1737
+	},
+	{
+		"z": 60,
+		"symbol": "Nd",
+		"name": "Neodymium",
+		"color": "#C7FFC7",
+		"radiusPm": 185,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.8355
+	},
+	{
+		"z": 61,
+		"symbol": "Pm",
+		"name": "Promethium",
+		"color": "#A3FFC7",
+		"radiusPm": 185,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 62,
+		"symbol": "Sm",
+		"name": "Samarium",
+		"color": "#8FFFC7",
+		"radiusPm": 185,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.2542
+	},
+	{
+		"z": 63,
+		"symbol": "Eu",
+		"name": "Europium",
+		"color": "#61FFC7",
+		"radiusPm": 185,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.09513
+	},
+	{
+		"z": 64,
+		"symbol": "Gd",
+		"name": "Gadolinium",
+		"color": "#45FFC7",
+		"radiusPm": 180,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.3321
+	},
+	{
+		"z": 65,
+		"symbol": "Tb",
+		"name": "Terbium",
+		"color": "#30FFC7",
+		"radiusPm": 175,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.05907
+	},
+	{
+		"z": 66,
+		"symbol": "Dy",
+		"name": "Dysprosium",
+		"color": "#1FFFC7",
+		"radiusPm": 175,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.3862
+	},
+	{
+		"z": 67,
+		"symbol": "Ho",
+		"name": "Holmium",
+		"color": "#00FF9C",
+		"radiusPm": 175,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.08986
+	},
+	{
+		"z": 68,
+		"symbol": "Er",
+		"name": "Erbium",
+		"color": "#00E675",
+		"radiusPm": 175,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.2554
+	},
+	{
+		"z": 69,
+		"symbol": "Tm",
+		"name": "Thulium",
+		"color": "#00D452",
+		"radiusPm": 175,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.037
+	},
+	{
+		"z": 70,
+		"symbol": "Yb",
+		"name": "Ytterbium",
+		"color": "#00BF38",
+		"radiusPm": 175,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.2484
+	},
+	{
+		"z": 71,
+		"symbol": "Lu",
+		"name": "Lutetium",
+		"color": "#00AB24",
+		"radiusPm": 175,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.03572
+	},
+	{
+		"z": 72,
+		"symbol": "Hf",
+		"name": "Hafnium",
+		"color": "#4DC2FF",
+		"radiusPm": 155,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.1699
+	},
+	{
+		"z": 73,
+		"symbol": "Ta",
+		"name": "Tantalum",
+		"color": "#4DA6FF",
+		"radiusPm": 145,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.02099
+	},
+	{
+		"z": 74,
+		"symbol": "W",
+		"name": "Tungsten",
+		"color": "#2194D6",
+		"radiusPm": 135,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.1277
+	},
+	{
+		"z": 75,
+		"symbol": "Re",
+		"name": "Rhenium",
+		"color": "#267DAB",
+		"radiusPm": 135,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.05254
+	},
+	{
+		"z": 76,
+		"symbol": "Os",
+		"name": "Osmium",
+		"color": "#266696",
+		"radiusPm": 130,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.6738
+	},
+	{
+		"z": 77,
+		"symbol": "Ir",
+		"name": "Iridium",
+		"color": "#175487",
+		"radiusPm": 135,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.6448
+	},
+	{
+		"z": 78,
+		"symbol": "Pt",
+		"name": "Platinum",
+		"color": "#D0D0E0",
+		"radiusPm": 135,
+		"natural": true,
+		"noble": false,
+		"cosmic": 1.357
+	},
+	{
+		"z": 79,
+		"symbol": "Au",
+		"name": "Gold",
+		"color": "#FFD123",
+		"radiusPm": 135,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.1955
+	},
+	{
+		"z": 80,
+		"symbol": "Hg",
+		"name": "Mercury",
+		"color": "#B8B8D0",
+		"radiusPm": 150,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.4127
+	},
+	{
+		"z": 81,
+		"symbol": "Tl",
+		"name": "Thallium",
+		"color": "#A6544D",
+		"radiusPm": 190,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.1845
+	},
+	{
+		"z": 82,
+		"symbol": "Pb",
+		"name": "Lead",
+		"color": "#575961",
+		"radiusPm": 180,
+		"natural": true,
+		"noble": false,
+		"cosmic": 3.258
+	},
+	{
+		"z": 83,
+		"symbol": "Bi",
+		"name": "Bismuth",
+		"color": "#9E4FB5",
+		"radiusPm": 160,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.1388
+	},
+	{
+		"z": 84,
+		"symbol": "Po",
+		"name": "Polonium",
+		"color": "#AB5C00",
+		"radiusPm": 190,
+		"natural": true,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 85,
+		"symbol": "At",
+		"name": "Astatine",
+		"color": "#754F45",
+		"radiusPm": 127,
+		"natural": true,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 86,
+		"symbol": "Rn",
+		"name": "Radon",
+		"color": "#428296",
+		"radiusPm": 120,
+		"natural": true,
+		"noble": true,
+		"cosmic": null
+	},
+	{
+		"z": 87,
+		"symbol": "Fr",
+		"name": "Francium",
+		"color": "#420066",
+		"radiusPm": 223,
+		"natural": true,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 88,
+		"symbol": "Ra",
+		"name": "Radium",
+		"color": "#007D00",
+		"radiusPm": 215,
+		"natural": true,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 89,
+		"symbol": "Ac",
+		"name": "Actinium",
+		"color": "#70ABFA",
+		"radiusPm": 195,
+		"natural": true,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 90,
+		"symbol": "Th",
+		"name": "Thorium",
+		"color": "#00BAFF",
+		"radiusPm": 180,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.03512
+	},
+	{
+		"z": 91,
+		"symbol": "Pa",
+		"name": "Protactinium",
+		"color": "#00A1FF",
+		"radiusPm": 180,
+		"natural": true,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 92,
+		"symbol": "U",
+		"name": "Uranium",
+		"color": "#008FFF",
+		"radiusPm": 175,
+		"natural": true,
+		"noble": false,
+		"cosmic": 0.009305
+	},
+	{
+		"z": 93,
+		"symbol": "Np",
+		"name": "Neptunium",
+		"color": "#0080FF",
+		"radiusPm": 175,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 94,
+		"symbol": "Pu",
+		"name": "Plutonium",
+		"color": "#006BFF",
+		"radiusPm": 175,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 95,
+		"symbol": "Am",
+		"name": "Americium",
+		"color": "#545CF2",
+		"radiusPm": 175,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 96,
+		"symbol": "Cm",
+		"name": "Curium",
+		"color": "#785CE3",
+		"radiusPm": 176,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 97,
+		"symbol": "Bk",
+		"name": "Berkelium",
+		"color": "#8A4FE3",
+		"radiusPm": 168,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 98,
+		"symbol": "Cf",
+		"name": "Californium",
+		"color": "#A136D4",
+		"radiusPm": 168,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 99,
+		"symbol": "Es",
+		"name": "Einsteinium",
+		"color": "#B31FD4",
+		"radiusPm": 165,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 100,
+		"symbol": "Fm",
+		"name": "Fermium",
+		"color": "#B31FBA",
+		"radiusPm": 167,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 101,
+		"symbol": "Md",
+		"name": "Mendelevium",
+		"color": "#B30DA6",
+		"radiusPm": 173,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 102,
+		"symbol": "No",
+		"name": "Nobelium",
+		"color": "#BD0D87",
+		"radiusPm": 176,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 103,
+		"symbol": "Lr",
+		"name": "Lawrencium",
+		"color": "#C70066",
+		"radiusPm": 161,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 104,
+		"symbol": "Rf",
+		"name": "Rutherfordium",
+		"color": "#CC0059",
+		"radiusPm": 157,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 105,
+		"symbol": "Db",
+		"name": "Dubnium",
+		"color": "#D1004F",
+		"radiusPm": 149,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 106,
+		"symbol": "Sg",
+		"name": "Seaborgium",
+		"color": "#D90045",
+		"radiusPm": 143,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 107,
+		"symbol": "Bh",
+		"name": "Bohrium",
+		"color": "#E00038",
+		"radiusPm": 141,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 108,
+		"symbol": "Hs",
+		"name": "Hassium",
+		"color": "#E6002E",
+		"radiusPm": 134,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 109,
+		"symbol": "Mt",
+		"name": "Meitnerium",
+		"color": "#EB0026",
+		"radiusPm": 129,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 110,
+		"symbol": "Ds",
+		"name": "Darmstadtium",
+		"color": "#FF1493",
+		"radiusPm": 128,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 111,
+		"symbol": "Rg",
+		"name": "Roentgenium",
+		"color": "#FF1493",
+		"radiusPm": 121,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 112,
+		"symbol": "Cn",
+		"name": "Copernicium",
+		"color": "#FF1493",
+		"radiusPm": 122,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 113,
+		"symbol": "Nh",
+		"name": "Nihonium",
+		"color": "#FF1493",
+		"radiusPm": 136,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 114,
+		"symbol": "Fl",
+		"name": "Flerovium",
+		"color": "#FF1493",
+		"radiusPm": 143,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 115,
+		"symbol": "Mc",
+		"name": "Moscovium",
+		"color": "#FF1493",
+		"radiusPm": 162,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 116,
+		"symbol": "Lv",
+		"name": "Livermorium",
+		"color": "#FF1493",
+		"radiusPm": 175,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 117,
+		"symbol": "Ts",
+		"name": "Tennessine",
+		"color": "#FF1493",
+		"radiusPm": 165,
+		"natural": false,
+		"noble": false,
+		"cosmic": null
+	},
+	{
+		"z": 118,
+		"symbol": "Og",
+		"name": "Oganesson",
+		"color": "#FF1493",
+		"radiusPm": 157,
+		"natural": false,
+		"noble": true,
+		"cosmic": null
+	}
+]

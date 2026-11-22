@@ -4,9 +4,10 @@ import {
 	type Counts,
 	ELEMENT_INFO,
 	type Element,
+	elementInfo,
 } from "../chemistry/elements";
 import { layoutFor } from "../chemistry/layouts";
-import { type Recipe, recipeById } from "../chemistry/recipes";
+import { findRecipe, type Recipe, recipeById } from "../chemistry/recipes";
 import { resolveAtoms, tierFor } from "../chemistry/resolve";
 import type { Tier } from "../chemistry/structures";
 import { type Bus, createBus, type Point } from "./events";
@@ -22,6 +23,8 @@ export interface AtomsEntity {
 	group: number;
 	bodies: MBody[];
 	springs: MConstraint[];
+	/** World time it was made; multi-atom clusters fall apart after LOOSE_MS. */
+	bornAt: number;
 }
 
 /** A snapped molecule: one rigid compound body, one part per atom. */
@@ -48,6 +51,28 @@ export type Entity = AtomsEntity | MoleculeEntity | StructureEntity;
 
 export type BondOutcome = "snap" | "loose" | "join" | "fizzle";
 
+/** A body's place and motion, as saved. */
+export interface Pose {
+	x: number;
+	y: number;
+	angle: number;
+	vx: number;
+	vy: number;
+	av: number;
+}
+
+export type EntitySnapshot =
+	| { kind: "atoms"; age: number; atoms: (Pose & { element: Element })[] }
+	| ({ kind: "molecule"; recipe: string } & Pose)
+	| { kind: "structure"; recipe: string; members: Pose[] };
+
+export interface WorldSnapshot {
+	time: number;
+	width: number;
+	height: number;
+	entities: EntitySnapshot[];
+}
+
 /** What each atom circle carries, on the body (free atoms) or the part (molecules). */
 export interface AtomTag {
 	element: Element;
@@ -69,6 +94,8 @@ const COHESION = 0.0000015;
 const DRIFT = 0.000012;
 const WALL = 400;
 const WALL_CATEGORY = 0x0002;
+/** An unfinished cluster left alone this long falls apart. */
+export const LOOSE_MS = 20_000;
 
 export interface WorldOptions {
 	width: number;
@@ -86,6 +113,8 @@ export class World {
 	private nextId = 1;
 	private walls: MBody[] = [];
 	private accumulator = 0;
+	/** Simulated milliseconds since the world began (survives save/load). */
+	time = 0;
 	private readonly random: () => number;
 
 	constructor(opts: WorldOptions) {
@@ -195,6 +224,22 @@ export class World {
 		while (this.accumulator >= STEP_MS) {
 			Engine.update(this.engine, STEP_MS);
 			this.accumulator -= STEP_MS;
+			this.time += STEP_MS;
+		}
+		this.expireLoose();
+	}
+
+	/** Unfinished clusters left alone too long fall apart. */
+	private expireLoose(): void {
+		for (const e of [...this.entities.values()]) {
+			if (e.kind !== "atoms" || e.bodies.length < 2) continue;
+			if (this.time - e.bornAt < LOOSE_MS) continue;
+			if (this.isGhost(e)) continue; // being held
+			const at = this.centroidOf(e);
+			const atoms = this.looseAtoms(e);
+			this.forget(e);
+			for (const a of atoms) this.scatter(this.makeAtoms([a]), at);
+			this.events.emit("fizzled", { at });
 		}
 	}
 
@@ -218,10 +263,95 @@ export class World {
 			for (const p of b.parts) p.collisionFilter.mask = mask;
 	}
 
+	isGhost(e: Entity): boolean {
+		const b = this.bodiesOf(e)[0];
+		return !!b && b.collisionFilter.mask === WALL_CATEGORY;
+	}
+
+	// ── Saving ─────────────────────────────────────────────────────────────
+
+	/** Everything needed to rebuild the board exactly (positions, motion, bonds). */
+	snapshot(): WorldSnapshot {
+		const entities: EntitySnapshot[] = [];
+		for (const e of this.entities.values()) {
+			if (e.kind === "atoms")
+				entities.push({
+					kind: "atoms",
+					age: this.time - e.bornAt,
+					atoms: e.bodies.map((b) => ({
+						element: atomTag(b).element,
+						...pose(b),
+					})),
+				});
+			else if (e.kind === "molecule")
+				entities.push({
+					kind: "molecule",
+					recipe: e.recipe.id,
+					...pose(e.body),
+				});
+			else
+				entities.push({
+					kind: "structure",
+					recipe: e.recipe.id,
+					members: e.members.map(pose),
+				});
+		}
+		return {
+			time: this.time,
+			width: this.width,
+			height: this.height,
+			entities,
+		};
+	}
+
+	/** Replace the board with a snapshot. Unknown recipes or elements are skipped. */
+	load(snap: WorldSnapshot): void {
+		for (const e of [...this.entities.values()]) this.forget(e);
+		this.time = snap.time;
+		const sx = this.width / (snap.width || this.width);
+		const sy = this.height / (snap.height || this.height);
+		const place = <P extends Pose>(p: P): P => ({
+			...p,
+			x: p.x * sx,
+			y: p.y * sy,
+		});
+		for (const s of snap.entities) {
+			if (s.kind === "atoms") {
+				const atoms = s.atoms.filter((a) => ELEMENT_INFO[a.element]).map(place);
+				if (!atoms.length) continue;
+				const e = this.makeAtoms(atoms);
+				e.bornAt = this.time - s.age;
+			} else {
+				const recipe = findRecipe(s.recipe);
+				if (!recipe) continue;
+				const poses = (s.kind === "molecule" ? [s] : s.members).map(place);
+				const bodies = poses.map((p) => {
+					const m = this.makeMolecule(recipe, p, { x: p.vx, y: p.vy });
+					Body.setAngle(m.body, p.angle);
+					Body.setAngularVelocity(m.body, p.av);
+					return m;
+				});
+				if (s.kind === "structure" && bodies.length > 1) {
+					for (const m of bodies) this.forget(m);
+					const members = bodies.map((m) => m.body);
+					this.adopt({
+						kind: "structure",
+						id: this.nextId++,
+						group: Body.nextGroup(true),
+						recipe,
+						members,
+						springs: [],
+						tier: tierFor(recipe.id, members.length),
+					});
+				}
+			}
+		}
+	}
+
 	// ── Making things ──────────────────────────────────────────────────────
 
 	spawnAtom(element: Element, at?: Point): AtomsEntity {
-		const r = ELEMENT_INFO[element].radius;
+		const r = elementInfo(element).radius;
 		const pos = at ?? {
 			x: r + this.random() * (this.width - 2 * r),
 			y: r + this.random() * (this.height - 2 * r),
@@ -229,8 +359,8 @@ export class World {
 		const e = this.makeAtoms([{ element, x: pos.x, y: pos.y, vx: 0, vy: 0 }]);
 		const v = 0.4;
 		Body.setVelocity(e.bodies[0] as MBody, {
-			x: (this.random() - 0.5) * v,
-			y: (this.random() - 0.5) * v,
+			x: (Math.random() - 0.5) * v,
+			y: (Math.random() - 0.5) * v,
 		});
 		this.events.emit("spawned", { entityId: e.id, element, at: pos });
 		return e;
@@ -401,7 +531,7 @@ export class World {
 	): AtomsEntity {
 		const group = Body.nextGroup(true);
 		const bodies = atoms.map((a) => {
-			const r = ELEMENT_INFO[a.element].radius;
+			const r = elementInfo(a.element).radius;
 			const b = Bodies.circle(a.x, a.y, r, {
 				frictionAir: 0.025,
 				restitution: 0.6,
@@ -420,6 +550,7 @@ export class World {
 			id: this.nextId++,
 			group,
 			bodies,
+			bornAt: this.time,
 			springs: treeSprings(
 				bodies,
 				SPRING_STIFFNESS,
@@ -431,10 +562,10 @@ export class World {
 	}
 
 	private makeMolecule(recipe: Recipe, at: Point, vel: Point): MoleculeEntity {
-		const placed = layoutFor(recipe, (el) => ELEMENT_INFO[el].radius);
+		const placed = layoutFor(recipe, (el) => elementInfo(el).radius);
 		const mid = centroid(placed);
 		const parts = placed.map((p) => {
-			const r = ELEMENT_INFO[p.el].radius;
+			const r = elementInfo(p.el).radius;
 			const part = Bodies.circle(at.x + p.x - mid.x, at.y + p.y - mid.y, r, {
 				density: 0.001 * (r / 14),
 			});
@@ -462,7 +593,7 @@ export class World {
 		);
 		Object.assign(body.plugin, { reach } satisfies Partial<BodyTag>);
 		Body.setVelocity(body, vel);
-		Body.setAngle(body, (this.random() - 0.5) * 0.6);
+		Body.setAngle(body, (Math.random() - 0.5) * 0.6);
 		const m: MoleculeEntity = {
 			kind: "molecule",
 			id: this.nextId++,
@@ -557,8 +688,8 @@ export class World {
 			}
 			for (const b of this.bodiesOf(e))
 				Body.applyForce(b, b.position, {
-					x: (this.random() - 0.5) * DRIFT * b.mass,
-					y: (this.random() - 0.5) * DRIFT * b.mass,
+					x: (Math.random() - 0.5) * DRIFT * b.mass,
+					y: (Math.random() - 0.5) * DRIFT * b.mass,
 				});
 		}
 	}
@@ -672,4 +803,16 @@ function normalize(v: Point): Point {
 
 function clamp(v: number, lo: number, hi: number): number {
 	return Math.max(lo, Math.min(hi, v));
+}
+
+function pose(b: MBody): Pose {
+	const r = (v: number) => Math.round(v * 100) / 100;
+	return {
+		x: r(b.position.x),
+		y: r(b.position.y),
+		angle: r(b.angle),
+		vx: r(b.velocity.x),
+		vy: r(b.velocity.y),
+		av: Math.round(b.angularVelocity * 10000) / 10000,
+	};
 }

@@ -1,5 +1,5 @@
 import { Texture } from "pixi.js";
-import { ELEMENT_INFO, ELEMENTS, type Element } from "../chemistry/elements";
+import { type Element, elementInfo } from "../chemistry/elements";
 
 /** Texture size multiplier so atoms stay crisp on retina screens. */
 const SCALE = 3;
@@ -49,46 +49,57 @@ export function ringTexture(): Texture {
 
 const hex = (n: number) => `#${n.toString(16).padStart(6, "0")}`;
 
-/** One baked sprite per element: shaded ball, rim, and symbol. Drawn at radius × SCALE. */
-export function atomTextures(): Record<Element, Texture> {
-	const out = {} as Record<Element, Texture>;
-	for (const el of ELEMENTS) {
-		const info = ELEMENT_INFO[el];
-		const r = info.radius * SCALE;
-		const pad = 4 * SCALE;
-		const [c, ctx] = canvas(2 * (r + pad));
-		const mid = r + pad;
+const atomCache = new Map<Element, Texture>();
 
-		const shade = ctx.createRadialGradient(
-			mid - r * 0.35,
-			mid - r * 0.4,
-			r * 0.1,
-			mid,
-			mid,
-			r,
-		);
-		shade.addColorStop(0, "rgba(255,255,255,0.55)");
-		shade.addColorStop(0.35, hex(info.color));
-		shade.addColorStop(1, shadeDown(info.color));
-		ctx.fillStyle = shade;
-		ctx.beginPath();
-		ctx.arc(mid, mid, r, 0, Math.PI * 2);
-		ctx.fill();
+/** The baked sprite for an element: shaded ball, rim and symbol, drawn at radius × SCALE. Made on first use. */
+export function atomTexture(el: Element): Texture {
+	const cached = atomCache.get(el);
+	if (cached) return cached;
+	const info = elementInfo(el);
+	const r = info.radius * SCALE;
+	const pad = 4 * SCALE;
+	const [c, ctx] = canvas(2 * (r + pad));
+	const mid = r + pad;
 
-		ctx.strokeStyle = hex(info.glow);
-		ctx.globalAlpha = 0.7;
-		ctx.lineWidth = 1.5 * SCALE;
-		ctx.stroke();
-		ctx.globalAlpha = 1;
+	const shade = ctx.createRadialGradient(
+		mid - r * 0.35,
+		mid - r * 0.4,
+		r * 0.1,
+		mid,
+		mid,
+		r,
+	);
+	shade.addColorStop(0, "rgba(255,255,255,0.55)");
+	shade.addColorStop(0.35, hex(info.color));
+	shade.addColorStop(1, shadeDown(info.color));
+	ctx.fillStyle = shade;
+	ctx.beginPath();
+	ctx.arc(mid, mid, r, 0, Math.PI * 2);
+	ctx.fill();
 
-		ctx.fillStyle = el === "H" ? "#3a4252" : "rgba(255,255,255,0.92)";
-		ctx.font = `600 ${Math.round(r * 0.95)}px ui-rounded, "SF Pro Rounded", system-ui, sans-serif`;
-		ctx.textAlign = "center";
-		ctx.textBaseline = "middle";
-		ctx.fillText(el, mid, mid + r * 0.06);
-		out[el] = Texture.from(c);
-	}
-	return out;
+	ctx.strokeStyle = hex(info.glow);
+	ctx.globalAlpha = 0.7;
+	ctx.lineWidth = 1.5 * SCALE;
+	ctx.stroke();
+	ctx.globalAlpha = 1;
+
+	ctx.fillStyle =
+		luminance(info.color) > 0.6 ? "#2a3040" : "rgba(255,255,255,0.94)";
+	const size = el.length > 1 ? r * 0.78 : r * 0.95;
+	ctx.font = `600 ${Math.round(size)}px ui-rounded, "SF Pro Rounded", system-ui, sans-serif`;
+	ctx.textAlign = "center";
+	ctx.textBaseline = "middle";
+	ctx.fillText(el, mid, mid + r * 0.06);
+	const tex = Texture.from(c);
+	atomCache.set(el, tex);
+	return tex;
+}
+
+function luminance(color: number): number {
+	const r = (color >> 16) & 255;
+	const g = (color >> 8) & 255;
+	const b = color & 255;
+	return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
 }
 
 export const ATOM_TEXTURE_SCALE = SCALE;

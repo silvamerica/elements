@@ -59,10 +59,10 @@ describe("World bonding", () => {
 		expect(cluster.kind === "molecule" && cluster.recipe.id).toBe("CH4");
 	});
 
-	it("fizzles an impossible pair and leaves both in place", () => {
+	it("fizzles a noble gas and leaves both in place", () => {
 		const { world, seen } = makeWorld();
-		const c = world.spawnAtom("C", { x: 100, y: 100 });
-		const n = world.spawnAtom("N", { x: 140, y: 100 });
+		const c = world.spawnAtom("He", { x: 100, y: 100 });
+		const n = world.spawnAtom("H", { x: 140, y: 100 });
 		expect(world.tryBond(c, n)).toBe("fizzle");
 		expect(only(world)).toHaveLength(2);
 		expect(seen).toContain("fizzled");

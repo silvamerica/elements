@@ -1,35 +1,76 @@
-import type { World } from "../world/world";
+import type { Discovery, Game } from "../game/game";
 
-/** The quiet collection in the corner: each molecule and structure you've made, once. */
+/**
+ * The corner card: which world this is, progress through the recipe book,
+ * and (tap to open) everything discovered so far. Plus a quiet Reset.
+ */
 export class Shelf {
-	private readonly found = new Set<string>();
 	private toastTimer: number | undefined;
+	private open = false;
 
 	constructor(
-		world: World,
-		private readonly list: HTMLElement,
+		private readonly game: Game,
+		private readonly root: HTMLElement,
 		private readonly toast: HTMLElement,
+		onReset: () => void,
 	) {
-		world.events.on("snapped", ({ recipe }) =>
-			this.add(`m:${recipe.id}`, `${recipe.label} ${recipe.name}`),
-		);
-		world.events.on("tierUp", ({ recipe, tier }) =>
-			this.add(
-				`s:${recipe.id}:${tier.name}`,
-				`${tier.name} of ${recipe.label}`,
-			),
-		);
+		root.innerHTML = `
+			<div class="world"></div>
+			<button class="count" type="button"></button>
+			<div class="list" hidden></div>
+			<button class="reset" type="button">Reset world</button>`;
+		this.q(".world").textContent =
+			`${game.kind.name} world · ${game.seedLabel}`;
+		this.q(".world").title = game.kind.blurb;
+		this.q(".count").addEventListener("click", () => this.toggle());
+		this.q(".reset").addEventListener("click", () => {
+			if (window.confirm("Start a brand-new world? This one will be gone."))
+				onReset();
+		});
+		for (const d of game.discoveries()) this.addRow(d, false);
+		this.updateCount();
+		game.onDiscover((d) => {
+			this.addRow(d, true);
+			this.updateCount();
+			this.show(`Discovered: ${d.text}`);
+		});
 	}
 
-	private add(key: string, text: string): void {
-		if (this.found.has(key)) return;
-		this.found.add(key);
+	private q(sel: string): HTMLElement {
+		const el = this.root.querySelector<HTMLElement>(sel);
+		if (!el) throw new Error(`shelf missing ${sel}`);
+		return el;
+	}
+
+	private toggle(): void {
+		this.open = !this.open;
+		this.q(".list").hidden = !this.open;
+		this.updateCount();
+	}
+
+	private updateCount(): void {
+		const structures =
+			this.game.discoveries().length - this.game.moleculesFound();
+		const arrow = this.open ? "▾" : "▸";
+		this.q(".count").textContent =
+			`${arrow} ${this.game.moleculesFound()} / ${this.game.moleculeTotal} molecules` +
+			(structures ? ` · ${structures} structures` : "");
+	}
+
+	private addRow(d: Discovery, fresh: boolean): void {
 		const row = document.createElement("div");
-		row.textContent = text;
-		row.className = "new";
-		this.list.appendChild(row);
-		setTimeout(() => row.classList.remove("new"), 50);
-		this.show(`Discovered: ${text}`);
+		row.textContent = d.text;
+		const list = this.q(".list");
+		list.prepend(row);
+		if (fresh) {
+			row.className = "new";
+			setTimeout(() => row.classList.remove("new"), 50);
+		}
+	}
+
+	/** A short line at the bottom of the screen. */
+	say(text: string): void {
+		this.show(text);
 	}
 
 	private show(text: string): void {

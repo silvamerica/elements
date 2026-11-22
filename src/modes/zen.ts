@@ -1,44 +1,44 @@
 import type { Element } from "../chemistry/elements";
+import { pickElement, type SpawnTable } from "../chemistry/worlds";
 import type { World } from "../world/world";
 import type { Mode } from "./mode";
 
 export interface ZenOptions {
+	/** What spawns, and how often relative to each other. */
+	table: SpawnTable;
+	random: () => number;
 	/** Milliseconds between spawns. */
 	interval?: number;
 	/** Free single atoms on screen before spawning pauses. */
 	cap?: number;
-	/** Atoms placed at the start so the canvas isn't empty. */
+	/** Atoms placed when a brand-new world starts. */
 	seed?: number;
-	random?: () => number;
 }
-
-const WEIGHTS: [Element, number][] = [
-	["H", 50],
-	["O", 30],
-	["C", 12],
-	["N", 8],
-];
 
 /** No score, no failure: atoms trickle in and wait for you. */
 export class ZenMode implements Mode {
 	readonly name = "Zen";
 	private world: World | undefined;
 	private sinceSpawn = 0;
+	private readonly table: SpawnTable;
+	private readonly random: () => number;
 	private readonly interval: number;
 	private readonly cap: number;
-	private readonly seed: number;
-	private readonly random: () => number;
+	private readonly seedCount: number;
 
-	constructor(opts: ZenOptions = {}) {
+	constructor(opts: ZenOptions) {
+		this.table = opts.table;
+		this.random = opts.random;
 		this.interval = opts.interval ?? 2500;
 		this.cap = opts.cap ?? 60;
-		this.seed = opts.seed ?? 14;
-		this.random = opts.random ?? Math.random;
+		this.seedCount = opts.seed ?? 16;
 	}
 
-	start(world: World): void {
+	/** `fresh` is false when the board came from a save and already has atoms. */
+	start(world: World, fresh = true): void {
 		this.world = world;
-		for (let i = 0; i < this.seed; i++) world.spawnAtom(this.pick());
+		if (fresh)
+			for (let i = 0; i < this.seedCount; i++) world.spawnAtom(this.pick());
 	}
 
 	update(dtMs: number): void {
@@ -55,12 +55,6 @@ export class ZenMode implements Mode {
 	}
 
 	pick(): Element {
-		const total = WEIGHTS.reduce((n, [, w]) => n + w, 0);
-		let roll = this.random() * total;
-		for (const [el, w] of WEIGHTS) {
-			roll -= w;
-			if (roll < 0) return el;
-		}
-		return "H";
+		return pickElement(this.table, this.random());
 	}
 }

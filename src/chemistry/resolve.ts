@@ -1,11 +1,4 @@
-import {
-	type Counts,
-	ELEMENT_INFO,
-	ELEMENTS,
-	type Element,
-	formulaKey,
-	totalAtoms,
-} from "./elements";
+import { type Counts, ELEMENT_INFO, formulaKey, totalAtoms } from "./elements";
 import { RECIPES, type Recipe } from "./recipes";
 import { STRUCTURES, type Tier, tiersFor } from "./structures";
 
@@ -14,21 +7,31 @@ export type Resolution =
 	| { kind: "loose" }
 	| { kind: "fizzle" };
 
-const byFormula = new Map(RECIPES.map((r) => [formulaKey(r.formula), r]));
+/** Bigger than any recipe; keeps a molecule from being built past sense. */
+export const MAX_ATOMS = 10;
+
+const byFormula = new Map(RECIPES.map((r) => [r.id, r]));
 
 function isSubset(c: Counts, of: Counts): boolean {
-	return ELEMENTS.every((el) => (c[el] ?? 0) <= (of[el] ?? 0));
+	for (const [el, n] of Object.entries(c))
+		if ((n ?? 0) > (of[el] ?? 0)) return false;
+	return true;
 }
 
 /**
  * What a bag of atoms becomes: a molecule if it matches a recipe exactly,
  * a loose cluster if it could still grow into one, otherwise nothing.
+ * Noble gases never bond.
  */
 export function resolveAtoms(c: Counts): Resolution {
-	if (totalAtoms(c) === 0) return { kind: "fizzle" };
+	const n = totalAtoms(c);
+	if (n === 0) return { kind: "fizzle" };
+	for (const el of Object.keys(c))
+		if (ELEMENT_INFO[el]?.noble) return { kind: "fizzle" };
 	const exact = byFormula.get(formulaKey(c));
 	if (exact) return { kind: "snap", recipe: exact };
-	if (RECIPES.some((r) => isSubset(c, r.formula))) return { kind: "loose" };
+	if (n < MAX_ATOMS && RECIPES.some((r) => isSubset(c, r.formula)))
+		return { kind: "loose" };
 	return { kind: "fizzle" };
 }
 
@@ -43,21 +46,21 @@ export function tierFor(moleculeId: string, count: number): Tier | undefined {
 export function validateTables(): string[] {
 	const problems: string[] = [];
 	const ids = new Set<string>();
-	const formulas = new Set<string>();
 	for (const r of RECIPES) {
-		if (ids.has(r.id)) problems.push(`duplicate recipe id ${r.id}`);
+		if (ids.has(r.id)) problems.push(`duplicate formula ${r.id} (${r.name})`);
 		ids.add(r.id);
-		const key = formulaKey(r.formula);
-		if (formulas.has(key)) problems.push(`duplicate formula ${key} (${r.id})`);
-		formulas.add(key);
-		for (const el of Object.keys(r.formula)) {
-			if (!(el in ELEMENT_INFO))
-				problems.push(`${r.id}: unknown element ${el}`);
-			else if ((r.formula[el as Element] ?? 0) < 1)
+		if (!r.name.trim()) problems.push(`${r.id}: no name`);
+		for (const [el, n] of Object.entries(r.formula)) {
+			const info = ELEMENT_INFO[el];
+			if (!info) problems.push(`${r.id}: unknown element ${el}`);
+			else if (info.noble) problems.push(`${r.id}: noble gas ${el}`);
+			else if (!info.natural) problems.push(`${r.id}: ${el} never spawns`);
+			if (!Number.isInteger(n) || (n ?? 0) < 1)
 				problems.push(`${r.id}: bad count for ${el}`);
 		}
-		if (totalAtoms(r.formula) < 2)
-			problems.push(`${r.id}: a molecule needs at least 2 atoms`);
+		const total = totalAtoms(r.formula);
+		if (total < 2 || total > MAX_ATOMS)
+			problems.push(`${r.id}: ${total} atoms`);
 	}
 	for (const [id, tiers] of Object.entries(STRUCTURES)) {
 		if (!ids.has(id)) problems.push(`structures for unknown molecule ${id}`);

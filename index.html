@@ -34,6 +34,32 @@
 				text-align: right;
 				pointer-events: none;
 			}
+			#shelf .world {
+				color: rgba(255, 255, 255, 0.8);
+			}
+			#shelf button {
+				pointer-events: auto;
+				background: none;
+				border: 0;
+				padding: 2px 0;
+				font: inherit;
+				color: inherit;
+				cursor: pointer;
+			}
+			#shelf .list {
+				max-height: 45vh;
+				overflow-y: auto;
+				pointer-events: auto;
+				margin: 4px 0;
+			}
+			#shelf .reset {
+				display: block;
+				margin-left: auto;
+				opacity: 0.35;
+			}
+			#shelf .reset:hover {
+				opacity: 0.8;
+			}
 			#shelf .new {
 				color: #fff;
 				transition: color 2s;

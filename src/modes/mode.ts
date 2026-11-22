@@ -6,7 +6,8 @@ import type { World } from "../world/world";
  */
 export interface Mode {
 	readonly name: string;
-	start(world: World): void;
+	/** `fresh` is false when the board was restored from a save. */
+	start(world: World, fresh?: boolean): void;
 	update(dtMs: number): void;
 	stop(): void;
 }

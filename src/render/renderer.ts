@@ -7,7 +7,7 @@ import {
 	Text,
 	type Texture,
 } from "pixi.js";
-import { ELEMENT_INFO, type Element } from "../chemistry/elements";
+import { elementInfo } from "../chemistry/elements";
 import type { Point } from "../world/events";
 import {
 	type AtomsEntity,
@@ -18,7 +18,7 @@ import {
 import {
 	ATOM_TEXTURE_PAD,
 	ATOM_TEXTURE_SCALE,
-	atomTextures,
+	atomTexture,
 	glowTexture,
 	ringTexture,
 } from "./textures";
@@ -70,7 +70,6 @@ export class Renderer {
 	private readonly tex: {
 		glow: Texture;
 		ring: Texture;
-		atoms: Record<Element, Texture>;
 	};
 	private frame = 0;
 
@@ -82,7 +81,6 @@ export class Renderer {
 		this.tex = {
 			glow: glowTexture(),
 			ring: ringTexture(),
-			atoms: atomTextures(),
 		};
 		this.halos.blendMode = "add";
 		this.glows.blendMode = "add";
@@ -153,9 +151,9 @@ export class Renderer {
 		if (!v) {
 			const glow = new Sprite(this.tex.glow);
 			glow.anchor.set(0.5);
-			glow.tint = ELEMENT_INFO[tag.element].glow;
+			glow.tint = elementInfo(tag.element).glow;
 			glow.alpha = 0.55;
-			const core = new Sprite(this.tex.atoms[tag.element]);
+			const core = new Sprite(atomTexture(tag.element));
 			core.anchor.set(0.5);
 			this.glows.addChild(glow);
 			this.atoms.addChild(core);

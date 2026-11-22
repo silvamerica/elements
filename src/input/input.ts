@@ -16,6 +16,8 @@ export class Input {
 	private readonly mouseConstraint: Matter.MouseConstraint;
 	private dragStart = { x: 0, y: 0, t: 0 };
 	private lastTap: { entityId: number; t: number } | undefined;
+	/** Called on a single tap, with the entity and the atom tapped. */
+	onTap: (entity: Entity, body: Matter.Body) => void = () => {};
 
 	constructor(
 		private readonly world: World,
@@ -67,6 +69,7 @@ export class Input {
 				this.world.split(entity, body);
 			} else {
 				this.lastTap = { entityId: entity.id, t: now };
+				this.onTap(entity, body);
 			}
 			return;
 		}

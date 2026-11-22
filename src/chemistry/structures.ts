@@ -25,6 +25,22 @@ export const STRUCTURES: Readonly<Record<string, readonly Tier[]>> = {
 	CH4: [{ count: 4, name: "Gas pocket" }],
 	O2: [{ count: 4, name: "Bubble" }],
 	N2: [{ count: 5, name: "Fog" }],
+	ClNa: [
+		{ count: 4, name: "Salt grain" },
+		{ count: 12, name: "Salt crystal" },
+	],
+	O2Si: [
+		{ count: 4, name: "Sand" },
+		{ count: 12, name: "Quartz" },
+	],
+	Fe2O3: [
+		{ count: 3, name: "Rust flake" },
+		{ count: 10, name: "Rust" },
+	],
+	CCaO3: [
+		{ count: 4, name: "Chalk" },
+		{ count: 12, name: "Limestone" },
+	],
 };
 
 export function tiersFor(moleculeId: string): readonly Tier[] {

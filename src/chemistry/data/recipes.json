@@ -1,0 +1,3959 @@
+[
+	{
+		"formula": "H2",
+		"name": "Hydrogen gas",
+		"counts": {
+			"H": 2
+		}
+	},
+	{
+		"formula": "O2",
+		"name": "Oxygen",
+		"counts": {
+			"O": 2
+		}
+	},
+	{
+		"formula": "N2",
+		"name": "Nitrogen gas",
+		"counts": {
+			"N": 2
+		}
+	},
+	{
+		"formula": "H2O",
+		"name": "Water",
+		"counts": {
+			"H": 2,
+			"O": 1
+		}
+	},
+	{
+		"formula": "CO2",
+		"name": "Carbon dioxide",
+		"counts": {
+			"C": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "CH4",
+		"name": "Methane",
+		"counts": {
+			"C": 1,
+			"H": 4
+		}
+	},
+	{
+		"formula": "NH3",
+		"name": "Ammonia",
+		"counts": {
+			"N": 1,
+			"H": 3
+		}
+	},
+	{
+		"formula": "O3",
+		"name": "Ozone",
+		"counts": {
+			"O": 3
+		}
+	},
+	{
+		"formula": "H2O2",
+		"name": "Hydrogen peroxide",
+		"counts": {
+			"H": 2,
+			"O": 2
+		}
+	},
+	{
+		"formula": "NaCl",
+		"name": "Sodium chloride",
+		"counts": {
+			"Na": 1,
+			"Cl": 1
+		}
+	},
+	{
+		"formula": "SiO2",
+		"name": "Silicon dioxide",
+		"counts": {
+			"Si": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "Fe2O3",
+		"name": "Iron(III) oxide",
+		"counts": {
+			"Fe": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "CaCO3",
+		"name": "Calcium carbonate",
+		"counts": {
+			"Ca": 1,
+			"C": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "F2",
+		"name": "Fluorine",
+		"counts": {
+			"F": 2
+		}
+	},
+	{
+		"formula": "Cl2",
+		"name": "Chlorine",
+		"counts": {
+			"Cl": 2
+		}
+	},
+	{
+		"formula": "Br2",
+		"name": "Bromine",
+		"counts": {
+			"Br": 2
+		}
+	},
+	{
+		"formula": "I2",
+		"name": "Iodine",
+		"counts": {
+			"I": 2
+		}
+	},
+	{
+		"formula": "P4",
+		"name": "White phosphorus",
+		"counts": {
+			"P": 4
+		}
+	},
+	{
+		"formula": "S8",
+		"name": "Octasulfur",
+		"counts": {
+			"S": 8
+		}
+	},
+	{
+		"formula": "CO",
+		"name": "Carbon monoxide",
+		"counts": {
+			"C": 1,
+			"O": 1
+		}
+	},
+	{
+		"formula": "NO",
+		"name": "Nitric oxide",
+		"counts": {
+			"N": 1,
+			"O": 1
+		}
+	},
+	{
+		"formula": "NO2",
+		"name": "Nitrogen dioxide",
+		"counts": {
+			"N": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "N2O",
+		"name": "Nitrous oxide",
+		"counts": {
+			"N": 2,
+			"O": 1
+		}
+	},
+	{
+		"formula": "N2O3",
+		"name": "Dinitrogen trioxide",
+		"counts": {
+			"N": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "N2O4",
+		"name": "Dinitrogen tetroxide",
+		"counts": {
+			"N": 2,
+			"O": 4
+		}
+	},
+	{
+		"formula": "N2O5",
+		"name": "Dinitrogen pentoxide",
+		"counts": {
+			"N": 2,
+			"O": 5
+		}
+	},
+	{
+		"formula": "SO2",
+		"name": "Sulfur dioxide",
+		"counts": {
+			"S": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "SO3",
+		"name": "Sulfur trioxide",
+		"counts": {
+			"S": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "HNO3",
+		"name": "Nitric acid",
+		"counts": {
+			"H": 1,
+			"N": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "HNO2",
+		"name": "Nitrous acid",
+		"counts": {
+			"H": 1,
+			"N": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "H2SO4",
+		"name": "Sulfuric acid",
+		"counts": {
+			"H": 2,
+			"S": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "H2SO3",
+		"name": "Sulfurous acid",
+		"counts": {
+			"H": 2,
+			"S": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "H2CO3",
+		"name": "Carbonic acid",
+		"counts": {
+			"H": 2,
+			"C": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "HCl",
+		"name": "Hydrogen chloride",
+		"counts": {
+			"H": 1,
+			"Cl": 1
+		}
+	},
+	{
+		"formula": "HF",
+		"name": "Hydrogen fluoride",
+		"counts": {
+			"H": 1,
+			"F": 1
+		}
+	},
+	{
+		"formula": "HBr",
+		"name": "Hydrogen bromide",
+		"counts": {
+			"H": 1,
+			"Br": 1
+		}
+	},
+	{
+		"formula": "HI",
+		"name": "Hydrogen iodide",
+		"counts": {
+			"H": 1,
+			"I": 1
+		}
+	},
+	{
+		"formula": "H2S",
+		"name": "Hydrogen sulfide",
+		"counts": {
+			"H": 2,
+			"S": 1
+		}
+	},
+	{
+		"formula": "COS",
+		"name": "Carbonyl sulfide",
+		"counts": {
+			"C": 1,
+			"O": 1,
+			"S": 1
+		}
+	},
+	{
+		"formula": "CS2",
+		"name": "Carbon disulfide",
+		"counts": {
+			"C": 1,
+			"S": 2
+		}
+	},
+	{
+		"formula": "HCN",
+		"name": "Hydrogen cyanide",
+		"counts": {
+			"H": 1,
+			"C": 1,
+			"N": 1
+		}
+	},
+	{
+		"formula": "HOCl",
+		"name": "Hypochlorous acid",
+		"counts": {
+			"H": 1,
+			"O": 1,
+			"Cl": 1
+		}
+	},
+	{
+		"formula": "HOBr",
+		"name": "Hypobromous acid",
+		"counts": {
+			"H": 1,
+			"O": 1,
+			"Br": 1
+		}
+	},
+	{
+		"formula": "ClO2",
+		"name": "Chlorine dioxide",
+		"counts": {
+			"Cl": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "Cl2O",
+		"name": "Dichlorine monoxide",
+		"counts": {
+			"Cl": 2,
+			"O": 1
+		}
+	},
+	{
+		"formula": "ClONO2",
+		"name": "Chlorine nitrate",
+		"counts": {
+			"Cl": 1,
+			"O": 3,
+			"N": 1
+		}
+	},
+	{
+		"formula": "NOCl",
+		"name": "Nitrosyl chloride",
+		"counts": {
+			"N": 1,
+			"O": 1,
+			"Cl": 1
+		}
+	},
+	{
+		"formula": "NO2Cl",
+		"name": "Nitryl chloride",
+		"counts": {
+			"N": 1,
+			"O": 2,
+			"Cl": 1
+		}
+	},
+	{
+		"formula": "CCl2F2",
+		"name": "Dichlorodifluoromethane",
+		"counts": {
+			"C": 1,
+			"Cl": 2,
+			"F": 2
+		}
+	},
+	{
+		"formula": "CCl3F",
+		"name": "Trichlorofluoromethane",
+		"counts": {
+			"C": 1,
+			"Cl": 3,
+			"F": 1
+		}
+	},
+	{
+		"formula": "CHClF2",
+		"name": "Chlorodifluoromethane",
+		"counts": {
+			"C": 1,
+			"H": 1,
+			"Cl": 1,
+			"F": 2
+		}
+	},
+	{
+		"formula": "CF4",
+		"name": "Tetrafluoromethane",
+		"counts": {
+			"C": 1,
+			"F": 4
+		}
+	},
+	{
+		"formula": "SF6",
+		"name": "Sulfur hexafluoride",
+		"counts": {
+			"S": 1,
+			"F": 6
+		}
+	},
+	{
+		"formula": "NF3",
+		"name": "Nitrogen trifluoride",
+		"counts": {
+			"N": 1,
+			"F": 3
+		}
+	},
+	{
+		"formula": "CCl4",
+		"name": "Carbon tetrachloride",
+		"counts": {
+			"C": 1,
+			"Cl": 4
+		}
+	},
+	{
+		"formula": "CHCl3",
+		"name": "Chloroform",
+		"counts": {
+			"C": 1,
+			"H": 1,
+			"Cl": 3
+		}
+	},
+	{
+		"formula": "CH2Cl2",
+		"name": "Dichloromethane",
+		"counts": {
+			"C": 1,
+			"H": 2,
+			"Cl": 2
+		}
+	},
+	{
+		"formula": "CH3Cl",
+		"name": "Chloromethane",
+		"counts": {
+			"C": 1,
+			"H": 3,
+			"Cl": 1
+		}
+	},
+	{
+		"formula": "CH3Br",
+		"name": "Bromomethane",
+		"counts": {
+			"C": 1,
+			"H": 3,
+			"Br": 1
+		}
+	},
+	{
+		"formula": "CH3I",
+		"name": "Iodomethane",
+		"counts": {
+			"C": 1,
+			"H": 3,
+			"I": 1
+		}
+	},
+	{
+		"formula": "COCl2",
+		"name": "Phosgene",
+		"counts": {
+			"C": 1,
+			"O": 1,
+			"Cl": 2
+		}
+	},
+	{
+		"formula": "BrCl",
+		"name": "Bromine monochloride",
+		"counts": {
+			"Br": 1,
+			"Cl": 1
+		}
+	},
+	{
+		"formula": "ICl",
+		"name": "Iodine monochloride",
+		"counts": {
+			"I": 1,
+			"Cl": 1
+		}
+	},
+	{
+		"formula": "ClF3",
+		"name": "Chlorine trifluoride",
+		"counts": {
+			"Cl": 1,
+			"F": 3
+		}
+	},
+	{
+		"formula": "CH3OH",
+		"name": "Methanol",
+		"counts": {
+			"C": 1,
+			"H": 4,
+			"O": 1
+		}
+	},
+	{
+		"formula": "C2H5OH",
+		"name": "Ethanol",
+		"counts": {
+			"C": 2,
+			"H": 6,
+			"O": 1
+		}
+	},
+	{
+		"formula": "CH2O",
+		"name": "Formaldehyde",
+		"counts": {
+			"C": 1,
+			"H": 2,
+			"O": 1
+		}
+	},
+	{
+		"formula": "HCOOH",
+		"name": "Formic acid",
+		"counts": {
+			"H": 2,
+			"C": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "CH3COOH",
+		"name": "Acetic acid",
+		"counts": {
+			"C": 2,
+			"H": 4,
+			"O": 2
+		}
+	},
+	{
+		"formula": "CH3CHO",
+		"name": "Acetaldehyde",
+		"counts": {
+			"C": 2,
+			"H": 4,
+			"O": 1
+		}
+	},
+	{
+		"formula": "CO(NH2)2",
+		"name": "Urea",
+		"counts": {
+			"C": 1,
+			"O": 1,
+			"N": 2,
+			"H": 4
+		}
+	},
+	{
+		"formula": "NH2CH2COOH",
+		"name": "Glycine",
+		"counts": {
+			"N": 1,
+			"H": 5,
+			"C": 2,
+			"O": 2
+		}
+	},
+	{
+		"formula": "CH3COCOOH",
+		"name": "Pyruvic acid",
+		"counts": {
+			"C": 3,
+			"H": 4,
+			"O": 3
+		}
+	},
+	{
+		"formula": "HOOCCOOH",
+		"name": "Oxalic acid",
+		"counts": {
+			"H": 2,
+			"O": 4,
+			"C": 2
+		}
+	},
+	{
+		"formula": "OHCCHO",
+		"name": "Glyoxal",
+		"counts": {
+			"O": 2,
+			"H": 2,
+			"C": 2
+		}
+	},
+	{
+		"formula": "HCONH2",
+		"name": "Formamide",
+		"counts": {
+			"H": 3,
+			"C": 1,
+			"O": 1,
+			"N": 1
+		}
+	},
+	{
+		"formula": "CH3CONH2",
+		"name": "Acetamide",
+		"counts": {
+			"C": 2,
+			"H": 5,
+			"O": 1,
+			"N": 1
+		}
+	},
+	{
+		"formula": "NH2COOH",
+		"name": "Carbamic acid",
+		"counts": {
+			"N": 1,
+			"H": 3,
+			"C": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "HNC(NH2)2",
+		"name": "Guanidine",
+		"counts": {
+			"H": 5,
+			"N": 3,
+			"C": 1
+		}
+	},
+	{
+		"formula": "CH2(OH)2",
+		"name": "Methanediol",
+		"counts": {
+			"C": 1,
+			"H": 4,
+			"O": 2
+		}
+	},
+	{
+		"formula": "HOCH2CH2OH",
+		"name": "Ethylene glycol",
+		"counts": {
+			"H": 6,
+			"O": 2,
+			"C": 2
+		}
+	},
+	{
+		"formula": "CH3COCH3",
+		"name": "Acetone",
+		"counts": {
+			"C": 3,
+			"H": 6,
+			"O": 1
+		}
+	},
+	{
+		"formula": "CH3NH2",
+		"name": "Methylamine",
+		"counts": {
+			"C": 1,
+			"H": 5,
+			"N": 1
+		}
+	},
+	{
+		"formula": "(CH3)2NH",
+		"name": "Dimethylamine",
+		"counts": {
+			"C": 2,
+			"H": 7,
+			"N": 1
+		}
+	},
+	{
+		"formula": "CH3SH",
+		"name": "Methanethiol",
+		"counts": {
+			"C": 1,
+			"H": 4,
+			"S": 1
+		}
+	},
+	{
+		"formula": "(CH3)2S",
+		"name": "Dimethyl sulfide",
+		"counts": {
+			"C": 2,
+			"H": 6,
+			"S": 1
+		}
+	},
+	{
+		"formula": "(CH3)2SO",
+		"name": "Dimethyl sulfoxide",
+		"counts": {
+			"C": 2,
+			"H": 6,
+			"S": 1,
+			"O": 1
+		}
+	},
+	{
+		"formula": "CH3CN",
+		"name": "Acetonitrile",
+		"counts": {
+			"C": 2,
+			"H": 3,
+			"N": 1
+		}
+	},
+	{
+		"formula": "HNCO",
+		"name": "Isocyanic acid",
+		"counts": {
+			"H": 1,
+			"N": 1,
+			"C": 1,
+			"O": 1
+		}
+	},
+	{
+		"formula": "NH2CH2CN",
+		"name": "Aminoacetonitrile",
+		"counts": {
+			"N": 2,
+			"H": 4,
+			"C": 2
+		}
+	},
+	{
+		"formula": "HOCH2CN",
+		"name": "Glycolonitrile",
+		"counts": {
+			"H": 3,
+			"O": 1,
+			"C": 2,
+			"N": 1
+		}
+	},
+	{
+		"formula": "C3H4N2",
+		"name": "Imidazole",
+		"counts": {
+			"C": 3,
+			"H": 4,
+			"N": 2
+		}
+	},
+	{
+		"formula": "C4H4O",
+		"name": "Furan",
+		"counts": {
+			"C": 4,
+			"H": 4,
+			"O": 1
+		}
+	},
+	{
+		"formula": "C2H2",
+		"name": "Acetylene",
+		"counts": {
+			"C": 2,
+			"H": 2
+		}
+	},
+	{
+		"formula": "C2H4",
+		"name": "Ethylene",
+		"counts": {
+			"C": 2,
+			"H": 4
+		}
+	},
+	{
+		"formula": "C2H6",
+		"name": "Ethane",
+		"counts": {
+			"C": 2,
+			"H": 6
+		}
+	},
+	{
+		"formula": "CH3CCH",
+		"name": "Propyne",
+		"counts": {
+			"C": 3,
+			"H": 4
+		}
+	},
+	{
+		"formula": "CH3CHCH2",
+		"name": "Propylene",
+		"counts": {
+			"C": 3,
+			"H": 6
+		}
+	},
+	{
+		"formula": "C4H2",
+		"name": "Diacetylene",
+		"counts": {
+			"C": 4,
+			"H": 2
+		}
+	},
+	{
+		"formula": "HC3N",
+		"name": "Cyanoacetylene",
+		"counts": {
+			"H": 1,
+			"C": 3,
+			"N": 1
+		}
+	},
+	{
+		"formula": "CH2CHCN",
+		"name": "Acrylonitrile",
+		"counts": {
+			"C": 3,
+			"H": 3,
+			"N": 1
+		}
+	},
+	{
+		"formula": "CH2(CN)2",
+		"name": "Malononitrile",
+		"counts": {
+			"C": 3,
+			"H": 2,
+			"N": 2
+		}
+	},
+	{
+		"formula": "(CN)2",
+		"name": "Cyanogen",
+		"counts": {
+			"C": 2,
+			"N": 2
+		}
+	},
+	{
+		"formula": "C2H3Cl",
+		"name": "Vinyl chloride",
+		"counts": {
+			"C": 2,
+			"H": 3,
+			"Cl": 1
+		}
+	},
+	{
+		"formula": "N2H4",
+		"name": "Hydrazine",
+		"counts": {
+			"N": 2,
+			"H": 4
+		}
+	},
+	{
+		"formula": "N2H2",
+		"name": "Diazene",
+		"counts": {
+			"N": 2,
+			"H": 2
+		}
+	},
+	{
+		"formula": "NH2OH",
+		"name": "Hydroxylamine",
+		"counts": {
+			"N": 1,
+			"H": 3,
+			"O": 1
+		}
+	},
+	{
+		"formula": "HN3",
+		"name": "Hydrazoic acid",
+		"counts": {
+			"H": 1,
+			"N": 3
+		}
+	},
+	{
+		"formula": "H3PO4",
+		"name": "Phosphoric acid",
+		"counts": {
+			"H": 3,
+			"P": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "H3PO3",
+		"name": "Phosphorous acid",
+		"counts": {
+			"H": 3,
+			"P": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "H3PO2",
+		"name": "Hypophosphorous acid",
+		"counts": {
+			"H": 3,
+			"P": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "NH4Cl",
+		"name": "Ammonium chloride",
+		"counts": {
+			"N": 1,
+			"H": 4,
+			"Cl": 1
+		}
+	},
+	{
+		"formula": "NH4NO3",
+		"name": "Ammonium nitrate",
+		"counts": {
+			"N": 2,
+			"H": 4,
+			"O": 3
+		}
+	},
+	{
+		"formula": "NH4HCO3",
+		"name": "Ammonium bicarbonate",
+		"counts": {
+			"N": 1,
+			"H": 5,
+			"C": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "HCOONH4",
+		"name": "Ammonium formate",
+		"counts": {
+			"H": 5,
+			"C": 1,
+			"O": 2,
+			"N": 1
+		}
+	},
+	{
+		"formula": "HCOONa",
+		"name": "Sodium formate",
+		"counts": {
+			"H": 1,
+			"C": 1,
+			"O": 2,
+			"Na": 1
+		}
+	},
+	{
+		"formula": "CH3COONa",
+		"name": "Sodium acetate",
+		"counts": {
+			"C": 2,
+			"H": 3,
+			"O": 2,
+			"Na": 1
+		}
+	},
+	{
+		"formula": "PH3",
+		"name": "Phosphine",
+		"counts": {
+			"P": 1,
+			"H": 3
+		}
+	},
+	{
+		"formula": "NH4SH",
+		"name": "Ammonium hydrosulfide",
+		"counts": {
+			"N": 1,
+			"H": 5,
+			"S": 1
+		}
+	},
+	{
+		"formula": "GeH4",
+		"name": "Germane",
+		"counts": {
+			"Ge": 1,
+			"H": 4
+		}
+	},
+	{
+		"formula": "AsH3",
+		"name": "Arsine",
+		"counts": {
+			"As": 1,
+			"H": 3
+		}
+	},
+	{
+		"formula": "SiH4",
+		"name": "Silane",
+		"counts": {
+			"Si": 1,
+			"H": 4
+		}
+	},
+	{
+		"formula": "Si2H6",
+		"name": "Disilane",
+		"counts": {
+			"Si": 2,
+			"H": 6
+		}
+	},
+	{
+		"formula": "Ge2H6",
+		"name": "Digermane",
+		"counts": {
+			"Ge": 2,
+			"H": 6
+		}
+	},
+	{
+		"formula": "SnH4",
+		"name": "Stannane",
+		"counts": {
+			"Sn": 1,
+			"H": 4
+		}
+	},
+	{
+		"formula": "SbH3",
+		"name": "Stibine",
+		"counts": {
+			"Sb": 1,
+			"H": 3
+		}
+	},
+	{
+		"formula": "H2Se",
+		"name": "Hydrogen selenide",
+		"counts": {
+			"H": 2,
+			"Se": 1
+		}
+	},
+	{
+		"formula": "H2Te",
+		"name": "Hydrogen telluride",
+		"counts": {
+			"H": 2,
+			"Te": 1
+		}
+	},
+	{
+		"formula": "BH3",
+		"name": "Borane",
+		"counts": {
+			"B": 1,
+			"H": 3
+		}
+	},
+	{
+		"formula": "B2H6",
+		"name": "Diborane",
+		"counts": {
+			"B": 2,
+			"H": 6
+		}
+	},
+	{
+		"formula": "HAt",
+		"name": "Hydrogen astatide",
+		"counts": {
+			"H": 1,
+			"At": 1
+		}
+	},
+	{
+		"formula": "KCl",
+		"name": "Potassium chloride",
+		"counts": {
+			"K": 1,
+			"Cl": 1
+		}
+	},
+	{
+		"formula": "MgCl2",
+		"name": "Magnesium chloride",
+		"counts": {
+			"Mg": 1,
+			"Cl": 2
+		}
+	},
+	{
+		"formula": "CaCl2",
+		"name": "Calcium chloride",
+		"counts": {
+			"Ca": 1,
+			"Cl": 2
+		}
+	},
+	{
+		"formula": "MgSO4",
+		"name": "Magnesium sulfate",
+		"counts": {
+			"Mg": 1,
+			"S": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "NaHCO3",
+		"name": "Sodium bicarbonate",
+		"counts": {
+			"Na": 1,
+			"H": 1,
+			"C": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Na2CO3",
+		"name": "Sodium carbonate",
+		"counts": {
+			"Na": 2,
+			"C": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Na2SO4",
+		"name": "Sodium sulfate",
+		"counts": {
+			"Na": 2,
+			"S": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "K2SO4",
+		"name": "Potassium sulfate",
+		"counts": {
+			"K": 2,
+			"S": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "CaSO4",
+		"name": "Calcium sulfate",
+		"counts": {
+			"Ca": 1,
+			"S": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "KHCO3",
+		"name": "Potassium bicarbonate",
+		"counts": {
+			"K": 1,
+			"H": 1,
+			"C": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "K2CO3",
+		"name": "Potassium carbonate",
+		"counts": {
+			"K": 2,
+			"C": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "NaBr",
+		"name": "Sodium bromide",
+		"counts": {
+			"Na": 1,
+			"Br": 1
+		}
+	},
+	{
+		"formula": "KBr",
+		"name": "Potassium bromide",
+		"counts": {
+			"K": 1,
+			"Br": 1
+		}
+	},
+	{
+		"formula": "MgBr2",
+		"name": "Magnesium bromide",
+		"counts": {
+			"Mg": 1,
+			"Br": 2
+		}
+	},
+	{
+		"formula": "NaI",
+		"name": "Sodium iodide",
+		"counts": {
+			"Na": 1,
+			"I": 1
+		}
+	},
+	{
+		"formula": "KI",
+		"name": "Potassium iodide",
+		"counts": {
+			"K": 1,
+			"I": 1
+		}
+	},
+	{
+		"formula": "NaF",
+		"name": "Sodium fluoride",
+		"counts": {
+			"Na": 1,
+			"F": 1
+		}
+	},
+	{
+		"formula": "KF",
+		"name": "Potassium fluoride",
+		"counts": {
+			"K": 1,
+			"F": 1
+		}
+	},
+	{
+		"formula": "LiCl",
+		"name": "Lithium chloride",
+		"counts": {
+			"Li": 1,
+			"Cl": 1
+		}
+	},
+	{
+		"formula": "SrCl2",
+		"name": "Strontium chloride",
+		"counts": {
+			"Sr": 1,
+			"Cl": 2
+		}
+	},
+	{
+		"formula": "H3BO3",
+		"name": "Boric acid",
+		"counts": {
+			"H": 3,
+			"B": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Si(OH)4",
+		"name": "Orthosilicic acid",
+		"counts": {
+			"Si": 1,
+			"O": 4,
+			"H": 4
+		}
+	},
+	{
+		"formula": "NaOH",
+		"name": "Sodium hydroxide",
+		"counts": {
+			"Na": 1,
+			"O": 1,
+			"H": 1
+		}
+	},
+	{
+		"formula": "KOH",
+		"name": "Potassium hydroxide",
+		"counts": {
+			"K": 1,
+			"O": 1,
+			"H": 1
+		}
+	},
+	{
+		"formula": "LiOH",
+		"name": "Lithium hydroxide",
+		"counts": {
+			"Li": 1,
+			"O": 1,
+			"H": 1
+		}
+	},
+	{
+		"formula": "Ca(OH)2",
+		"name": "Calcium hydroxide",
+		"counts": {
+			"Ca": 1,
+			"O": 2,
+			"H": 2
+		}
+	},
+	{
+		"formula": "Mg(OH)2",
+		"name": "Magnesium hydroxide",
+		"counts": {
+			"Mg": 1,
+			"O": 2,
+			"H": 2
+		}
+	},
+	{
+		"formula": "NaNO3",
+		"name": "Sodium nitrate",
+		"counts": {
+			"Na": 1,
+			"N": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "KNO3",
+		"name": "Potassium nitrate",
+		"counts": {
+			"K": 1,
+			"N": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "NaNO2",
+		"name": "Sodium nitrite",
+		"counts": {
+			"Na": 1,
+			"N": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "Ca(NO3)2",
+		"name": "Calcium nitrate",
+		"counts": {
+			"Ca": 1,
+			"N": 2,
+			"O": 6
+		}
+	},
+	{
+		"formula": "Mg(NO3)2",
+		"name": "Magnesium nitrate",
+		"counts": {
+			"Mg": 1,
+			"N": 2,
+			"O": 6
+		}
+	},
+	{
+		"formula": "NaOCl",
+		"name": "Sodium hypochlorite",
+		"counts": {
+			"Na": 1,
+			"O": 1,
+			"Cl": 1
+		}
+	},
+	{
+		"formula": "Ca(ClO)2",
+		"name": "Calcium hypochlorite",
+		"counts": {
+			"Ca": 1,
+			"Cl": 2,
+			"O": 2
+		}
+	},
+	{
+		"formula": "NaClO3",
+		"name": "Sodium chlorate",
+		"counts": {
+			"Na": 1,
+			"Cl": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "KClO3",
+		"name": "Potassium chlorate",
+		"counts": {
+			"K": 1,
+			"Cl": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "KClO4",
+		"name": "Potassium perchlorate",
+		"counts": {
+			"K": 1,
+			"Cl": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "KIO3",
+		"name": "Potassium iodate",
+		"counts": {
+			"K": 1,
+			"I": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "NaHSO4",
+		"name": "Sodium bisulfate",
+		"counts": {
+			"Na": 1,
+			"H": 1,
+			"S": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "Na2SO3",
+		"name": "Sodium sulfite",
+		"counts": {
+			"Na": 2,
+			"S": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Na2S2O3",
+		"name": "Sodium thiosulfate",
+		"counts": {
+			"Na": 2,
+			"S": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Na2S",
+		"name": "Sodium sulfide",
+		"counts": {
+			"Na": 2,
+			"S": 1
+		}
+	},
+	{
+		"formula": "NaHS",
+		"name": "Sodium hydrosulfide",
+		"counts": {
+			"Na": 1,
+			"H": 1,
+			"S": 1
+		}
+	},
+	{
+		"formula": "Na3PO4",
+		"name": "Trisodium phosphate",
+		"counts": {
+			"Na": 3,
+			"P": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "Na2HPO4",
+		"name": "Disodium phosphate",
+		"counts": {
+			"Na": 2,
+			"H": 1,
+			"P": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "NaH2PO4",
+		"name": "Monosodium phosphate",
+		"counts": {
+			"Na": 1,
+			"H": 2,
+			"P": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "KH2PO4",
+		"name": "Monopotassium phosphate",
+		"counts": {
+			"K": 1,
+			"H": 2,
+			"P": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "CaHPO4",
+		"name": "Dicalcium phosphate",
+		"counts": {
+			"Ca": 1,
+			"H": 1,
+			"P": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "UO2CO3",
+		"name": "Uranyl carbonate",
+		"counts": {
+			"U": 1,
+			"O": 5,
+			"C": 1
+		}
+	},
+	{
+		"formula": "Li2CO3",
+		"name": "Lithium carbonate",
+		"counts": {
+			"Li": 2,
+			"C": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "HClO4",
+		"name": "Perchloric acid",
+		"counts": {
+			"H": 1,
+			"Cl": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "HIO3",
+		"name": "Iodic acid",
+		"counts": {
+			"H": 1,
+			"I": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "H2SeO4",
+		"name": "Selenic acid",
+		"counts": {
+			"H": 2,
+			"Se": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "H3AsO4",
+		"name": "Arsenic acid",
+		"counts": {
+			"H": 3,
+			"As": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "Al2O3",
+		"name": "Aluminium oxide",
+		"counts": {
+			"Al": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Fe3O4",
+		"name": "Iron(II,III) oxide",
+		"counts": {
+			"Fe": 3,
+			"O": 4
+		}
+	},
+	{
+		"formula": "FeO",
+		"name": "Iron(II) oxide",
+		"counts": {
+			"Fe": 1,
+			"O": 1
+		}
+	},
+	{
+		"formula": "MgO",
+		"name": "Magnesium oxide",
+		"counts": {
+			"Mg": 1,
+			"O": 1
+		}
+	},
+	{
+		"formula": "CaO",
+		"name": "Calcium oxide",
+		"counts": {
+			"Ca": 1,
+			"O": 1
+		}
+	},
+	{
+		"formula": "MgCO3",
+		"name": "Magnesium carbonate",
+		"counts": {
+			"Mg": 1,
+			"C": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "FeS2",
+		"name": "Iron disulfide",
+		"counts": {
+			"Fe": 1,
+			"S": 2
+		}
+	},
+	{
+		"formula": "TiO2",
+		"name": "Titanium dioxide",
+		"counts": {
+			"Ti": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "K2O",
+		"name": "Potassium oxide",
+		"counts": {
+			"K": 2,
+			"O": 1
+		}
+	},
+	{
+		"formula": "Na2O",
+		"name": "Sodium oxide",
+		"counts": {
+			"Na": 2,
+			"O": 1
+		}
+	},
+	{
+		"formula": "CaF2",
+		"name": "Calcium fluoride",
+		"counts": {
+			"Ca": 1,
+			"F": 2
+		}
+	},
+	{
+		"formula": "ZnS",
+		"name": "Zinc sulfide",
+		"counts": {
+			"Zn": 1,
+			"S": 1
+		}
+	},
+	{
+		"formula": "PbS",
+		"name": "Lead(II) sulfide",
+		"counts": {
+			"Pb": 1,
+			"S": 1
+		}
+	},
+	{
+		"formula": "Cu2O",
+		"name": "Copper(I) oxide",
+		"counts": {
+			"Cu": 2,
+			"O": 1
+		}
+	},
+	{
+		"formula": "CuO",
+		"name": "Copper(II) oxide",
+		"counts": {
+			"Cu": 1,
+			"O": 1
+		}
+	},
+	{
+		"formula": "MnO",
+		"name": "Manganese(II) oxide",
+		"counts": {
+			"Mn": 1,
+			"O": 1
+		}
+	},
+	{
+		"formula": "MnO2",
+		"name": "Manganese dioxide",
+		"counts": {
+			"Mn": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "Mn2O3",
+		"name": "Manganese(III) oxide",
+		"counts": {
+			"Mn": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Mn3O4",
+		"name": "Manganese(II,III) oxide",
+		"counts": {
+			"Mn": 3,
+			"O": 4
+		}
+	},
+	{
+		"formula": "Cr2O3",
+		"name": "Chromium(III) oxide",
+		"counts": {
+			"Cr": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "FeCr2O4",
+		"name": "Iron(II) chromite",
+		"counts": {
+			"Fe": 1,
+			"Cr": 2,
+			"O": 4
+		}
+	},
+	{
+		"formula": "FeTiO3",
+		"name": "Iron(II) titanate",
+		"counts": {
+			"Fe": 1,
+			"Ti": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "ZrSiO4",
+		"name": "Zirconium silicate",
+		"counts": {
+			"Zr": 1,
+			"Si": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "ZrO2",
+		"name": "Zirconium dioxide",
+		"counts": {
+			"Zr": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "SnO2",
+		"name": "Tin(IV) oxide",
+		"counts": {
+			"Sn": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "UO2",
+		"name": "Uranium dioxide",
+		"counts": {
+			"U": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "ThO2",
+		"name": "Thorium dioxide",
+		"counts": {
+			"Th": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "Al2SiO5",
+		"name": "Aluminium silicate",
+		"counts": {
+			"Al": 2,
+			"Si": 1,
+			"O": 5
+		}
+	},
+	{
+		"formula": "CaSiO3",
+		"name": "Calcium metasilicate",
+		"counts": {
+			"Ca": 1,
+			"Si": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "MgSiO3",
+		"name": "Magnesium metasilicate",
+		"counts": {
+			"Mg": 1,
+			"Si": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "CaMg(CO3)2",
+		"name": "Calcium magnesium carbonate",
+		"counts": {
+			"Ca": 1,
+			"Mg": 1,
+			"C": 2,
+			"O": 6
+		}
+	},
+	{
+		"formula": "LiAlSi2O6",
+		"name": "Lithium aluminium silicate",
+		"counts": {
+			"Li": 1,
+			"Al": 1,
+			"Si": 2,
+			"O": 6
+		}
+	},
+	{
+		"formula": "Be2SiO4",
+		"name": "Beryllium silicate",
+		"counts": {
+			"Be": 2,
+			"Si": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "BeAl2O4",
+		"name": "Beryllium aluminium oxide",
+		"counts": {
+			"Be": 1,
+			"Al": 2,
+			"O": 4
+		}
+	},
+	{
+		"formula": "Zn2SiO4",
+		"name": "Zinc orthosilicate",
+		"counts": {
+			"Zn": 2,
+			"Si": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "BaSO4",
+		"name": "Barium sulfate",
+		"counts": {
+			"Ba": 1,
+			"S": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "SrSO4",
+		"name": "Strontium sulfate",
+		"counts": {
+			"Sr": 1,
+			"S": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "SrCO3",
+		"name": "Strontium carbonate",
+		"counts": {
+			"Sr": 1,
+			"C": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "BaCO3",
+		"name": "Barium carbonate",
+		"counts": {
+			"Ba": 1,
+			"C": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "ZnCO3",
+		"name": "Zinc carbonate",
+		"counts": {
+			"Zn": 1,
+			"C": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "PbCO3",
+		"name": "Lead(II) carbonate",
+		"counts": {
+			"Pb": 1,
+			"C": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "PbSO4",
+		"name": "Lead(II) sulfate",
+		"counts": {
+			"Pb": 1,
+			"S": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "MnCO3",
+		"name": "Manganese(II) carbonate",
+		"counts": {
+			"Mn": 1,
+			"C": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "FeCO3",
+		"name": "Iron(II) carbonate",
+		"counts": {
+			"Fe": 1,
+			"C": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Cu2CO3(OH)2",
+		"name": "Basic copper carbonate",
+		"counts": {
+			"Cu": 2,
+			"C": 1,
+			"O": 5,
+			"H": 2
+		}
+	},
+	{
+		"formula": "CuFeS2",
+		"name": "Copper iron sulfide",
+		"counts": {
+			"Cu": 1,
+			"Fe": 1,
+			"S": 2
+		}
+	},
+	{
+		"formula": "MoS2",
+		"name": "Molybdenum disulfide",
+		"counts": {
+			"Mo": 1,
+			"S": 2
+		}
+	},
+	{
+		"formula": "Sb2S3",
+		"name": "Antimony trisulfide",
+		"counts": {
+			"Sb": 2,
+			"S": 3
+		}
+	},
+	{
+		"formula": "As4S4",
+		"name": "Tetraarsenic tetrasulfide",
+		"counts": {
+			"As": 4,
+			"S": 4
+		}
+	},
+	{
+		"formula": "As2S3",
+		"name": "Arsenic trisulfide",
+		"counts": {
+			"As": 2,
+			"S": 3
+		}
+	},
+	{
+		"formula": "HgS",
+		"name": "Mercury(II) sulfide",
+		"counts": {
+			"Hg": 1,
+			"S": 1
+		}
+	},
+	{
+		"formula": "CdS",
+		"name": "Cadmium sulfide",
+		"counts": {
+			"Cd": 1,
+			"S": 1
+		}
+	},
+	{
+		"formula": "Ag2S",
+		"name": "Silver sulfide",
+		"counts": {
+			"Ag": 2,
+			"S": 1
+		}
+	},
+	{
+		"formula": "CuS",
+		"name": "Copper(II) sulfide",
+		"counts": {
+			"Cu": 1,
+			"S": 1
+		}
+	},
+	{
+		"formula": "Cu2S",
+		"name": "Copper(I) sulfide",
+		"counts": {
+			"Cu": 2,
+			"S": 1
+		}
+	},
+	{
+		"formula": "NiAs",
+		"name": "Nickel arsenide",
+		"counts": {
+			"Ni": 1,
+			"As": 1
+		}
+	},
+	{
+		"formula": "FeAsS",
+		"name": "Iron arsenic sulfide",
+		"counts": {
+			"Fe": 1,
+			"As": 1,
+			"S": 1
+		}
+	},
+	{
+		"formula": "NiAsS",
+		"name": "Nickel arsenic sulfide",
+		"counts": {
+			"Ni": 1,
+			"As": 1,
+			"S": 1
+		}
+	},
+	{
+		"formula": "Bi2S3",
+		"name": "Bismuth(III) sulfide",
+		"counts": {
+			"Bi": 2,
+			"S": 3
+		}
+	},
+	{
+		"formula": "AuTe2",
+		"name": "Gold ditelluride",
+		"counts": {
+			"Au": 1,
+			"Te": 2
+		}
+	},
+	{
+		"formula": "CaWO4",
+		"name": "Calcium tungstate",
+		"counts": {
+			"Ca": 1,
+			"W": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "FeWO4",
+		"name": "Iron(II) tungstate",
+		"counts": {
+			"Fe": 1,
+			"W": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "ZnO",
+		"name": "Zinc oxide",
+		"counts": {
+			"Zn": 1,
+			"O": 1
+		}
+	},
+	{
+		"formula": "Al(OH)3",
+		"name": "Aluminium hydroxide",
+		"counts": {
+			"Al": 1,
+			"O": 3,
+			"H": 3
+		}
+	},
+	{
+		"formula": "AlO(OH)",
+		"name": "Aluminium oxide hydroxide",
+		"counts": {
+			"Al": 1,
+			"O": 2,
+			"H": 1
+		}
+	},
+	{
+		"formula": "FeO(OH)",
+		"name": "Iron(III) oxide-hydroxide",
+		"counts": {
+			"Fe": 1,
+			"O": 2,
+			"H": 1
+		}
+	},
+	{
+		"formula": "MnO(OH)",
+		"name": "Manganese(III) oxide-hydroxide",
+		"counts": {
+			"Mn": 1,
+			"O": 2,
+			"H": 1
+		}
+	},
+	{
+		"formula": "LaPO4",
+		"name": "Lanthanum phosphate",
+		"counts": {
+			"La": 1,
+			"P": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "CePO4",
+		"name": "Cerium(III) phosphate",
+		"counts": {
+			"Ce": 1,
+			"P": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "YPO4",
+		"name": "Yttrium phosphate",
+		"counts": {
+			"Y": 1,
+			"P": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "Na3AlF6",
+		"name": "Sodium hexafluoroaluminate",
+		"counts": {
+			"Na": 3,
+			"Al": 1,
+			"F": 6
+		}
+	},
+	{
+		"formula": "WO3",
+		"name": "Tungsten trioxide",
+		"counts": {
+			"W": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "MoO3",
+		"name": "Molybdenum trioxide",
+		"counts": {
+			"Mo": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "V2O5",
+		"name": "Vanadium pentoxide",
+		"counts": {
+			"V": 2,
+			"O": 5
+		}
+	},
+	{
+		"formula": "Nb2O5",
+		"name": "Niobium pentoxide",
+		"counts": {
+			"Nb": 2,
+			"O": 5
+		}
+	},
+	{
+		"formula": "Ta2O5",
+		"name": "Tantalum pentoxide",
+		"counts": {
+			"Ta": 2,
+			"O": 5
+		}
+	},
+	{
+		"formula": "Bi2O3",
+		"name": "Bismuth(III) oxide",
+		"counts": {
+			"Bi": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Sb2O3",
+		"name": "Antimony trioxide",
+		"counts": {
+			"Sb": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "As2O3",
+		"name": "Arsenic trioxide",
+		"counts": {
+			"As": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "GeO2",
+		"name": "Germanium dioxide",
+		"counts": {
+			"Ge": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "Ga2O3",
+		"name": "Gallium(III) oxide",
+		"counts": {
+			"Ga": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "In2O3",
+		"name": "Indium(III) oxide",
+		"counts": {
+			"In": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Tl2O3",
+		"name": "Thallium(III) oxide",
+		"counts": {
+			"Tl": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "CdO",
+		"name": "Cadmium oxide",
+		"counts": {
+			"Cd": 1,
+			"O": 1
+		}
+	},
+	{
+		"formula": "HgO",
+		"name": "Mercury(II) oxide",
+		"counts": {
+			"Hg": 1,
+			"O": 1
+		}
+	},
+	{
+		"formula": "PbO",
+		"name": "Lead(II) oxide",
+		"counts": {
+			"Pb": 1,
+			"O": 1
+		}
+	},
+	{
+		"formula": "PbO2",
+		"name": "Lead dioxide",
+		"counts": {
+			"Pb": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "Ag2O",
+		"name": "Silver oxide",
+		"counts": {
+			"Ag": 2,
+			"O": 1
+		}
+	},
+	{
+		"formula": "Au2O3",
+		"name": "Gold(III) oxide",
+		"counts": {
+			"Au": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "NiO",
+		"name": "Nickel(II) oxide",
+		"counts": {
+			"Ni": 1,
+			"O": 1
+		}
+	},
+	{
+		"formula": "CoO",
+		"name": "Cobalt(II) oxide",
+		"counts": {
+			"Co": 1,
+			"O": 1
+		}
+	},
+	{
+		"formula": "Co3O4",
+		"name": "Cobalt(II,III) oxide",
+		"counts": {
+			"Co": 3,
+			"O": 4
+		}
+	},
+	{
+		"formula": "CrO3",
+		"name": "Chromium trioxide",
+		"counts": {
+			"Cr": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "V2O3",
+		"name": "Vanadium(III) oxide",
+		"counts": {
+			"V": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Sc2O3",
+		"name": "Scandium oxide",
+		"counts": {
+			"Sc": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Y2O3",
+		"name": "Yttrium oxide",
+		"counts": {
+			"Y": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "La2O3",
+		"name": "Lanthanum oxide",
+		"counts": {
+			"La": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "CeO2",
+		"name": "Cerium dioxide",
+		"counts": {
+			"Ce": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "Pr2O3",
+		"name": "Praseodymium(III) oxide",
+		"counts": {
+			"Pr": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Nd2O3",
+		"name": "Neodymium(III) oxide",
+		"counts": {
+			"Nd": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Sm2O3",
+		"name": "Samarium(III) oxide",
+		"counts": {
+			"Sm": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Eu2O3",
+		"name": "Europium(III) oxide",
+		"counts": {
+			"Eu": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Gd2O3",
+		"name": "Gadolinium(III) oxide",
+		"counts": {
+			"Gd": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Tb2O3",
+		"name": "Terbium(III) oxide",
+		"counts": {
+			"Tb": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Dy2O3",
+		"name": "Dysprosium(III) oxide",
+		"counts": {
+			"Dy": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Ho2O3",
+		"name": "Holmium(III) oxide",
+		"counts": {
+			"Ho": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Er2O3",
+		"name": "Erbium(III) oxide",
+		"counts": {
+			"Er": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Tm2O3",
+		"name": "Thulium(III) oxide",
+		"counts": {
+			"Tm": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Yb2O3",
+		"name": "Ytterbium(III) oxide",
+		"counts": {
+			"Yb": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Lu2O3",
+		"name": "Lutetium(III) oxide",
+		"counts": {
+			"Lu": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "HfO2",
+		"name": "Hafnium dioxide",
+		"counts": {
+			"Hf": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "Re2O7",
+		"name": "Rhenium(VII) oxide",
+		"counts": {
+			"Re": 2,
+			"O": 7
+		}
+	},
+	{
+		"formula": "OsO4",
+		"name": "Osmium tetroxide",
+		"counts": {
+			"Os": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "IrO2",
+		"name": "Iridium(IV) oxide",
+		"counts": {
+			"Ir": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "RuO4",
+		"name": "Ruthenium tetroxide",
+		"counts": {
+			"Ru": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "Rh2O3",
+		"name": "Rhodium(III) oxide",
+		"counts": {
+			"Rh": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Ac2O3",
+		"name": "Actinium(III) oxide",
+		"counts": {
+			"Ac": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "PoO2",
+		"name": "Polonium dioxide",
+		"counts": {
+			"Po": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "Li2O",
+		"name": "Lithium oxide",
+		"counts": {
+			"Li": 2,
+			"O": 1
+		}
+	},
+	{
+		"formula": "Rb2O",
+		"name": "Rubidium oxide",
+		"counts": {
+			"Rb": 2,
+			"O": 1
+		}
+	},
+	{
+		"formula": "Cs2O",
+		"name": "Caesium oxide",
+		"counts": {
+			"Cs": 2,
+			"O": 1
+		}
+	},
+	{
+		"formula": "BeO",
+		"name": "Beryllium oxide",
+		"counts": {
+			"Be": 1,
+			"O": 1
+		}
+	},
+	{
+		"formula": "SrO",
+		"name": "Strontium oxide",
+		"counts": {
+			"Sr": 1,
+			"O": 1
+		}
+	},
+	{
+		"formula": "BaO",
+		"name": "Barium oxide",
+		"counts": {
+			"Ba": 1,
+			"O": 1
+		}
+	},
+	{
+		"formula": "B2O3",
+		"name": "Boron trioxide",
+		"counts": {
+			"B": 2,
+			"O": 3
+		}
+	},
+	{
+		"formula": "P2O5",
+		"name": "Phosphorus pentoxide",
+		"counts": {
+			"P": 2,
+			"O": 5
+		}
+	},
+	{
+		"formula": "SeO2",
+		"name": "Selenium dioxide",
+		"counts": {
+			"Se": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "TeO2",
+		"name": "Tellurium dioxide",
+		"counts": {
+			"Te": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "I2O5",
+		"name": "Iodine pentoxide",
+		"counts": {
+			"I": 2,
+			"O": 5
+		}
+	},
+	{
+		"formula": "Mg2SiO4",
+		"name": "Magnesium orthosilicate",
+		"counts": {
+			"Mg": 2,
+			"Si": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "Fe2SiO4",
+		"name": "Iron(II) orthosilicate",
+		"counts": {
+			"Fe": 2,
+			"Si": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "FeS",
+		"name": "Iron(II) sulfide",
+		"counts": {
+			"Fe": 1,
+			"S": 1
+		}
+	},
+	{
+		"formula": "NiS",
+		"name": "Nickel(II) sulfide",
+		"counts": {
+			"Ni": 1,
+			"S": 1
+		}
+	},
+	{
+		"formula": "MgAl2O4",
+		"name": "Magnesium aluminate",
+		"counts": {
+			"Mg": 1,
+			"Al": 2,
+			"O": 4
+		}
+	},
+	{
+		"formula": "CaTiO3",
+		"name": "Calcium titanate",
+		"counts": {
+			"Ca": 1,
+			"Ti": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "SiC",
+		"name": "Silicon carbide",
+		"counts": {
+			"Si": 1,
+			"C": 1
+		}
+	},
+	{
+		"formula": "TiN",
+		"name": "Titanium nitride",
+		"counts": {
+			"Ti": 1,
+			"N": 1
+		}
+	},
+	{
+		"formula": "Fe3P",
+		"name": "Iron phosphide",
+		"counts": {
+			"Fe": 3,
+			"P": 1
+		}
+	},
+	{
+		"formula": "FePO4",
+		"name": "Iron(III) phosphate",
+		"counts": {
+			"Fe": 1,
+			"P": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "Fe(OH)3",
+		"name": "Iron(III) hydroxide",
+		"counts": {
+			"Fe": 1,
+			"O": 3,
+			"H": 3
+		}
+	},
+	{
+		"formula": "FeSO4",
+		"name": "Iron(II) sulfate",
+		"counts": {
+			"Fe": 1,
+			"S": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "MgS",
+		"name": "Magnesium sulfide",
+		"counts": {
+			"Mg": 1,
+			"S": 1
+		}
+	},
+	{
+		"formula": "CaS",
+		"name": "Calcium sulfide",
+		"counts": {
+			"Ca": 1,
+			"S": 1
+		}
+	},
+	{
+		"formula": "CrN",
+		"name": "Chromium nitride",
+		"counts": {
+			"Cr": 1,
+			"N": 1
+		}
+	},
+	{
+		"formula": "LiF",
+		"name": "Lithium fluoride",
+		"counts": {
+			"Li": 1,
+			"F": 1
+		}
+	},
+	{
+		"formula": "RbCl",
+		"name": "Rubidium chloride",
+		"counts": {
+			"Rb": 1,
+			"Cl": 1
+		}
+	},
+	{
+		"formula": "CsCl",
+		"name": "Caesium chloride",
+		"counts": {
+			"Cs": 1,
+			"Cl": 1
+		}
+	},
+	{
+		"formula": "FrCl",
+		"name": "Francium chloride",
+		"counts": {
+			"Fr": 1,
+			"Cl": 1
+		}
+	},
+	{
+		"formula": "BeCl2",
+		"name": "Beryllium chloride",
+		"counts": {
+			"Be": 1,
+			"Cl": 2
+		}
+	},
+	{
+		"formula": "MgF2",
+		"name": "Magnesium fluoride",
+		"counts": {
+			"Mg": 1,
+			"F": 2
+		}
+	},
+	{
+		"formula": "BaCl2",
+		"name": "Barium chloride",
+		"counts": {
+			"Ba": 1,
+			"Cl": 2
+		}
+	},
+	{
+		"formula": "RaCl2",
+		"name": "Radium chloride",
+		"counts": {
+			"Ra": 1,
+			"Cl": 2
+		}
+	},
+	{
+		"formula": "AlCl3",
+		"name": "Aluminium chloride",
+		"counts": {
+			"Al": 1,
+			"Cl": 3
+		}
+	},
+	{
+		"formula": "AlF3",
+		"name": "Aluminium fluoride",
+		"counts": {
+			"Al": 1,
+			"F": 3
+		}
+	},
+	{
+		"formula": "GaCl3",
+		"name": "Gallium trichloride",
+		"counts": {
+			"Ga": 1,
+			"Cl": 3
+		}
+	},
+	{
+		"formula": "InCl3",
+		"name": "Indium(III) chloride",
+		"counts": {
+			"In": 1,
+			"Cl": 3
+		}
+	},
+	{
+		"formula": "TlCl",
+		"name": "Thallium(I) chloride",
+		"counts": {
+			"Tl": 1,
+			"Cl": 1
+		}
+	},
+	{
+		"formula": "BF3",
+		"name": "Boron trifluoride",
+		"counts": {
+			"B": 1,
+			"F": 3
+		}
+	},
+	{
+		"formula": "BCl3",
+		"name": "Boron trichloride",
+		"counts": {
+			"B": 1,
+			"Cl": 3
+		}
+	},
+	{
+		"formula": "SiCl4",
+		"name": "Silicon tetrachloride",
+		"counts": {
+			"Si": 1,
+			"Cl": 4
+		}
+	},
+	{
+		"formula": "SiF4",
+		"name": "Silicon tetrafluoride",
+		"counts": {
+			"Si": 1,
+			"F": 4
+		}
+	},
+	{
+		"formula": "GeCl4",
+		"name": "Germanium tetrachloride",
+		"counts": {
+			"Ge": 1,
+			"Cl": 4
+		}
+	},
+	{
+		"formula": "SnCl2",
+		"name": "Tin(II) chloride",
+		"counts": {
+			"Sn": 1,
+			"Cl": 2
+		}
+	},
+	{
+		"formula": "SnCl4",
+		"name": "Tin(IV) chloride",
+		"counts": {
+			"Sn": 1,
+			"Cl": 4
+		}
+	},
+	{
+		"formula": "PbCl2",
+		"name": "Lead(II) chloride",
+		"counts": {
+			"Pb": 1,
+			"Cl": 2
+		}
+	},
+	{
+		"formula": "PbI2",
+		"name": "Lead(II) iodide",
+		"counts": {
+			"Pb": 1,
+			"I": 2
+		}
+	},
+	{
+		"formula": "PCl3",
+		"name": "Phosphorus trichloride",
+		"counts": {
+			"P": 1,
+			"Cl": 3
+		}
+	},
+	{
+		"formula": "PCl5",
+		"name": "Phosphorus pentachloride",
+		"counts": {
+			"P": 1,
+			"Cl": 5
+		}
+	},
+	{
+		"formula": "POCl3",
+		"name": "Phosphoryl chloride",
+		"counts": {
+			"P": 1,
+			"O": 1,
+			"Cl": 3
+		}
+	},
+	{
+		"formula": "AsCl3",
+		"name": "Arsenic trichloride",
+		"counts": {
+			"As": 1,
+			"Cl": 3
+		}
+	},
+	{
+		"formula": "SbCl3",
+		"name": "Antimony trichloride",
+		"counts": {
+			"Sb": 1,
+			"Cl": 3
+		}
+	},
+	{
+		"formula": "BiCl3",
+		"name": "Bismuth(III) chloride",
+		"counts": {
+			"Bi": 1,
+			"Cl": 3
+		}
+	},
+	{
+		"formula": "BiOCl",
+		"name": "Bismuth oxychloride",
+		"counts": {
+			"Bi": 1,
+			"O": 1,
+			"Cl": 1
+		}
+	},
+	{
+		"formula": "S2Cl2",
+		"name": "Disulfur dichloride",
+		"counts": {
+			"S": 2,
+			"Cl": 2
+		}
+	},
+	{
+		"formula": "SOCl2",
+		"name": "Thionyl chloride",
+		"counts": {
+			"S": 1,
+			"O": 1,
+			"Cl": 2
+		}
+	},
+	{
+		"formula": "SO2Cl2",
+		"name": "Sulfuryl chloride",
+		"counts": {
+			"S": 1,
+			"O": 2,
+			"Cl": 2
+		}
+	},
+	{
+		"formula": "NCl3",
+		"name": "Nitrogen trichloride",
+		"counts": {
+			"N": 1,
+			"Cl": 3
+		}
+	},
+	{
+		"formula": "SeCl4",
+		"name": "Selenium tetrachloride",
+		"counts": {
+			"Se": 1,
+			"Cl": 4
+		}
+	},
+	{
+		"formula": "TeCl4",
+		"name": "Tellurium tetrachloride",
+		"counts": {
+			"Te": 1,
+			"Cl": 4
+		}
+	},
+	{
+		"formula": "ScCl3",
+		"name": "Scandium chloride",
+		"counts": {
+			"Sc": 1,
+			"Cl": 3
+		}
+	},
+	{
+		"formula": "TiCl4",
+		"name": "Titanium tetrachloride",
+		"counts": {
+			"Ti": 1,
+			"Cl": 4
+		}
+	},
+	{
+		"formula": "VCl4",
+		"name": "Vanadium(IV) chloride",
+		"counts": {
+			"V": 1,
+			"Cl": 4
+		}
+	},
+	{
+		"formula": "CrCl3",
+		"name": "Chromium(III) chloride",
+		"counts": {
+			"Cr": 1,
+			"Cl": 3
+		}
+	},
+	{
+		"formula": "MnCl2",
+		"name": "Manganese(II) chloride",
+		"counts": {
+			"Mn": 1,
+			"Cl": 2
+		}
+	},
+	{
+		"formula": "FeCl2",
+		"name": "Iron(II) chloride",
+		"counts": {
+			"Fe": 1,
+			"Cl": 2
+		}
+	},
+	{
+		"formula": "FeCl3",
+		"name": "Iron(III) chloride",
+		"counts": {
+			"Fe": 1,
+			"Cl": 3
+		}
+	},
+	{
+		"formula": "CoCl2",
+		"name": "Cobalt(II) chloride",
+		"counts": {
+			"Co": 1,
+			"Cl": 2
+		}
+	},
+	{
+		"formula": "NiCl2",
+		"name": "Nickel(II) chloride",
+		"counts": {
+			"Ni": 1,
+			"Cl": 2
+		}
+	},
+	{
+		"formula": "CuCl",
+		"name": "Copper(I) chloride",
+		"counts": {
+			"Cu": 1,
+			"Cl": 1
+		}
+	},
+	{
+		"formula": "CuCl2",
+		"name": "Copper(II) chloride",
+		"counts": {
+			"Cu": 1,
+			"Cl": 2
+		}
+	},
+	{
+		"formula": "ZnCl2",
+		"name": "Zinc chloride",
+		"counts": {
+			"Zn": 1,
+			"Cl": 2
+		}
+	},
+	{
+		"formula": "YCl3",
+		"name": "Yttrium chloride",
+		"counts": {
+			"Y": 1,
+			"Cl": 3
+		}
+	},
+	{
+		"formula": "ZrCl4",
+		"name": "Zirconium tetrachloride",
+		"counts": {
+			"Zr": 1,
+			"Cl": 4
+		}
+	},
+	{
+		"formula": "NbCl5",
+		"name": "Niobium pentachloride",
+		"counts": {
+			"Nb": 1,
+			"Cl": 5
+		}
+	},
+	{
+		"formula": "MoCl5",
+		"name": "Molybdenum(V) chloride",
+		"counts": {
+			"Mo": 1,
+			"Cl": 5
+		}
+	},
+	{
+		"formula": "RuCl3",
+		"name": "Ruthenium(III) chloride",
+		"counts": {
+			"Ru": 1,
+			"Cl": 3
+		}
+	},
+	{
+		"formula": "RhCl3",
+		"name": "Rhodium(III) chloride",
+		"counts": {
+			"Rh": 1,
+			"Cl": 3
+		}
+	},
+	{
+		"formula": "PdCl2",
+		"name": "Palladium(II) chloride",
+		"counts": {
+			"Pd": 1,
+			"Cl": 2
+		}
+	},
+	{
+		"formula": "AgCl",
+		"name": "Silver chloride",
+		"counts": {
+			"Ag": 1,
+			"Cl": 1
+		}
+	},
+	{
+		"formula": "AgBr",
+		"name": "Silver bromide",
+		"counts": {
+			"Ag": 1,
+			"Br": 1
+		}
+	},
+	{
+		"formula": "AgI",
+		"name": "Silver iodide",
+		"counts": {
+			"Ag": 1,
+			"I": 1
+		}
+	},
+	{
+		"formula": "CdCl2",
+		"name": "Cadmium chloride",
+		"counts": {
+			"Cd": 1,
+			"Cl": 2
+		}
+	},
+	{
+		"formula": "HfCl4",
+		"name": "Hafnium(IV) chloride",
+		"counts": {
+			"Hf": 1,
+			"Cl": 4
+		}
+	},
+	{
+		"formula": "TaCl5",
+		"name": "Tantalum(V) chloride",
+		"counts": {
+			"Ta": 1,
+			"Cl": 5
+		}
+	},
+	{
+		"formula": "WCl6",
+		"name": "Tungsten hexachloride",
+		"counts": {
+			"W": 1,
+			"Cl": 6
+		}
+	},
+	{
+		"formula": "WF6",
+		"name": "Tungsten hexafluoride",
+		"counts": {
+			"W": 1,
+			"F": 6
+		}
+	},
+	{
+		"formula": "ReCl5",
+		"name": "Rhenium(V) chloride",
+		"counts": {
+			"Re": 1,
+			"Cl": 5
+		}
+	},
+	{
+		"formula": "OsCl3",
+		"name": "Osmium(III) chloride",
+		"counts": {
+			"Os": 1,
+			"Cl": 3
+		}
+	},
+	{
+		"formula": "IrCl3",
+		"name": "Iridium(III) chloride",
+		"counts": {
+			"Ir": 1,
+			"Cl": 3
+		}
+	},
+	{
+		"formula": "PtCl4",
+		"name": "Platinum(IV) chloride",
+		"counts": {
+			"Pt": 1,
+			"Cl": 4
+		}
+	},
+	{
+		"formula": "AuCl3",
+		"name": "Gold(III) chloride",
+		"counts": {
+			"Au": 1,
+			"Cl": 3
+		}
+	},
+	{
+		"formula": "HAuCl4",
+		"name": "Chloroauric acid",
+		"counts": {
+			"H": 1,
+			"Au": 1,
+			"Cl": 4
+		}
+	},
+	{
+		"formula": "H2PtCl6",
+		"name": "Chloroplatinic acid",
+		"counts": {
+			"H": 2,
+			"Pt": 1,
+			"Cl": 6
+		}
+	},
+	{
+		"formula": "HgCl2",
+		"name": "Mercury(II) chloride",
+		"counts": {
+			"Hg": 1,
+			"Cl": 2
+		}
+	},
+	{
+		"formula": "Hg2Cl2",
+		"name": "Mercury(I) chloride",
+		"counts": {
+			"Hg": 2,
+			"Cl": 2
+		}
+	},
+	{
+		"formula": "AcCl3",
+		"name": "Actinium(III) chloride",
+		"counts": {
+			"Ac": 1,
+			"Cl": 3
+		}
+	},
+	{
+		"formula": "ThCl4",
+		"name": "Thorium(IV) chloride",
+		"counts": {
+			"Th": 1,
+			"Cl": 4
+		}
+	},
+	{
+		"formula": "PaCl5",
+		"name": "Protactinium(V) chloride",
+		"counts": {
+			"Pa": 1,
+			"Cl": 5
+		}
+	},
+	{
+		"formula": "UF6",
+		"name": "Uranium hexafluoride",
+		"counts": {
+			"U": 1,
+			"F": 6
+		}
+	},
+	{
+		"formula": "UCl4",
+		"name": "Uranium tetrachloride",
+		"counts": {
+			"U": 1,
+			"Cl": 4
+		}
+	},
+	{
+		"formula": "KMnO4",
+		"name": "Potassium permanganate",
+		"counts": {
+			"K": 1,
+			"Mn": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "K2CrO4",
+		"name": "Potassium chromate",
+		"counts": {
+			"K": 2,
+			"Cr": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "Na2MoO4",
+		"name": "Sodium molybdate",
+		"counts": {
+			"Na": 2,
+			"Mo": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "Na2WO4",
+		"name": "Sodium tungstate",
+		"counts": {
+			"Na": 2,
+			"W": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "CuSO4",
+		"name": "Copper(II) sulfate",
+		"counts": {
+			"Cu": 1,
+			"S": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "ZnSO4",
+		"name": "Zinc sulfate",
+		"counts": {
+			"Zn": 1,
+			"S": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "NiSO4",
+		"name": "Nickel(II) sulfate",
+		"counts": {
+			"Ni": 1,
+			"S": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "AgNO3",
+		"name": "Silver nitrate",
+		"counts": {
+			"Ag": 1,
+			"N": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "Cu(NO3)2",
+		"name": "Copper(II) nitrate",
+		"counts": {
+			"Cu": 1,
+			"N": 2,
+			"O": 6
+		}
+	},
+	{
+		"formula": "Pb(NO3)2",
+		"name": "Lead(II) nitrate",
+		"counts": {
+			"Pb": 1,
+			"N": 2,
+			"O": 6
+		}
+	},
+	{
+		"formula": "CuCO3",
+		"name": "Copper(II) carbonate",
+		"counts": {
+			"Cu": 1,
+			"C": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "CaC2O4",
+		"name": "Calcium oxalate",
+		"counts": {
+			"Ca": 1,
+			"C": 2,
+			"O": 4
+		}
+	},
+	{
+		"formula": "AlPO4",
+		"name": "Aluminium phosphate",
+		"counts": {
+			"Al": 1,
+			"P": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "LiCoO2",
+		"name": "Lithium cobalt oxide",
+		"counts": {
+			"Li": 1,
+			"Co": 1,
+			"O": 2
+		}
+	},
+	{
+		"formula": "LiFePO4",
+		"name": "Lithium iron phosphate",
+		"counts": {
+			"Li": 1,
+			"Fe": 1,
+			"P": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "BaTiO3",
+		"name": "Barium titanate",
+		"counts": {
+			"Ba": 1,
+			"Ti": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "SrTiO3",
+		"name": "Strontium titanate",
+		"counts": {
+			"Sr": 1,
+			"Ti": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "LiNbO3",
+		"name": "Lithium niobate",
+		"counts": {
+			"Li": 1,
+			"Nb": 1,
+			"O": 3
+		}
+	},
+	{
+		"formula": "YVO4",
+		"name": "Yttrium vanadate",
+		"counts": {
+			"Y": 1,
+			"V": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "PbCrO4",
+		"name": "Lead(II) chromate",
+		"counts": {
+			"Pb": 1,
+			"Cr": 1,
+			"O": 4
+		}
+	},
+	{
+		"formula": "NaH",
+		"name": "Sodium hydride",
+		"counts": {
+			"Na": 1,
+			"H": 1
+		}
+	},
+	{
+		"formula": "LiH",
+		"name": "Lithium hydride",
+		"counts": {
+			"Li": 1,
+			"H": 1
+		}
+	},
+	{
+		"formula": "CaH2",
+		"name": "Calcium hydride",
+		"counts": {
+			"Ca": 1,
+			"H": 2
+		}
+	},
+	{
+		"formula": "MgH2",
+		"name": "Magnesium hydride",
+		"counts": {
+			"Mg": 1,
+			"H": 2
+		}
+	},
+	{
+		"formula": "NaBH4",
+		"name": "Sodium borohydride",
+		"counts": {
+			"Na": 1,
+			"B": 1,
+			"H": 4
+		}
+	},
+	{
+		"formula": "LiAlH4",
+		"name": "Lithium aluminium hydride",
+		"counts": {
+			"Li": 1,
+			"Al": 1,
+			"H": 4
+		}
+	},
+	{
+		"formula": "NaN3",
+		"name": "Sodium azide",
+		"counts": {
+			"Na": 1,
+			"N": 3
+		}
+	},
+	{
+		"formula": "KCN",
+		"name": "Potassium cyanide",
+		"counts": {
+			"K": 1,
+			"C": 1,
+			"N": 1
+		}
+	},
+	{
+		"formula": "NaCN",
+		"name": "Sodium cyanide",
+		"counts": {
+			"Na": 1,
+			"C": 1,
+			"N": 1
+		}
+	},
+	{
+		"formula": "KSCN",
+		"name": "Potassium thiocyanate",
+		"counts": {
+			"K": 1,
+			"S": 1,
+			"C": 1,
+			"N": 1
+		}
+	},
+	{
+		"formula": "ClCN",
+		"name": "Cyanogen chloride",
+		"counts": {
+			"Cl": 1,
+			"C": 1,
+			"N": 1
+		}
+	},
+	{
+		"formula": "CaCN2",
+		"name": "Calcium cyanamide",
+		"counts": {
+			"Ca": 1,
+			"C": 1,
+			"N": 2
+		}
+	},
+	{
+		"formula": "CaC2",
+		"name": "Calcium carbide",
+		"counts": {
+			"Ca": 1,
+			"C": 2
+		}
+	},
+	{
+		"formula": "Al4C3",
+		"name": "Aluminium carbide",
+		"counts": {
+			"Al": 4,
+			"C": 3
+		}
+	},
+	{
+		"formula": "B4C",
+		"name": "Boron carbide",
+		"counts": {
+			"B": 4,
+			"C": 1
+		}
+	},
+	{
+		"formula": "TiC",
+		"name": "Titanium carbide",
+		"counts": {
+			"Ti": 1,
+			"C": 1
+		}
+	},
+	{
+		"formula": "ZrC",
+		"name": "Zirconium carbide",
+		"counts": {
+			"Zr": 1,
+			"C": 1
+		}
+	},
+	{
+		"formula": "WC",
+		"name": "Tungsten carbide",
+		"counts": {
+			"W": 1,
+			"C": 1
+		}
+	},
+	{
+		"formula": "BN",
+		"name": "Boron nitride",
+		"counts": {
+			"B": 1,
+			"N": 1
+		}
+	},
+	{
+		"formula": "AlN",
+		"name": "Aluminium nitride",
+		"counts": {
+			"Al": 1,
+			"N": 1
+		}
+	},
+	{
+		"formula": "GaN",
+		"name": "Gallium nitride",
+		"counts": {
+			"Ga": 1,
+			"N": 1
+		}
+	},
+	{
+		"formula": "Si3N4",
+		"name": "Silicon nitride",
+		"counts": {
+			"Si": 3,
+			"N": 4
+		}
+	},
+	{
+		"formula": "ZrN",
+		"name": "Zirconium nitride",
+		"counts": {
+			"Zr": 1,
+			"N": 1
+		}
+	},
+	{
+		"formula": "Ca3N2",
+		"name": "Calcium nitride",
+		"counts": {
+			"Ca": 3,
+			"N": 2
+		}
+	},
+	{
+		"formula": "S4N4",
+		"name": "Tetrasulfur tetranitride",
+		"counts": {
+			"S": 4,
+			"N": 4
+		}
+	},
+	{
+		"formula": "P4S3",
+		"name": "Phosphorus sesquisulfide",
+		"counts": {
+			"P": 4,
+			"S": 3
+		}
+	},
+	{
+		"formula": "MgB2",
+		"name": "Magnesium diboride",
+		"counts": {
+			"Mg": 1,
+			"B": 2
+		}
+	},
+	{
+		"formula": "LaB6",
+		"name": "Lanthanum hexaboride",
+		"counts": {
+			"La": 1,
+			"B": 6
+		}
+	},
+	{
+		"formula": "K2S",
+		"name": "Potassium sulfide",
+		"counts": {
+			"K": 2,
+			"S": 1
+		}
+	},
+	{
+		"formula": "BaS",
+		"name": "Barium sulfide",
+		"counts": {
+			"Ba": 1,
+			"S": 1
+		}
+	},
+	{
+		"formula": "Al2S3",
+		"name": "Aluminium sulfide",
+		"counts": {
+			"Al": 2,
+			"S": 3
+		}
+	},
+	{
+		"formula": "MnS",
+		"name": "Manganese(II) sulfide",
+		"counts": {
+			"Mn": 1,
+			"S": 1
+		}
+	},
+	{
+		"formula": "SnS2",
+		"name": "Tin(IV) sulfide",
+		"counts": {
+			"Sn": 1,
+			"S": 2
+		}
+	},
+	{
+		"formula": "ZnSe",
+		"name": "Zinc selenide",
+		"counts": {
+			"Zn": 1,
+			"Se": 1
+		}
+	},
+	{
+		"formula": "CdSe",
+		"name": "Cadmium selenide",
+		"counts": {
+			"Cd": 1,
+			"Se": 1
+		}
+	},
+	{
+		"formula": "ZnTe",
+		"name": "Zinc telluride",
+		"counts": {
+			"Zn": 1,
+			"Te": 1
+		}
+	},
+	{
+		"formula": "CdTe",
+		"name": "Cadmium telluride",
+		"counts": {
+			"Cd": 1,
+			"Te": 1
+		}
+	},
+	{
+		"formula": "PbTe",
+		"name": "Lead(II) telluride",
+		"counts": {
+			"Pb": 1,
+			"Te": 1
+		}
+	},
+	{
+		"formula": "Bi2Te3",
+		"name": "Bismuth telluride",
+		"counts": {
+			"Bi": 2,
+			"Te": 3
+		}
+	},
+	{
+		"formula": "GaAs",
+		"name": "Gallium arsenide",
+		"counts": {
+			"Ga": 1,
+			"As": 1
+		}
+	},
+	{
+		"formula": "InAs",
+		"name": "Indium arsenide",
+		"counts": {
+			"In": 1,
+			"As": 1
+		}
+	},
+	{
+		"formula": "GaP",
+		"name": "Gallium phosphide",
+		"counts": {
+			"Ga": 1,
+			"P": 1
+		}
+	},
+	{
+		"formula": "InP",
+		"name": "Indium phosphide",
+		"counts": {
+			"In": 1,
+			"P": 1
+		}
+	},
+	{
+		"formula": "GaSb",
+		"name": "Gallium antimonide",
+		"counts": {
+			"Ga": 1,
+			"Sb": 1
+		}
+	},
+	{
+		"formula": "InSb",
+		"name": "Indium antimonide",
+		"counts": {
+			"In": 1,
+			"Sb": 1
+		}
+	}
+]
