@@ -15,8 +15,6 @@ export const REACT_RADIUS = 120;
 export const HEAT_RADIUS = 170;
 /** ...for this long. */
 export const HEAT_MS = 1500;
-/** Letting go with the pointer moving at least this fast (screen px per ms) is a spark. */
-export const SPARK_SPEED = 1.1;
 /** Bangs shove everything within this radius. */
 const BANG_RADIUS = 240;
 

@@ -36,8 +36,10 @@ export class Input {
 	private pointers = 0;
 	/** Recent pointer positions (screen px, ms), for how fast a release was. */
 	private trail: { x: number; y: number; t: number }[] = [];
-	/** Pointer speed at the moment of the last lift; the drop is handled a frame later. */
-	private liftSpeed = 0;
+	/** Until when the held thing counts as lit (moved fast enough to spark). */
+	private litUntil = 0;
+	/** Whether the last lift happened while lit; the drop is handled a frame later. */
+	private liftLit = false;
 	/** Called on a single tap, with the entity and the atom tapped. */
 	onTap: (entity: Entity, body: Matter.Body) => void = () => {};
 	/** Called when something is picked up. */
@@ -45,11 +47,11 @@ export class Input {
 	/** Called on a single tap on empty space, with the world point tapped. */
 	onTapEmpty: (at: Point) => void = () => {};
 	/**
-	 * Called when something is dropped onto something else, with how fast
-	 * the pointer was moving as it let go (screen px per ms). Return true if it was handled
-	 * (a reaction, or a hint); otherwise the usual bonding happens.
+	 * Called when something is dropped onto something else, `sparked` if it
+	 * was lit as it was let go. Return true if it was handled (a reaction,
+	 * or a hint); otherwise the usual bonding happens.
 	 */
-	onDrop: (held: Entity, target: Entity, speed: number) => boolean = () =>
+	onDrop: (held: Entity, target: Entity, sparked: boolean) => boolean = () =>
 		false;
 
 	constructor(
@@ -99,6 +101,10 @@ export class Input {
 					t - (this.trail[0]?.t ?? t) > FLICK_WINDOW_MS
 				)
 					this.trail.shift();
+				// Moving fast enough lights the held thing, and it stays lit a
+				// moment after slowing, so you can swing, ease onto the target and let go.
+				if (this.mouseConstraint.body && this.releaseSpeed() >= FLICK_SPEED)
+					this.litUntil = t + LIT_MS;
 			},
 			opts,
 		);
@@ -110,6 +116,11 @@ export class Input {
 		const t = this.camera.mouseTransform();
 		Mouse.setScale(this.mouse, t.scale);
 		Mouse.setOffset(this.mouse, t.offset);
+	}
+
+	/** Whether the held thing is lit right now (a drop would spark). */
+	isLit(): boolean {
+		return !!this.mouseConstraint.body && performance.now() < this.litUntil;
 	}
 
 	/** The entity being dragged right now, if any. */
@@ -141,7 +152,7 @@ export class Input {
 	}
 
 	private lift(e: PointerEvent): void {
-		this.liftSpeed = this.releaseSpeed();
+		this.liftLit = this.isLit();
 		this.pointers = Math.max(0, this.pointers - 1);
 		if (this.pointers > 0) return;
 		this.camera.resumeDrag();
@@ -210,13 +221,18 @@ export class Input {
 
 		const target = this.world.bondTarget(entity);
 		if (!target) return;
-		const speed = this.liftSpeed;
-		if (!this.onDrop(entity, target, speed)) this.world.tryBond(entity, target);
+		const sparked = this.liftLit;
+		if (!this.onDrop(entity, target, sparked))
+			this.world.tryBond(entity, target);
 	}
 }
 
 /** How far back to look when judging a flick. */
 const FLICK_WINDOW_MS = 90;
+/** Pointer speed (screen px per ms) that lights a held thing: a quick swing. */
+export const FLICK_SPEED = 1.1;
+/** How long it stays lit after slowing down. */
+const LIT_MS = 500;
 
 /** Matter's drag events carry the body, but its typings don't say so. */
 function bodyOf(ev: unknown): Matter.Body {

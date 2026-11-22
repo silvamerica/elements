@@ -4,11 +4,26 @@
 		<meta charset="UTF-8" />
 		<meta
 			name="viewport"
-			content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+			content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
 		/>
 		<meta name="theme-color" content="#000000" />
 		<title>Water</title>
 		<style>
+			/* One system: glass panels and pills, one accent, one font. */
+			:root {
+				--glass: rgba(16, 19, 26, 0.8);
+				--line: rgba(255, 255, 255, 0.12);
+				--line-strong: rgba(255, 255, 255, 0.28);
+				--text: rgba(255, 255, 255, 0.92);
+				--muted: rgba(255, 255, 255, 0.58);
+				--faint: rgba(255, 255, 255, 0.36);
+				--accent: #4fc3ff;
+				--accent-soft: rgba(79, 195, 255, 0.16);
+				--spark: #ffb347;
+				--radius: 14px;
+				--gap: 12px;
+				--font: ui-rounded, "SF Pro Rounded", system-ui, sans-serif;
+			}
 			html,
 			body {
 				margin: 0;
@@ -19,169 +34,284 @@
 				overscroll-behavior: none;
 				-webkit-user-select: none;
 				user-select: none;
+				font: 13px/1.4 var(--font);
+				color: var(--text);
 			}
 			#app {
 				position: fixed;
 				inset: 0;
 			}
-			#shelf {
-				position: fixed;
-				top: 12px;
-				right: 12px;
-				max-width: 40vw;
-				font: 12px/1.5 ui-rounded, system-ui, sans-serif;
-				color: rgba(255, 255, 255, 0.55);
-				text-align: right;
-				pointer-events: none;
+			[hidden] {
+				display: none !important;
 			}
-			#shelf .world {
-				color: rgba(255, 255, 255, 0.8);
-			}
-			#shelf button {
-				pointer-events: auto;
-				background: none;
-				border: 0;
-				padding: 2px 0;
+			button {
 				font: inherit;
 				color: inherit;
+				background: none;
+				border: 0;
+				padding: 0;
 				cursor: pointer;
 			}
-			#shelf .list {
-				max-height: 45vh;
-				overflow-y: auto;
-				pointer-events: auto;
-				margin: 4px 0;
+			.panel,
+			.pill {
+				background: var(--glass);
+				border: 1px solid var(--line);
+				backdrop-filter: blur(10px);
+				-webkit-backdrop-filter: blur(10px);
 			}
-			#shelf .reset {
-				display: block;
-				margin-left: auto;
-				opacity: 0.35;
+			.panel {
+				border-radius: var(--radius);
 			}
-			#shelf .reset:hover {
-				opacity: 0.8;
-			}
-			#shelf .new {
-				color: #fff;
-				transition: color 2s;
-			}
-			#armed {
-				position: fixed;
-				top: 12px;
-				left: 50%;
-				transform: translateX(-50%);
-				display: flex;
+			.pill {
+				border-radius: 999px;
+				padding: 6px 12px;
+				display: inline-flex;
 				align-items: center;
 				gap: 8px;
-				padding: 6px 8px 6px 14px;
-				border-radius: 999px;
-				background: rgba(255, 226, 122, 0.14);
-				border: 1px solid rgba(255, 226, 122, 0.55);
-				color: #ffe27a;
-				font: 13px ui-rounded, system-ui, sans-serif;
 				white-space: nowrap;
 			}
-			#armed[hidden] {
-				display: none;
+			.pill.accent,
+			button.pill.accent {
+				border-color: var(--accent);
+				background: var(--accent-soft);
+				color: #dff4ff;
 			}
-			#armed button {
-				background: none;
-				border: 0;
-				color: inherit;
-				font: inherit;
-				cursor: pointer;
-				padding: 2px 6px;
+			.label {
+				font-size: 11px;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				color: var(--faint);
 			}
-			#shelf .list button {
-				display: block;
-				margin-left: auto;
-				text-align: right;
-			}
-			#shelf .list button:hover {
-				color: #fff;
-			}
-			#tray {
-				position: fixed;
-				left: 0;
-				right: 0;
-				bottom: 0;
-				padding: 10px 16px calc(12px + env(safe-area-inset-bottom));
-				background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0));
-				font: 13px/1.4 ui-rounded, system-ui, sans-serif;
-				color: rgba(255, 255, 255, 0.85);
-				pointer-events: none;
-			}
-			#tray .entries {
-				pointer-events: auto;
-			}
-			#tray[hidden] {
-				display: none;
-			}
-			#tray .head {
-				font-size: 14px;
-				color: #fff;
-			}
-			#tray .tier,
-			#tray .none {
-				color: rgba(255, 255, 255, 0.6);
-			}
-			#tray .entries {
-				display: flex;
-				gap: 8px;
-				overflow-x: auto;
-				padding: 6px 0 2px;
-				scrollbar-width: none;
-			}
-			#tray .entry {
-				flex: none;
-				display: flex;
-				align-items: center;
-				gap: 6px;
-				padding: 6px 10px;
-				border-radius: 999px;
-				border: 1px solid rgba(255, 255, 255, 0.18);
-				background: rgba(22, 24, 30, 0.94);
-				color: rgba(255, 255, 255, 0.55);
-				font: inherit;
-				cursor: pointer;
-			}
-			#tray .entry.known {
-				color: #fff;
-				border-color: rgba(255, 255, 255, 0.4);
-			}
-			#tray .chip {
+			.chip {
 				border-radius: 999px;
 				padding: 1px 7px;
 				font-size: 11px;
 				font-weight: 600;
 			}
-			#tray .more {
-				flex: none;
-				align-self: center;
-				color: rgba(255, 255, 255, 0.45);
+
+			/* Top: world card, discoveries, assembling pill. */
+			#hud {
+				position: fixed;
+				top: calc(var(--gap) + env(safe-area-inset-top));
+				left: var(--gap);
+				right: var(--gap);
+				display: flex;
+				align-items: flex-start;
+				justify-content: space-between;
+				gap: var(--gap);
+				pointer-events: none;
+			}
+			#hud > * {
+				pointer-events: auto;
+			}
+			#world {
+				padding: 8px 12px;
+				white-space: nowrap;
+			}
+			#world b {
+				font-weight: 600;
+			}
+			#world .seed {
+				color: var(--faint);
+				margin-left: 6px;
+			}
+			#found {
+				min-width: 260px;
+				max-width: 340px;
+				padding: 10px 12px;
+			}
+			#found .counts {
+				display: flex;
+				gap: 14px;
+				margin-top: 2px;
+				text-align: left;
+				width: 100%;
+			}
+			#found .counts b {
+				font-size: 15px;
+				font-weight: 600;
+			}
+			#found .counts > span {
+				white-space: nowrap;
+			}
+			#found .counts > span > span {
+				color: var(--faint);
+				font-size: 11px;
+				margin-left: 3px;
+			}
+			#tray .sect .label {
+				display: block;
+			}
+			#found .list {
+				margin-top: 8px;
+				max-height: 45vh;
+				overflow-y: auto;
+				scrollbar-width: thin;
+			}
+			#found .row {
+				display: flex;
+				justify-content: space-between;
+				gap: 8px;
+				width: 100%;
+				padding: 5px 8px;
+				border-radius: 8px;
+				color: var(--muted);
+				text-align: left;
+			}
+			#found .row:hover {
+				background: var(--accent-soft);
+				color: var(--text);
+			}
+			#found .row.new {
+				color: #fff;
+			}
+			#found .row .build {
+				color: var(--accent);
+				font-size: 11px;
+			}
+			#found .foot {
+				margin-top: 8px;
+				padding-top: 8px;
+				border-top: 1px solid var(--line);
+				display: flex;
+				justify-content: space-between;
+				color: var(--muted);
+			}
+			#armed {
+				position: fixed;
+				top: calc(var(--gap) + env(safe-area-inset-top));
+				left: 50%;
+				transform: translateX(-50%);
+			}
+
+			/* Bottom: message pill stacked on the tray, so neither hides the other. */
+			#bottom {
+				position: fixed;
+				left: var(--gap);
+				right: var(--gap);
+				bottom: calc(var(--gap) + env(safe-area-inset-bottom));
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 8px;
+				pointer-events: none;
 			}
 			#toast {
-				position: fixed;
-				bottom: 110px;
-				left: 0;
-				right: 0;
-				text-align: center;
-				font: 15px ui-rounded, system-ui, sans-serif;
-				color: rgba(255, 255, 255, 0.85);
 				opacity: 0;
-				transition: opacity 0.6s;
-				pointer-events: none;
+				transition: opacity 0.4s;
 			}
 			#toast.show {
 				opacity: 1;
+			}
+			#tray {
+				align-self: stretch;
+				padding: 10px 12px;
+				pointer-events: auto;
+			}
+			#tray .head {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				flex-wrap: wrap;
+			}
+			#tray .head b {
+				font-size: 15px;
+				font-weight: 600;
+			}
+			#tray .head .sub {
+				color: var(--muted);
+			}
+			#tray .head .pill {
+				margin-left: auto;
+				padding: 4px 12px;
+			}
+			#tray .sect {
+				margin-top: 8px;
+			}
+			#tray .row {
+				display: flex;
+				gap: 8px;
+				overflow-x: auto;
+				margin-top: 4px;
+				scrollbar-width: none;
+			}
+			#tray .entry {
+				flex: none;
+				display: inline-flex;
+				align-items: center;
+				gap: 6px;
+				padding: 5px 10px;
+				border-radius: 999px;
+				border: 1px solid var(--line);
+				background: rgba(255, 255, 255, 0.04);
+				color: var(--muted);
+				white-space: nowrap;
+			}
+			#tray .entry.known {
+				color: var(--text);
+				border-color: var(--line-strong);
+			}
+			#tray .entry .flick {
+				color: var(--spark);
+			}
+			#tray .more {
+				flex: none;
+				align-self: center;
+				color: var(--faint);
+				white-space: nowrap;
+			}
+
+			/* Another tab has this world. */
+			#elsewhere {
+				position: fixed;
+				inset: 0;
+				display: grid;
+				place-items: center;
+				background: rgba(0, 0, 0, 0.6);
+			}
+			#elsewhere .panel {
+				padding: 18px 20px;
+				max-width: 320px;
+				text-align: center;
+				display: grid;
+				gap: 12px;
+			}
+
+			@media (max-width: 600px) {
+				#found {
+					width: auto;
+					padding: 8px 12px;
+				}
+				#found .label,
+				#found .counts .structures {
+					display: none;
+				}
+				#found .counts b {
+					font-size: 13px;
+				}
+				#world {
+					min-width: 0;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+				#armed {
+					top: calc(64px + env(safe-area-inset-top));
+				}
 			}
 		</style>
 	</head>
 	<body>
 		<div id="app"></div>
-		<div id="shelf"></div>
-		<div id="armed" hidden></div>
-		<div id="tray" hidden></div>
-		<div id="toast"></div>
+		<div id="hud">
+			<div id="world" class="panel"></div>
+			<div id="found" class="panel"></div>
+		</div>
+		<div id="armed" class="pill accent" hidden></div>
+		<div id="bottom">
+			<div id="toast" class="pill"></div>
+			<div id="tray" class="panel" hidden></div>
+		</div>
+		<div id="elsewhere" hidden></div>
 		<script type="module" src="/src/main.ts"></script>
 	</body>
 </html>

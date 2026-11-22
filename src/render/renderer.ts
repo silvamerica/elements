@@ -51,6 +51,8 @@ export interface Overlay {
 	guided(now: number): Matter.Body[];
 	/** Where it's hot right now, and how much heat is left (0–1). */
 	heat?(): { at: Point; left: number }[];
+	/** The held thing, while it's moving fast enough to spark. */
+	lit?(): Entity | undefined;
 }
 
 const OUTCOME_COLOR = {
@@ -163,6 +165,24 @@ export class Renderer {
 
 	/** Outline the selection; pulse the atoms a tray entry pointed at. */
 	private drawOverlay(now: number): void {
+		const lit = this.overlay.lit?.();
+		if (lit)
+			for (const part of this.world.circlesOf(lit)) {
+				if (Math.random() > 0.6) continue;
+				const a = Math.random() * Math.PI * 2;
+				const r = atomTag(part).radius;
+				this.dot(
+					{
+						x: part.position.x + Math.cos(a) * r,
+						y: part.position.y + Math.sin(a) * r,
+					},
+					Math.random() < 0.5 ? 0xffb347 : 0xffe27a,
+					Math.cos(a) * 0.04,
+					Math.sin(a) * 0.04 + 0.02,
+					380,
+					0.1,
+				);
+			}
 		for (const z of this.overlay.heat?.() ?? [])
 			this.links
 				.circle(z.at.x, z.at.y, 170)

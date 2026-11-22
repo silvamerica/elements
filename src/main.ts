@@ -1,16 +1,17 @@
 import { Application } from "pixi.js";
-import { equation } from "./chemistry/reactions";
+import { equation, REACTIONS } from "./chemistry/reactions";
 import { recipeById } from "./chemistry/recipes";
 import { Assembler } from "./game/assembler";
 import { Game, WORLD_SIZE } from "./game/game";
-import { describeMissing, Reactor, SPARK_SPEED } from "./game/reactor";
+import { describeMissing, Reactor, speciesOf } from "./game/reactor";
 import { browserStore, clearSave, readSave, writeSave } from "./game/save";
 import { Selection } from "./game/selection";
+import { TabLock, tabChannel } from "./game/tabs";
 import { Input } from "./input/input";
 import { Camera } from "./render/camera";
 import { Renderer } from "./render/renderer";
 import { ArmedChip } from "./ui/armed";
-import { Shelf } from "./ui/shelf";
+import { Hud } from "./ui/hud";
 import { Tray } from "./ui/tray";
 import type { Point } from "./world/events";
 import { newSeed } from "./world/rng";
@@ -37,6 +38,30 @@ async function main(): Promise<void> {
 	});
 	host.appendChild(app.canvas);
 
+	// Only one tab plays (and saves) the world at a time.
+	const lock = new TabLock(tabChannel());
+	const elsewhere = el("elsewhere");
+	const showElsewhere = () => {
+		const card = document.createElement("div");
+		card.className = "panel";
+		const text = document.createElement("div");
+		text.textContent = "This world is open in another tab.";
+		const take = document.createElement("button");
+		take.type = "button";
+		take.className = "pill accent";
+		take.style.justifySelf = "center";
+		take.textContent = "Play it here";
+		take.addEventListener("click", async () => {
+			await lock.takeOver();
+			window.location.reload();
+		});
+		card.append(text, take);
+		elsewhere.replaceChildren(card);
+		elsewhere.hidden = false;
+	};
+	if (!(await lock.claim())) showElsewhere();
+	lock.onLost = showElsewhere;
+
 	const store = browserStore();
 	const saved = readSave(store);
 	const game =
@@ -58,14 +83,17 @@ async function main(): Promise<void> {
 			selected: () => selection.current(),
 			guided: (now) => selection.guided(now),
 			heat: () => reactor.heatGlow(),
+			lit: () => (input.isLit() ? input.dragging() : undefined),
 		},
 	);
 
 	let resetting = false;
 	const save = () => {
-		if (!resetting) writeSave(store, { ...game.toSave(), camera: camera.view });
+		if (!resetting && lock.owned)
+			writeSave(store, { ...game.toSave(), camera: camera.view });
 	};
-	const shelf = new Shelf(game, el("shelf"), el("toast"), () => {
+	lock.onYield = save;
+	const shelf = new Hud(game, el("world"), el("found"), el("toast"), () => {
 		resetting = true;
 		clearSave(store);
 		window.location.reload();
@@ -108,11 +136,13 @@ async function main(): Promise<void> {
 		world,
 		() => game.knownMolecules(),
 		() => game.knownReactions(),
+		() => armed,
 	);
+	tray.onBuild = (id) => arm(id);
 
 	// Reactions: a ready reaction beats bonding; a near-miss gives a hint.
-	input.onDrop = (held, target, speed) => {
-		const result = reactor.drop(held, target, speed >= SPARK_SPEED);
+	input.onDrop = (held, target, sparked) => {
+		const result = reactor.drop(held, target, sparked);
 		const seen = (id: string) => game.knownReactions().has(id);
 		switch (result.kind) {
 			case "reacted":
@@ -122,8 +152,8 @@ async function main(): Promise<void> {
 				world.bounce(held, target);
 				shelf.say(
 					seen(result.reaction.id)
-						? `${result.reaction.name} needs a spark: fling it`
-						: "Something wants to happen here: fling it for a spark",
+						? `${result.reaction.name} needs a spark: swing it fast, then let go on its partner`
+						: "Something wants to happen here: swing it fast for a spark",
 				);
 				return true;
 			case "incomplete": {
@@ -172,9 +202,21 @@ async function main(): Promise<void> {
 	});
 	window.addEventListener("pagehide", save);
 
+	// Say so the moment a held thing lights up, if it has anything to light.
+	let wasLit = false;
+	const needsSpark = (e: Entity | undefined) => {
+		const s = e && speciesOf(e);
+		return !!s && REACTIONS.some((r) => r.needsHeat && s in r.reactants);
+	};
+
 	let sinceSave = 0;
 	app.ticker.add((ticker) => {
 		const dt = Math.min(ticker.deltaMS, 100);
+		if (!lock.owned) return;
+		const lit = input.isLit();
+		if (lit && !wasLit && needsSpark(input.dragging()))
+			shelf.say("Lit: let go on its partner");
+		wasLit = lit;
 		input.sync();
 		game.tick(dt);
 		assembler.update(dt);

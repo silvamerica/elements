@@ -15,18 +15,22 @@ import { Reactor, speciesOf } from "../game/reactor";
 import type { Entity, World } from "../world/world";
 
 const SHOWN = 8;
+const REACTIONS_SHOWN = 4;
 
 const hex = (n: number) => `#${n.toString(16).padStart(6, "0")}`;
 
 /**
- * The "could become" strip along the bottom: for whatever is selected or
- * held, what it is, how close it is to its next structure tier, and the
- * molecules it could still grow into (unknown ones unnamed), each with the
- * atoms it still needs. Tapping an entry hands it to `onPick`.
+ * The panel along the bottom, for whatever is selected or held: what it is
+ * and how far its next structure tier is (with "Build more" for molecules),
+ * what it reacts with, and the molecules it could still grow into, each
+ * with the atoms it lacks. Unmade molecules and unseen reactions stay "???".
  */
 export class Tray {
 	private subject = "";
+	/** A "could become" entry was tapped. */
 	onPick: (c: Candidate, from: Entity) => void = () => {};
+	/** "Build more" was tapped for this recipe. */
+	onBuild: (recipeId: string) => void = () => {};
 
 	constructor(
 		private readonly root: HTMLElement,
@@ -34,12 +38,13 @@ export class Tray {
 		private readonly known: () => ReadonlySet<string>,
 		private readonly knownReactions: () => ReadonlySet<string> = () =>
 			new Set(),
+		private readonly armed: () => string | undefined = () => undefined,
 	) {}
 
-	/** Redraw if what's in hand (or what's known) has changed. Cheap to call every frame. */
+	/** Redraw if what's in hand (or what's known, or what's armed) changed. Cheap to call every frame. */
 	show(e: Entity | undefined): void {
 		const key = e
-			? `${e.id}:${formulaKey(this.world.countsOf(e))}:${this.known().size}:${this.knownReactions().size}`
+			? `${e.id}:${formulaKey(this.world.countsOf(e))}:${this.known().size}:${this.knownReactions().size}:${this.armed() ?? ""}`
 			: "";
 		if (key === this.subject) return;
 		this.subject = key;
@@ -49,101 +54,104 @@ export class Tray {
 
 		const counts = this.world.countsOf(e);
 		this.root.append(this.header(e, counts));
+		this.reactions(e);
+		if (e.kind !== "structure") this.candidates(e, counts);
+	}
 
-		if (e.kind !== "atoms") {
-			const count = e.kind === "structure" ? e.members.length : 1;
-			const tier = nextTier(e.recipe.id, count);
-			if (tier)
-				this.root.append(
-					div("tier", `${tier.name}: ${tier.more} more ${e.recipe.label}`),
-				);
-			if (e.kind === "structure") return;
+	private header(e: Entity, counts: Counts): HTMLElement {
+		const head = div("head");
+		const name = document.createElement("b");
+		const sub = span("sub", "");
+		if (e.kind === "atoms") {
+			const els = Object.keys(counts);
+			const info =
+				els.length === 1 && counts[els[0] as string] === 1
+					? ELEMENT_INFO[els[0] as string]
+					: undefined;
+			name.textContent = info
+				? `${info.symbol} · ${info.name}`
+				: subscript(formulaKey(counts));
+			sub.textContent = info ? (info.noble ? "Never bonds" : "") : "Unfinished";
+			head.append(name, sub);
+			return head;
 		}
-
-		this.reactionsRow(e);
-
-		const list = candidatesFor(counts, this.known());
-		if (list.length === 0) {
-			const noble = Object.keys(counts).some((el) => ELEMENT_INFO[el]?.noble);
-			this.root.append(
-				div("none", noble ? "Never bonds" : "Nothing more to make from this"),
-			);
-			return;
+		const count = e.kind === "structure" ? e.members.length : 1;
+		name.textContent =
+			e.kind === "structure"
+				? `${e.tier ? `${e.tier.name} of ` : ""}${count} × ${e.recipe.label}`
+				: `${e.recipe.label} ${e.recipe.name}`;
+		const tier = nextTier(e.recipe.id, count);
+		sub.textContent = tier
+			? `${tier.name}: ${tier.more} more ${e.recipe.label}`
+			: "";
+		head.append(name, sub);
+		if (this.known().has(e.recipe.id)) {
+			const armed = this.armed() === e.recipe.id;
+			const build = document.createElement("button");
+			build.type = "button";
+			build.className = "pill accent";
+			build.textContent = armed
+				? `Building ${e.recipe.label}: tap beside it`
+				: `Build more ${e.recipe.label}`;
+			build.disabled = armed;
+			const id = e.recipe.id;
+			build.addEventListener("click", () => this.onBuild(id));
+			head.append(build);
 		}
-		const row = div("entries", "");
-		for (const c of list.slice(0, SHOWN)) row.append(this.entry(c, e));
-		if (list.length > SHOWN)
-			row.append(div("more", `+${list.length - SHOWN} more`));
-		this.root.append(row);
+		return head;
 	}
 
 	/** What this can react with: named once seen, otherwise just the partners as a clue. */
-	private reactionsRow(e: Entity): void {
+	private reactions(e: Entity): void {
 		const s = speciesOf(e);
 		if (!s) return;
 		const list = Reactor.involving(s);
 		if (list.length === 0) return;
 		const known = this.knownReactions();
-		const row = div("reactions", "");
-		for (const r of list.slice(0, 4)) {
+		const row = div("row");
+		for (const r of list.slice(0, REACTIONS_SHOWN)) {
 			const partners = { ...r.reactants };
 			if (partners[s]) partners[s] -= 1;
 			const withText = Object.entries(partners)
 				.filter(([, n]) => n > 0)
 				.map(([p, n]) => `${n > 1 ? `${n} ` : ""}${speciesLabel(p)}`)
 				.join(" + ");
-			const extras = [
-				r.catalyst && r.catalyst !== s
-					? `near ${speciesLabel(r.catalyst)}`
-					: "",
-				r.needsHeat ? "needs a spark" : "",
-			]
-				.filter(Boolean)
-				.join(", ");
-			const name = known.has(r.id) ? r.name : "???";
-			const text = withText
-				? `${name} · with ${withText}`
-				: `${name} · on its own`;
-			row.append(div("reaction", extras ? `${text} (${extras})` : text));
+			const entry = span(known.has(r.id) ? "entry known" : "entry", "");
+			const parts = [
+				known.has(r.id) ? r.name : "???",
+				withText ? `with ${withText}` : "on its own",
+			];
+			if (r.catalyst && r.catalyst !== s)
+				parts.push(`near ${speciesLabel(r.catalyst)}`);
+			entry.append(parts.join(" · "));
+			if (r.needsHeat) entry.append(span("flick", "⚡ flick"));
+			row.append(entry);
 		}
-		if (list.length > 4) row.append(div("more", `+${list.length - 4} more`));
-		this.root.append(row);
+		if (list.length > REACTIONS_SHOWN)
+			row.append(span("more", `+${list.length - REACTIONS_SHOWN} more`));
+		this.root.append(section("Reacts with", row));
 	}
 
-	private header(e: Entity, counts: Counts): HTMLElement {
-		if (e.kind === "molecule")
-			return div("head", `${e.recipe.label} ${e.recipe.name}`);
-		if (e.kind === "structure")
-			return div(
-				"head",
-				`${e.tier ? `${e.tier.name} of ` : ""}${e.members.length} × ${e.recipe.label}`,
-			);
-		const els = Object.keys(counts);
-		if (els.length === 1 && counts[els[0] as string] === 1) {
-			const info = ELEMENT_INFO[els[0] as string];
-			return div(
-				"head",
-				info ? `${info.symbol} · ${info.name}` : (els[0] as string),
-			);
-		}
-		return div("head", `${subscript(formulaKey(counts))} · unfinished`);
+	private candidates(e: Entity, counts: Counts): void {
+		const list = candidatesFor(counts, this.known());
+		if (list.length === 0) return;
+		const row = div("row");
+		for (const c of list.slice(0, SHOWN)) row.append(this.entry(c, e));
+		if (list.length > SHOWN)
+			row.append(span("more", `+${list.length - SHOWN} more`));
+		this.root.append(section("Could become", row));
 	}
 
 	private entry(c: Candidate, from: Entity): HTMLElement {
 		const b = document.createElement("button");
 		b.type = "button";
 		b.className = c.known ? "entry known" : "entry";
-		const name = document.createElement("span");
-		name.className = "name";
-		name.textContent = c.known ? `${c.recipe.label} ${c.recipe.name}` : "???";
-		b.append(name);
+		b.append(c.known ? `${c.recipe.label} ${c.recipe.name}` : "???");
 		for (const [el, n] of missingList(c.missing)) {
-			const chip = document.createElement("span");
-			chip.className = "chip";
+			const chip = span("chip", `+${n} ${el}`);
 			const info = ELEMENT_INFO[el];
 			chip.style.background = info ? hex(info.color) : "#888";
 			chip.style.color = info && luminance(info.color) > 0.6 ? "#111" : "#fff";
-			chip.textContent = `+${n} ${el}`;
 			b.append(chip);
 		}
 		b.addEventListener("click", () => this.onPick(c, from));
@@ -151,11 +159,23 @@ export class Tray {
 	}
 }
 
-function div(cls: string, text: string): HTMLElement {
+function section(title: string, body: HTMLElement): HTMLElement {
+	const s = div("sect");
+	s.append(span("label", title), body);
+	return s;
+}
+
+function div(cls: string): HTMLElement {
 	const d = document.createElement("div");
 	d.className = cls;
-	d.textContent = text;
 	return d;
+}
+
+function span(cls: string, text: string): HTMLElement {
+	const s = document.createElement("span");
+	s.className = cls;
+	s.textContent = text;
+	return s;
 }
 
 function luminance(color: number): number {
