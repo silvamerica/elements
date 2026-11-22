@@ -41,6 +41,9 @@ interface Particle {
 	from: number;
 }
 
+/** How long before a loose cluster breaks up its bonds start to flicker. */
+const WARN_MS = 5000;
+
 const OUTCOME_COLOR = {
 	snap: 0x7dffb2,
 	join: 0x7dd8ff,
@@ -218,8 +221,14 @@ export class Renderer {
 		const springs = this.world.springsOf(e);
 		if (springs.length === 0) return;
 		const color = e.kind === "structure" ? e.recipe.color : 0xffffff;
-		const alpha = e.kind === "structure" ? 0.14 : 0.4;
+		let alpha = e.kind === "structure" ? 0.14 : 0.4;
 		const width = e.kind === "structure" ? 2 : 3;
+		// An unfinished cluster's bonds flicker in its last seconds, faster near the end.
+		const left = this.world.timeLeft(e);
+		if (left !== undefined && left < WARN_MS) {
+			const period = left < 2000 ? 70 : 150;
+			alpha *= 0.35 + 0.65 * Math.abs(Math.sin(performance.now() / period));
+		}
 		for (const s of springs) {
 			const a = s.bodyA?.position;
 			const b = s.bodyB?.position;

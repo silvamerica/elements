@@ -169,4 +169,23 @@ describe("loose clusters", () => {
 		for (let t = 0; t < 2000; t += 100) world.step(100);
 		expect(clusters()).toBe(0);
 	});
+
+	it("start their clock over whenever they're handled", () => {
+		const game = Game.create(4, SIZE);
+		const { world } = game;
+		const c = world.spawnAtom("C", { x: 300, y: 300 });
+		const h = world.spawnAtom("H", { x: 330, y: 300 });
+		world.tryBond(c, h);
+		const cluster = () =>
+			[...world.all()].find((e) => e.kind === "atoms" && e.bodies.length > 1);
+		for (let t = 0; t < LOOSE_MS - 2000; t += 100) world.step(100);
+		const held = cluster();
+		expect(held && world.timeLeft(held)).toBeLessThan(2500);
+		world.touch(held as Entity);
+		expect(world.timeLeft(held as Entity)).toBe(LOOSE_MS);
+		for (let t = 0; t < LOOSE_MS - 2000; t += 100) world.step(100);
+		expect(cluster()).toBeDefined();
+		for (let t = 0; t < 3000; t += 100) world.step(100);
+		expect(cluster()).toBeUndefined();
+	});
 });

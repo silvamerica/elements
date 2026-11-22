@@ -60,7 +60,10 @@ export class Input {
 			this.dragStart = { ...this.mouse.absolute, t: performance.now() };
 			// A held thing passes through others, so you can drop it right on its partner.
 			const held = this.world.entityOfBody(bodyOf(ev));
-			if (held) this.world.setGhost(held, true);
+			if (held) {
+				this.world.setGhost(held, true);
+				this.world.touch(held);
+			}
 		});
 		Events.on(this.mouseConstraint, "enddrag", (ev) =>
 			this.release(bodyOf(ev)),
@@ -145,6 +148,7 @@ export class Input {
 		const entity = this.world.entityOfBody(body);
 		if (!entity) return;
 		this.world.setGhost(entity, false);
+		this.world.touch(entity);
 		const p = this.mouse.absolute;
 		const moved = Math.hypot(p.x - this.dragStart.x, p.y - this.dragStart.y);
 		const now = performance.now();

@@ -23,7 +23,7 @@ export interface AtomsEntity {
 	group: number;
 	bodies: MBody[];
 	springs: MConstraint[];
-	/** World time it was made; multi-atom clusters fall apart after LOOSE_MS. */
+	/** World time it was made or last handled; unfinished clusters fall apart LOOSE_MS after. */
 	bornAt: number;
 }
 
@@ -297,6 +297,17 @@ export class World {
 		const mask = ghost ? WALL_CATEGORY : 0xffffffff;
 		for (const b of this.bodiesOf(e))
 			for (const p of b.parts) p.collisionFilter.mask = mask;
+	}
+
+	/** Someone handled this: an unfinished cluster's breakup clock starts over. */
+	touch(e: Entity): void {
+		if (e.kind === "atoms") e.bornAt = this.time;
+	}
+
+	/** How long until an unfinished cluster falls apart (ms), or undefined if it won't. */
+	timeLeft(e: Entity): number | undefined {
+		if (e.kind !== "atoms" || e.bodies.length < 2) return undefined;
+		return Math.max(0, LOOSE_MS - (this.time - e.bornAt));
 	}
 
 	isGhost(e: Entity): boolean {
