@@ -113,9 +113,11 @@ export class Renderer {
 		const target = held && this.world.bondTarget(held);
 
 		for (const e of this.world.all()) {
-			this.drawSprings(e);
+			const flicker = this.flicker(e, now);
+			this.drawSprings(e, flicker);
 			const pop = this.recentSpawns.has(e.id);
-			for (const part of this.world.circlesOf(e)) this.syncAtom(part, pop, now);
+			for (const part of this.world.circlesOf(e))
+				this.syncAtom(part, pop, now, flicker);
 			if (e.kind !== "atoms") this.syncEntity(e);
 		}
 		this.recentSpawns.clear();
@@ -142,7 +144,23 @@ export class Renderer {
 		this.stepParticles(dtMs);
 	}
 
-	private syncAtom(part: Matter.Body, pop: boolean, now: number): void {
+	/**
+	 * 1 normally; for an unfinished cluster in its last seconds, a pulse that
+	 * dips to near-invisible and quickens toward the end.
+	 */
+	private flicker(e: Entity, now: number): number {
+		const left = this.world.timeLeft(e);
+		if (left === undefined || left >= WARN_MS) return 1;
+		const period = left < 2000 ? 60 : 130;
+		return 0.15 + 0.85 * Math.abs(Math.cos(now / period));
+	}
+
+	private syncAtom(
+		part: Matter.Body,
+		pop: boolean,
+		now: number,
+		flicker: number,
+	): void {
 		const tag = atomTag(part);
 		let v = this.atomVisuals.get(part.id);
 		if (!v) {
@@ -166,6 +184,8 @@ export class Renderer {
 		const glowSize = ((tag.radius + ATOM_TEXTURE_PAD) * 3.4) / 128;
 		v.glow.scale.set(glowSize * s);
 		v.glow.position.copyFrom(v.core.position);
+		v.core.alpha = flicker;
+		v.glow.alpha = 0.55 * flicker;
 	}
 
 	private syncEntity(e: Exclude<Entity, AtomsEntity>): void {
@@ -217,18 +237,12 @@ export class Renderer {
 		v.label.alpha = Math.min(isStructure ? 0.8 : 0.5, v.label.alpha + 0.03);
 	}
 
-	private drawSprings(e: Entity): void {
+	private drawSprings(e: Entity, flicker: number): void {
 		const springs = this.world.springsOf(e);
 		if (springs.length === 0) return;
 		const color = e.kind === "structure" ? e.recipe.color : 0xffffff;
-		let alpha = e.kind === "structure" ? 0.14 : 0.4;
+		const alpha = (e.kind === "structure" ? 0.14 : 0.4) * flicker;
 		const width = e.kind === "structure" ? 2 : 3;
-		// An unfinished cluster's bonds flicker in its last seconds, faster near the end.
-		const left = this.world.timeLeft(e);
-		if (left !== undefined && left < WARN_MS) {
-			const period = left < 2000 ? 70 : 150;
-			alpha *= 0.35 + 0.65 * Math.abs(Math.sin(performance.now() / period));
-		}
 		for (const s of springs) {
 			const a = s.bodyA?.position;
 			const b = s.bodyB?.position;
