@@ -4,6 +4,9 @@ import type { Point } from "../world/events";
 import type { World } from "../world/world";
 import type { Mode } from "./mode";
 
+/** A leftover must have been on the board this long before it can fade. */
+export const MIN_FADE_AGE = 30_000;
+
 export interface Rect {
 	x: number;
 	y: number;
@@ -71,8 +74,14 @@ export class ZenMode implements Mode {
 		const free = world.freeAtoms();
 		if (this.sinceSpawn < this.currentInterval(free.length)) return;
 		this.sinceSpawn = 0;
-		if (free.length >= this.cap) this.fadeSurplus(world, free);
-		const el = this.pickToRefill(countBy(free));
+		const have = countBy(free);
+		if (free.length >= this.cap) {
+			// A full board only swaps when something is genuinely short, and
+			// only by retiring a leftover that has sat around a while.
+			if (this.biggestShortfall(have) < 1) return;
+			if (!this.fadeSurplus(world, free, have)) return;
+		}
+		const el = this.pickToRefill(have);
 		world.spawnAtom(el, this.place(world, el));
 	}
 
@@ -134,26 +143,51 @@ export class ZenMode implements Mode {
 	}
 
 	/** Make room: the oldest atom of the most over-supplied element, off screen if possible. */
+	/** How many of the most-needed element the pool is short of its share. */
+	private biggestShortfall(have: Record<Element, number>): number {
+		let most = 0;
+		for (let i = 0; i < this.table.elements.length; i++) {
+			const el = this.table.elements[i] as Element;
+			most = Math.max(most, this.share(i) * this.cap - (have[el] ?? 0));
+		}
+		return most;
+	}
+
+	/**
+	 * Make room: the oldest atom of the most over-supplied element, off screen
+	 * if possible. Every element may keep at least one atom (so a rare stray
+	 * isn't instantly over its tiny share), and nothing younger than
+	 * MIN_FADE_AGE goes. Returns whether anything was faded.
+	 */
 	private fadeSurplus(
 		world: World,
 		free: ReturnType<World["freeAtoms"]>,
-	): void {
-		const have = countBy(free);
+		have: Record<Element, number>,
+	): boolean {
 		let worst: Element | undefined;
-		let worstSurplus = Number.NEGATIVE_INFINITY;
+		let worstSurplus = 0;
 		for (const [el, n] of Object.entries(have)) {
 			const i = this.table.elements.indexOf(el);
-			const surplus = n - (i < 0 ? 0 : this.share(i)) * this.cap;
-			if (surplus > worstSurplus) {
+			const allowance = Math.max(1, i < 0 ? 0 : this.share(i) * this.cap);
+			const surplus = n - allowance;
+			const oldEnough = free.some(
+				(f) => f.element === el && world.time - f.bornAt >= MIN_FADE_AGE,
+			);
+			if (surplus >= 1 && surplus > worstSurplus && oldEnough) {
 				worstSurplus = surplus;
 				worst = el;
 			}
 		}
-		const candidates = free.filter((f) => f.element === worst);
+		if (!worst) return false;
+		const candidates = free.filter(
+			(f) => f.element === worst && world.time - f.bornAt >= MIN_FADE_AGE,
+		);
 		const view = this.view?.();
 		const offscreen = view ? candidates.filter((f) => !inside(view, f.at)) : [];
 		const victim = (offscreen[0] ?? candidates[0])?.entity;
-		if (victim) world.fade(victim);
+		if (!victim) return false;
+		world.fade(victim);
+		return true;
 	}
 
 	private share(i: number): number {

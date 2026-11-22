@@ -3,7 +3,7 @@ import { chanceOf, spawnTable, worldKind } from "../chemistry/worlds";
 import type { WorldEvents } from "../world/events";
 import { Rng } from "../world/rng";
 import { World } from "../world/world";
-import { ZenMode } from "./zen";
+import { MIN_FADE_AGE, ZenMode } from "./zen";
 
 const ocean = spawnTable(worldKind("ocean"));
 
@@ -93,11 +93,46 @@ describe("ZenMode", () => {
 		const faded: WorldEvents["faded"][] = [];
 		world.events.on("faded", (e) => faded.push(e));
 		const oldest = world.freeAtoms()[0]?.entity;
+		world.time = MIN_FADE_AGE + 1;
 		zen.update(100);
 		expect(faded.map((f) => f.element)).toEqual(["K"]);
 		expect(oldest && world.get(oldest.id)).toBeUndefined();
 		expect(world.freeAtomCount()).toBe(30);
 		expect(pool(world).K).toBe(29);
+	});
+
+	it("never fades an atom that only just arrived", () => {
+		const { world, zen } = setup(9, { cap: 30 });
+		for (let i = 0; i < 30; i++)
+			world.spawnAtom("K", { x: 100 + i * 40, y: 100 });
+		const faded: WorldEvents["faded"][] = [];
+		world.events.on("faded", (e) => faded.push(e));
+		world.time = MIN_FADE_AGE - 1000;
+		zen.update(100);
+		expect(faded).toEqual([]);
+		expect(world.freeAtomCount()).toBe(30);
+	});
+
+	it("lets a rare stray stay rather than fading it for being over its tiny share", () => {
+		const { world, zen } = setup(9, { cap: 30 });
+		const pt = world.spawnAtom("Pt", { x: 100, y: 100 });
+		for (let i = 0; i < 29; i++)
+			world.spawnAtom("H", { x: 140 + i * 40, y: 100 });
+		world.time = MIN_FADE_AGE * 3;
+		for (let i = 0; i < 20; i++) zen.update(100);
+		expect(world.get(pt.id)).toBe(pt);
+	});
+
+	it("doesn't churn a full, balanced board", () => {
+		const { world, zen } = setup(12, { cap: 60 });
+		for (let i = 0; i < 2000; i++) zen.update(100);
+		const faded: WorldEvents["faded"][] = [];
+		world.events.on("faded", (e) => faded.push(e));
+		for (let i = 0; i < 600; i++) {
+			world.time += 100;
+			zen.update(100);
+		}
+		expect(faded.length).toBeLessThan(3);
 	});
 
 	it("spawns fast when the pool is low and slows as it fills", () => {
