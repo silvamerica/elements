@@ -28,6 +28,9 @@ const hex = (n: number) => `#${n.toString(16).padStart(6, "0")}`;
  */
 export class Tray {
 	private subject = "";
+	/** The entity the tray last showed, and the "could become" entry picked for it. */
+	private shown?: number;
+	private picked?: string;
 	/** A "could become" entry was tapped. */
 	onPick: (c: Candidate, from: Entity) => void = () => {};
 	/** "Build more" was tapped for this recipe. */
@@ -44,8 +47,12 @@ export class Tray {
 
 	/** Redraw if what's in hand (or what's known, or what's armed) changed. Cheap to call every frame. */
 	show(e: Entity | undefined): void {
+		if (e?.id !== this.shown) {
+			this.shown = e?.id;
+			this.picked = undefined;
+		}
 		const key = e
-			? `${e.id}:${formulaKey(this.world.countsOf(e))}:${this.known().size}:${this.knownReactions().size}:${this.armed() ?? ""}`
+			? `${e.id}:${formulaKey(this.world.countsOf(e))}:${this.known().size}:${this.knownReactions().size}:${this.armed() ?? ""}:${this.picked ?? ""}`
 			: "";
 		if (key === this.subject) return;
 		this.subject = key;
@@ -140,7 +147,12 @@ export class Tray {
 	private entry(c: Candidate, from: Entity): HTMLElement {
 		const b = document.createElement("button");
 		b.type = "button";
-		b.className = c.known ? "entry known" : "entry";
+		// Known molecules stay lit while they're being built; unknown ones
+		// while their atoms are being pointed out.
+		const picked = c.known
+			? this.armed() === c.recipe.id
+			: this.picked === c.recipe.id;
+		b.className = `entry${c.known ? " known" : ""}${picked ? " picked" : ""}`;
 		b.append(c.known ? `${c.recipe.label} ${c.recipe.name}` : "???");
 		const have = this.world.partsOf(from);
 		if (c.recipe.parts.length && !c.recipe.parts.some((p) => have.includes(p)))
@@ -157,7 +169,10 @@ export class Tray {
 			chip.style.color = info && luminance(info.color) > 0.6 ? "#111" : "#fff";
 			b.append(chip);
 		}
-		b.addEventListener("click", () => this.onPick(c, from));
+		b.addEventListener("click", () => {
+			this.picked = c.recipe.id;
+			this.onPick(c, from);
+		});
 		return b;
 	}
 }
