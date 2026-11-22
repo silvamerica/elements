@@ -1,12 +1,5 @@
 import type Matter from "matter-js";
-import {
-	type Application,
-	Container,
-	Graphics,
-	Sprite,
-	Text,
-	type Texture,
-} from "pixi.js";
+import { Container, Graphics, Sprite, Text, type Texture } from "pixi.js";
 import { elementInfo } from "../chemistry/elements";
 import type { Point } from "../world/events";
 import {
@@ -74,7 +67,7 @@ export class Renderer {
 	private frame = 0;
 
 	constructor(
-		app: Application,
+		stage: Container,
 		private readonly world: World,
 		private readonly dragging: () => Entity | undefined,
 	) {
@@ -85,7 +78,7 @@ export class Renderer {
 		this.halos.blendMode = "add";
 		this.glows.blendMode = "add";
 		this.fx.blendMode = "add";
-		app.stage.addChild(
+		stage.addChild(
 			this.halos,
 			this.links,
 			this.glows,

@@ -11,6 +11,8 @@ export interface SaveGame {
 	world: WorldSnapshot;
 	/** Shelf keys: "m:<recipe id>" and "s:<recipe id>:<tier name>". */
 	discovered: string[];
+	/** Where the camera was looking (absent in older saves). */
+	camera?: { x: number; y: number; zoom: number };
 }
 
 export const SAVE_KEY = "water.save.v1";
@@ -38,6 +40,14 @@ export function readSave(store: KeyValue | undefined): SaveGame | undefined {
 			!Array.isArray(s.discovered)
 		)
 			return undefined;
+		const cam = s.camera;
+		if (
+			cam &&
+			![cam.x, cam.y, cam.zoom].every(
+				(v) => typeof v === "number" && Number.isFinite(v),
+			)
+		)
+			delete s.camera;
 		return s as SaveGame;
 	} catch {
 		return undefined;

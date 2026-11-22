@@ -1,8 +1,9 @@
 import { Application } from "pixi.js";
 import { ELEMENT_INFO } from "./chemistry/elements";
-import { Game } from "./game/game";
+import { Game, WORLD_SIZE } from "./game/game";
 import { browserStore, clearSave, readSave, writeSave } from "./game/save";
 import { Input } from "./input/input";
+import { Camera } from "./render/camera";
 import { Renderer } from "./render/renderer";
 import { Shelf } from "./ui/shelf";
 import { newSeed } from "./world/rng";
@@ -30,18 +31,20 @@ async function main(): Promise<void> {
 	host.appendChild(app.canvas);
 
 	const store = browserStore();
-	const size = { width: window.innerWidth, height: window.innerHeight };
 	const saved = readSave(store);
 	const game =
-		(saved && Game.restore(saved, size)) ?? Game.create(newSeed(), size);
+		(saved && Game.restore(saved, WORLD_SIZE)) ??
+		Game.create(newSeed(), WORLD_SIZE);
 	const { world } = game;
 
-	const input = new Input(world, app.canvas, resolution);
-	const renderer = new Renderer(app, world, () => input.dragging());
+	const camera = new Camera(app, WORLD_SIZE.width, WORLD_SIZE.height);
+	if (saved?.camera) camera.view = saved.camera;
+	const input = new Input(world, camera, app.canvas, resolution);
+	const renderer = new Renderer(camera.viewport, world, () => input.dragging());
 
 	let resetting = false;
 	const save = () => {
-		if (!resetting) writeSave(store, game.toSave());
+		if (!resetting) writeSave(store, { ...game.toSave(), camera: camera.view });
 	};
 	const shelf = new Shelf(game, el("shelf"), el("toast"), () => {
 		resetting = true;
@@ -67,10 +70,15 @@ async function main(): Promise<void> {
 
 	// Dev-only handle for poking at the world from a console or test browser.
 	if (import.meta.env.DEV)
-		Object.assign(window, { water: world, waterGame: game, waterInput: input });
+		Object.assign(window, {
+			water: world,
+			waterGame: game,
+			waterInput: input,
+			waterCamera: camera,
+		});
 
 	window.addEventListener("resize", () =>
-		world.resize(window.innerWidth, window.innerHeight),
+		camera.resize(window.innerWidth, window.innerHeight),
 	);
 	document.addEventListener("visibilitychange", () => {
 		if (document.visibilityState === "hidden") save();
@@ -80,6 +88,7 @@ async function main(): Promise<void> {
 	let sinceSave = 0;
 	app.ticker.add((ticker) => {
 		const dt = Math.min(ticker.deltaMS, 100);
+		input.sync();
 		game.tick(dt);
 		renderer.draw(dt);
 		sinceSave += dt;

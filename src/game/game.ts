@@ -10,6 +10,9 @@ import { Rng } from "../world/rng";
 import { World } from "../world/world";
 import type { SaveGame } from "./save";
 
+/** The board: bigger than any screen; the camera pans and zooms over it. */
+export const WORLD_SIZE = { width: 3200, height: 2000 };
+
 export interface Discovery {
 	key: string;
 	text: string;
@@ -38,7 +41,14 @@ export class Game {
 		this.rng = new Rng(rngState);
 		this.kind = kind;
 		this.world = new World({ ...size, random: this.rng.fn });
-		this.mode = new ZenMode({ table: spawnTable(kind), random: this.rng.fn });
+		this.mode = new ZenMode({
+			table: spawnTable(kind),
+			random: this.rng.fn,
+			// Scaled to a world about three screens across.
+			interval: 1500,
+			cap: 150,
+			seed: 40,
+		});
 
 		this.world.events.on("snapped", ({ recipe }) =>
 			this.discover(`m:${recipe.id}`, `${recipe.label} ${recipe.name}`),

@@ -120,6 +120,39 @@ describe("Game", () => {
 	});
 });
 
+describe("camera in saves", () => {
+	it("keeps where you were looking, and drops a garbled view", () => {
+		const store = memoryStore();
+		const base = Game.create(8, SIZE).toSave();
+		writeSave(store, { ...base, camera: { x: 1200, y: 800, zoom: 2.5 } });
+		expect(readSave(store)?.camera).toEqual({ x: 1200, y: 800, zoom: 2.5 });
+
+		store.data.set(
+			SAVE_KEY,
+			JSON.stringify({ ...base, camera: { x: "left", y: 1, zoom: 1 } }),
+		);
+		const read = readSave(store);
+		expect(read).toBeDefined();
+		expect(read?.camera).toBeUndefined();
+	});
+
+	it("loads a screen-sized save into the bigger world, spread to fit", () => {
+		const small = Game.create(11, { width: 800, height: 500 });
+		const save = small.toSave();
+		const big = Game.restore(save, { width: 3200, height: 2000 }) as Game;
+		expect(summary(big)).toEqual(summary(small));
+		for (const e of big.world.all())
+			for (const p of big.world.circlesOf(e)) {
+				expect(p.position.x).toBeLessThanOrEqual(3200);
+				expect(p.position.y).toBeLessThanOrEqual(2000);
+			}
+		const xs = [...big.world.all()].flatMap((e) =>
+			big.world.circlesOf(e).map((p) => p.position.x),
+		);
+		expect(Math.max(...xs)).toBeGreaterThan(800);
+	});
+});
+
 describe("loose clusters", () => {
 	it("fall apart when left unfinished", () => {
 		const game = Game.create(3, SIZE);

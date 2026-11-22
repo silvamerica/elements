@@ -6,6 +6,8 @@ H₂ + O → H₂O), partial ones hang together loosely for a while, and
 impossible ones bounce apart. Drag molecules onto their own kind to grow
 named structures (three waters make a Droplet, salt grows into a Salt
 crystal). Tap anything to learn its name; double-tap to take a step back.
+The world is bigger than the screen: drag empty space to pan, pinch or
+scroll to zoom, and double-tap empty space to see all of it.
 
 Every element in the periodic table exists. Each browser gets its own
 world, picked by a random seed: an ocean, a stretch of crust, an
