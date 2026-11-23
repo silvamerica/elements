@@ -22,12 +22,12 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "src/chemistry/data/recipes.json");
-const UA = "water-sandbox-recipe-builder/1.0";
+const UA = "elements-sandbox-recipe-builder/1.0";
 
 const args = process.argv.slice(2);
 const cacheIdx = args.indexOf("--cache");
 const CACHE =
-	cacheIdx >= 0 ? args[cacheIdx + 1] : join(tmpdir(), "water-recipes-cache");
+	cacheIdx >= 0 ? args[cacheIdx + 1] : join(tmpdir(), "elements-recipes-cache");
 mkdirSync(CACHE, { recursive: true });
 
 // Symbols Z = 1..92 in order.

@@ -87,7 +87,7 @@ export class TabLock {
 /** The real channel, or a do-nothing one where BroadcastChannel isn't available. */
 export function tabChannel(): Channel {
 	try {
-		return new BroadcastChannel("water.tabs") as unknown as Channel;
+		return new BroadcastChannel("elements.tabs") as unknown as Channel;
 	} catch {
 		return { postMessage() {}, onmessage: null };
 	}

@@ -200,13 +200,13 @@ async function main(): Promise<void> {
 	// Dev-only handle for poking at the world from a console or test browser.
 	if (import.meta.env.DEV)
 		Object.assign(window, {
-			water: world,
-			waterGame: game,
-			waterInput: input,
-			waterCamera: camera,
-			waterSelection: selection,
-			waterAssembler: assembler,
-			waterReactor: reactor,
+			elements: world,
+			elementsGame: game,
+			elementsInput: input,
+			elementsCamera: camera,
+			elementsSelection: selection,
+			elementsAssembler: assembler,
+			elementsReactor: reactor,
 		});
 
 	window.addEventListener("resize", () =>

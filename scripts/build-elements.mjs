@@ -11,7 +11,7 @@ import { fileURLToPath } from "node:url";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "src/chemistry/data");
 
-const UA = { "User-Agent": "water-sandbox-data-build/1.0" };
+const UA = { "User-Agent": "elements-sandbox-data-build/1.0" };
 
 // Optional on-disk cache (set BUILD_ELEMENTS_CACHE=/some/dir) so reruns do
 // not hammer Wikipedia, which rate-limits bursts with HTTP 429.

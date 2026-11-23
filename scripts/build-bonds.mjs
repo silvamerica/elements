@@ -25,7 +25,7 @@ import { fileURLToPath } from "node:url";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const RECIPES = join(ROOT, "src/chemistry/data/recipes.json");
 const OUT = join(ROOT, "src/chemistry/data/bonds.json");
-const UA = "water-sandbox-bond-builder/1.0";
+const UA = "elements-sandbox-bond-builder/1.0";
 const PUG = "https://pubchem.ncbi.nlm.nih.gov/rest/pug";
 const DELAY_MS = 250; // stays under PubChem's 5 requests/second
 const MAX_NAME_CIDS = 10;
@@ -34,7 +34,7 @@ const MAX_FORMULA_CIDS = 25;
 const args = process.argv.slice(2);
 const cacheIdx = args.indexOf("--cache");
 const CACHE =
-	cacheIdx >= 0 ? args[cacheIdx + 1] : join(tmpdir(), "water-bonds-cache");
+	cacheIdx >= 0 ? args[cacheIdx + 1] : join(tmpdir(), "elements-bonds-cache");
 mkdirSync(CACHE, { recursive: true });
 
 // Symbols by atomic number, Z = 1..118.

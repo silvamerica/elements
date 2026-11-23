@@ -1,4 +1,4 @@
-# Water
+# Elements
 
 A zen chemistry sandbox. Atoms drift in on a black canvas; drag one onto
 another to bond them. Exact recipes snap into molecules (H + H → H₂, then

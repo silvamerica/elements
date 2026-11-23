@@ -15,7 +15,9 @@ export interface SaveGame {
 	camera?: { x: number; y: number; zoom: number };
 }
 
-export const SAVE_KEY = "water.save.v1";
+export const SAVE_KEY = "elements.save.v1";
+/** Where saves lived before the project was renamed from Water; read once, then moved. */
+const OLD_SAVE_KEY = "water.save.v1";
 
 /** Minimal storage surface, so tests can pass a Map-backed fake. */
 export interface KeyValue {
@@ -27,7 +29,7 @@ export interface KeyValue {
 /** The saved game, or undefined if there isn't one or it can't be read. */
 export function readSave(store: KeyValue | undefined): SaveGame | undefined {
 	try {
-		const raw = store?.getItem(SAVE_KEY);
+		const raw = store?.getItem(SAVE_KEY) ?? store?.getItem(OLD_SAVE_KEY);
 		if (!raw) return undefined;
 		const s = JSON.parse(raw) as Partial<SaveGame>;
 		if (
@@ -61,6 +63,7 @@ export function writeSave(
 ): boolean {
 	try {
 		store?.setItem(SAVE_KEY, JSON.stringify(save));
+		store?.removeItem(OLD_SAVE_KEY);
 		return !!store;
 	} catch {
 		return false;
@@ -70,6 +73,7 @@ export function writeSave(
 export function clearSave(store: KeyValue | undefined): void {
 	try {
 		store?.removeItem(SAVE_KEY);
+		store?.removeItem(OLD_SAVE_KEY);
 	} catch {
 		// nothing to clear
 	}

@@ -110,6 +110,16 @@ describe("Game", () => {
 		expect(next(back)).toEqual(next(game));
 	});
 
+	it("picks up a world saved under the old Water name and moves it", () => {
+		const store = memoryStore();
+		const save = Game.create(9, SIZE).toSave();
+		store.data.set("water.save.v1", JSON.stringify(save));
+		expect(readSave(store)?.seed).toBe(9);
+		writeSave(store, save);
+		expect(store.data.has("water.save.v1")).toBe(false);
+		expect(readSave(store)?.seed).toBe(9);
+	});
+
 	it("starts fresh rather than crashing on a bad save", () => {
 		const store = memoryStore();
 		store.data.set(SAVE_KEY, "{not json");
