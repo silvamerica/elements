@@ -55,18 +55,34 @@ const atomCache = new Map<Element, Texture>();
 export function atomTexture(el: Element): Texture {
 	const cached = atomCache.get(el);
 	if (cached) return cached;
-	const info = elementInfo(el);
-	const r = info.radius * SCALE;
+	const r = elementInfo(el).radius * SCALE;
 	const pad = 4 * SCALE;
 	const [c, ctx] = canvas(2 * (r + pad));
-	const mid = r + pad;
+	drawAtom(ctx, el, r + pad, r + pad, r, SCALE);
+	const tex = Texture.from(c);
+	atomCache.set(el, tex);
+	return tex;
+}
 
+/**
+ * An element's ball onto any canvas: shaded sphere, rim and symbol, centred
+ * on (x, y) with radius r. `scale` sets the rim weight (1 = on-screen size).
+ */
+export function drawAtom(
+	ctx: CanvasRenderingContext2D,
+	el: Element,
+	x: number,
+	y: number,
+	r: number,
+	scale: number,
+): void {
+	const info = elementInfo(el);
 	const shade = ctx.createRadialGradient(
-		mid - r * 0.35,
-		mid - r * 0.4,
+		x - r * 0.35,
+		y - r * 0.4,
 		r * 0.1,
-		mid,
-		mid,
+		x,
+		y,
 		r,
 	);
 	shade.addColorStop(0, "rgba(255,255,255,0.55)");
@@ -74,12 +90,12 @@ export function atomTexture(el: Element): Texture {
 	shade.addColorStop(1, shadeDown(info.color));
 	ctx.fillStyle = shade;
 	ctx.beginPath();
-	ctx.arc(mid, mid, r, 0, Math.PI * 2);
+	ctx.arc(x, y, r, 0, Math.PI * 2);
 	ctx.fill();
 
 	ctx.strokeStyle = hex(info.glow);
 	ctx.globalAlpha = 0.7;
-	ctx.lineWidth = 1.5 * SCALE;
+	ctx.lineWidth = 1.5 * scale;
 	ctx.stroke();
 	ctx.globalAlpha = 1;
 
@@ -89,10 +105,7 @@ export function atomTexture(el: Element): Texture {
 	ctx.font = `600 ${Math.round(size)}px ui-rounded, "SF Pro Rounded", system-ui, sans-serif`;
 	ctx.textAlign = "center";
 	ctx.textBaseline = "middle";
-	ctx.fillText(el, mid, mid + r * 0.06);
-	const tex = Texture.from(c);
-	atomCache.set(el, tex);
-	return tex;
+	ctx.fillText(el, x, y + r * 0.06);
 }
 
 function luminance(color: number): number {
