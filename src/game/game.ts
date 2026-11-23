@@ -46,8 +46,8 @@ export class Game {
 			table: spawnTable(kind),
 			random: this.rng.fn,
 			// Scaled to a world about three screens across.
-			interval: 1500,
-			fastInterval: 330,
+			interval: 3000,
+			fastInterval: 900,
 			cap: 150,
 			seed: 40,
 		});
