@@ -30,7 +30,7 @@ and carries on when you come back; Reset in the corner starts a new one.
     npm install
     lab dev          # or: npm run dev
     npm test
-    npm run deploy   # Cloudflare Pages project "water"
+    npm run deploy   # Cloudflare Pages project "elements"
 
 ## Where things live
 
